@@ -1,0 +1,37 @@
+[
+  {
+    "nome": "Williams-Renault",
+    "pais": "Reino Unido",
+    "motor": "Renault RS6 V10",
+    "pilotos": ["Ayrton Senna", "Damon Hill"],
+    "logo": "assets/logos_equipes/williams.png"
+  },
+  {
+    "nome": "Benetton-Ford",
+    "pais": "Reino Unido",
+    "motor": "Ford Zetec-R",
+    "pilotos": ["Michael Schumacher", "JJ Lehto"],
+    "logo": "assets/logos_equipes/benetton.png"
+  },
+  {
+    "nome": "Ferrari",
+    "pais": "Itália",
+    "motor": "Ferrari 043 V12",
+    "pilotos": ["Jean Alesi", "Gerhard Berger"],
+    "logo": "assets/logos_equipes/ferrari.png"
+  },
+  {
+    "nome": "McLaren-Peugeot",
+    "pais": "Reino Unido",
+    "motor": "Peugeot A4 V10",
+    "pilotos": ["Mika Häkkinen", "Martin Brundle"],
+    "logo": "assets/logos_equipes/mclaren.png"
+  },
+  {
+    "nome": "Jordan-Hart",
+    "pais": "Irlanda",
+    "motor": "Hart 1035 V10",
+    "pilotos": ["Rubens Barrichello", "Eddie Irvine"],
+    "logo": "assets/logos_equipes/jordan.png"
+  }
+]
