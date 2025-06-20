@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestão de Pilotos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Pilotos da Equipe</h1>
+    <div id="pilotosLista"></div>
+    <button onclick="voltar()">⬅️ Voltar</button>
+  </div>
+
+  <script>
+    const pilotos = [
+      { nome: "Ayrton Senna", idade: 34, nacionalidade: "Brasil", habilidade: 99 },
+      { nome: "Damon Hill", idade: 33, nacionalidade: "Reino Unido", habilidade: 90 },
+      { nome: "Mika Hakkinen", idade: 29, nacionalidade: "Finlândia", habilidade: 88 },
+      { nome: "Rubens Barrichello", idade: 22, nacionalidade: "Brasil", habilidade: 85 }
+    ];
+
+    const container = document.getElementById("pilotosLista");
+    pilotos.forEach(piloto => {
+      const p = document.createElement("p");
+      p.textContent = `${piloto.nome} (${piloto.nacionalidade}) - Habilidade: ${piloto.habilidade}`;
+      container.appendChild(p);
+    });
+
+    function voltar() {
+      window.location.href = "gerenciamento.html";
+    }
+  </script>
+</body>
+</html>
