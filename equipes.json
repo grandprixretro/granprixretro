@@ -1,0 +1,27 @@
+[
+  {
+    "nome": "Williams-Renault",
+    "motor": "Renault RS6 V10",
+    "pais": "Reino Unido"
+  },
+  {
+    "nome": "Benetton-Ford",
+    "motor": "Ford Zetec-R",
+    "pais": "Reino Unido"
+  },
+  {
+    "nome": "Ferrari",
+    "motor": "Ferrari 043 V12",
+    "pais": "Itália"
+  },
+  {
+    "nome": "McLaren-Peugeot",
+    "motor": "Peugeot A4 V10",
+    "pais": "Reino Unido"
+  },
+  {
+    "nome": "Jordan-Hart",
+    "motor": "Hart 1035 V10",
+    "pais": "Irlanda"
+  }
+]
