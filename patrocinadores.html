@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patrocinadores</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Patrocinadores Disponíveis</h1>
+    <ul id="listaPatrocinadores"></ul>
+    <button onclick="voltar()">⬅️ Voltar</button>
+  </div>
+
+  <script>
+    const patrocinadores = [
+      "Marlboro - $12M",
+      "Shell - $8M",
+      "Goodyear - $5M",
+      "Camel - $6M",
+      "Mobil 1 - $7M"
+    ];
+
+    const ul = document.getElementById("listaPatrocinadores");
+    patrocinadores.forEach(p => {
+      const li = document.createElement("li");
+      li.textContent = p;
+      ul.appendChild(li);
+    });
+
+    function voltar() {
+      window.location.href = "gerenciamento.html";
+    }
+  </script>
+</body>
+</html>
