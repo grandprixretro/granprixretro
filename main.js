@@ -101,3 +101,14 @@ window.onload = () => {
   carregarDados(); // Carrega dados do JSON
   carregarJogo();  // Se houver save, carrega
 };
+
+function inicializarEquipePadrao() {
+  if (dadosJogo.equipes && dadosJogo.equipes.length > 0) {
+    const equipeInicial = dadosJogo.equipes[0];
+
+    estadoJogo.equipeSelecionada = equipeInicial;
+    localStorage.setItem("estadoJogo", JSON.stringify(estadoJogo));
+
+    console.log("Equipe inicial definida:", equipeInicial);
+  }
+}
