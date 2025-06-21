@@ -1,0 +1,10 @@
+[
+  { "nome": "Ayrton Senna", "idade": 34, "pais": "Brasil", "talento": 98 },
+  { "nome": "Michael Schumacher", "idade": 25, "pais": "Alemanha", "talento": 96 },
+  { "nome": "Rubens Barrichello", "idade": 21, "pais": "Brasil", "talento": 85 },
+  { "nome": "Jacques Villeneuve", "idade": 23, "pais": "Canadá", "talento": 88 },
+  { "nome": "Juan Pablo Montoya", "idade": 19, "pais": "Colômbia", "talento": 87 },
+  { "nome": "Helio Castroneves", "idade": 19, "pais": "Brasil", "talento": 80 },
+  { "nome": "Jeff Gordon", "idade": 22, "pais": "EUA", "talento": 82 },
+  { "nome": "Tom Kristensen", "idade": 26, "pais": "Dinamarca", "talento": 83 }
+]
