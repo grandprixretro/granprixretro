@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Patrocinadores</title>
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../saveManager.js"></script>
+  <script defer>
+    async function carregarPatrocinadores() {
+      const jogo = loadGameData();
+      const patrocinadores = await fetch("../data/patrocinadores.json").then(res => res.json());
+      const div = document.getElementById("lista");
+
+      patrocinadores.forEach(p => {
+        const item = document.createElement("div");
+        const contratado = jogo.patrocinadores.includes(p.nome);
+        item.innerHTML = `<strong>${p.nome}</strong>: ${p.condicao} - Bônus: $${p.bonus.toLocaleString()} ${contratado ? "(Contratado)" : `<button onclick="contratar('${p.nome}', ${p.bonus})">Assinar</button>`}`;
+        div.appendChild(item);
+      });
+    }
+
+    function contratar(nome, bonus) {
+      const jogo = loadGameData();
+      if (jogo.patrocinadores.includes(nome)) return;
+      jogo.patrocinadores.push(nome);
+      jogo.dinheiro += bonus;
+      saveGame(jogo);
+      alert(`${nome} assinado! +$${bonus.toLocaleString()}`);
+      location.reload();
+    }
+
+    window.onload = carregarPatrocinadores;
+  </script>
+</head>
+<body>
+  <h1>Negociação com Patrocinadores</h1>
+  <div id="lista"></div>
+  <br><br>
+  <button onclick="window.location.href='../index.html'">Voltar</button>
+</body>
+</html>
