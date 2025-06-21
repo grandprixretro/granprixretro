@@ -1,5 +1,7 @@
 [
-  { "nome": "Marlboro", "bonus": 2000000, "condicao": "Top 5 Construtores" },
-  { "nome": "Shell", "bonus": 1500000, "condicao": "Ter piloto entre Top 10" },
-  { "nome": "Goodyear", "bonus": 1000000, "condicao": "Pontuar em 3 corridas" }
+  { "nome": "Marlboro", "bonus": 2500000, "condicao": "Terminar temporada entre top 5" },
+  { "nome": "Shell", "bonus": 1800000, "condicao": "Pontuar em 3 corridas" },
+  { "nome": "Goodyear", "bonus": 1200000, "condicao": "Largar entre os 10 primeiros" },
+  { "nome": "Mobil 1", "bonus": 1600000, "condicao": "Terminar corrida sem quebras" },
+  { "nome": "Red Bull", "bonus": 1000000, "condicao": "Usar piloto jovem" }
 ]
