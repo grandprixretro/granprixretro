@@ -3,42 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AutoSport Retro - Jornal</title>
+  <title>AutoSport Retro</title>
   <link rel="stylesheet" href="style.css" />
   <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>📰 AutoSport Retro</h1>
-
-    <h2>🏁 Palpite do Especialista</h2>
-    <p id="palpiteEspecialista">A Ferrari promete surpreender nesta temporada!</p>
-
-    <h2>💼 Rumores do Mercado</h2>
-    <ul id="rumoresMercado">
-      <li>Benetton estaria negociando com um jovem talento vindo da Fórmula 3.</li>
-      <li>A McLaren pode trocar de fornecedora de pneus para a próxima temporada.</li>
-    </ul>
-
-    <h2>📋 Notas das Equipes</h2>
-    <ul id="notasEquipes">
-      <li>Williams: 9.0</li>
-      <li>Benetton: 8.5</li>
-      <li>McLaren: 7.5</li>
-      <li>Jordan: 6.0</li>
-    </ul>
-
+    <p>Confira as últimas manchetes do paddock:</p>
+    <ul id="noticias"></ul>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
+    const manchetes = [
+      "FIA anuncia mudanças nas regras para a próxima temporada.",
+      "Rumores apontam que equipe Lotus pode retornar ao grid.",
+      "Equipe Williams aposta em jovens talentos do kart.",
+      "Controle de tração volta a ser debatido nos bastidores.",
+      "Novo fornecedor de pneus chega à Fórmula Retro.",
+      "Críticas à performance da equipe Andrea Moda aumentam.",
+      "Especialista prevê domínio da Ferrari nos próximos anos."
+    ];
+
+    window.onload = () => {
+      const lista = document.getElementById("noticias");
+      manchetes.forEach(manchete => {
+        const item = document.createElement("li");
+        item.textContent = `🗞️ ${manchete}`;
+        lista.appendChild(item);
+      });
+    };
+
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
-
-    window.onload = () => {
-      carregarJogo(); // garante acesso a estadoJogo se quiser gerar manchetes dinâmicas futuramente
-    };
   </script>
 </body>
 </html>
