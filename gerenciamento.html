@@ -1,53 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="save.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gerenciamento da Equipe - GPM Retro</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="save.js"></script>
 </head>
 <body>
-  <button onclick="salvarJogo()">💾 Salvar Jogo</button>
-<button onclick="resetarJogo()">🔄 Resetar Jogo</button>
   <div class="container">
     <h1 id="tituloEquipe">Equipe</h1>
     <p id="infoMotor"></p>
     <p id="infoPais"></p>
+    <p>Nível da fábrica: <span id="nivelFabrica">--</span>/100</p>
+    <p>💰 Dinheiro disponível: $<span id="dinheiroAtual">--</span></p>
 
     <hr>
 
     <h2>Departamentos</h2>
     <ul>
-  <li><a href="pilotos.html">👨‍✈️ Pilotos</a></li>
-  <li><a href="fabrica.html">🛠️ Fábrica e Engenharia</a></li>
-  <li><a href="patrocinadores.html">🤝 Patrocinadores</a></li>
-  <li><a href="scouting.html">📋 Scouting</a></li>
-  <li><a href="jornal.html">📰 Jornal Retro</a></li>
-</ul>
+      <li><a href="pilotos.html">👨‍✈️ Pilotos</a></li>
+      <li><a href="fabrica.html">🛠️ Fábrica e Engenharia</a></li>
+      <li><a href="patrocinadores.html">🤝 Patrocinadores</a></li>
+      <li><a href="scouting.html">📋 Scouting</a></li>
+      <li><a href="jornal.html">📰 Jornal Retro</a></li>
+    </ul>
 
+    <hr>
+
+    <button onclick="salvarJogo()">💾 Salvar Jogo</button>
+    <button onclick="resetarJogo()">🔄 Resetar Jogo</button>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
-<script>
-  window.onload = () => {
-    if (carregarJogo()) {
-      document.getElementById("nivelFabrica").textContent = estadoJogo.nivelFabrica;
-      // Atualize os demais elementos visuais com os dados carregados
-    }
-  };
-</script>
- 
   <script>
-    
-    const equipe = JSON.parse(localStorage.getItem("equipeSelecionada"));
-    if (equipe) {
-      document.getElementById("tituloEquipe").textContent = `Equipe: ${equipe.nome}`;
-      document.getElementById("infoMotor").textContent = `Motor: ${equipe.motor}`;
-      document.getElementById("infoPais").textContent = `País: ${equipe.pais}`;
-    } else {
-      document.getElementById("tituloEquipe").textContent = "Nenhuma equipe selecionada.";
-    }
+    window.onload = () => {
+      const equipe = JSON.parse(localStorage.getItem("equipeSelecionada"));
+      if (equipe) {
+        document.getElementById("tituloEquipe").textContent = `Equipe: ${equipe.nome}`;
+        document.getElementById("infoMotor").textContent = `Motor: ${equipe.motor}`;
+        document.getElementById("infoPais").textContent = `País: ${equipe.pais}`;
+      } else {
+        document.getElementById("tituloEquipe").textContent = "Nenhuma equipe selecionada.";
+      }
+
+      const estadoJogo = carregarJogo();
+      if (estadoJogo) {
+        document.getElementById("nivelFabrica").textContent = estadoJogo.nivelFabrica ?? "--";
+        document.getElementById("dinheiroAtual").textContent = estadoJogo.dinheiro ?? "--";
+      }
+    };
 
     function voltar() {
       window.location.href = "selecionar.html";
@@ -55,3 +57,4 @@
   </script>
 </body>
 </html>
+
