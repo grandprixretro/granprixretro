@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="main.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Scouting</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="save.js"></script>
+  <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>📋 Scouting de Novos Talentos</h1>
-
-    <button onclick="scout()">🔍 Procurar Talento</button>
-    <p id="resultadoScout"></p>
-
+    <h1>📋 Scouting Internacional</h1>
+    <p>Descubra talentos em categorias alternativas:</p>
+    <button onclick="buscarTalento()">🔍 Buscar novo talento</button>
+    <div id="resultado"></div>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const talentosPossiveis = [
-      { nome: "Juan López", nacionalidade: "Argentina", potencial: 79 },
-      { nome: "Daisuke Tanaka", nacionalidade: "Japão", potencial: 84 },
-      { nome: "Pierre Leclerc", nacionalidade: "França", potencial: 81 },
-      { nome: "Marcus Silva", nacionalidade: "Brasil", potencial: 77 },
-      { nome: "Leon Hartmann", nacionalidade: "Alemanha", potencial: 85 }
+    const talentos = [
+      { nome: "Juan López", origem: "Fórmula 3", potencial: 80 },
+      { nome: "Hideki Tanaka", origem: "Fórmula Nippon", potencial: 85 },
+      { nome: "Jean Moreau", origem: "Fórmula Renault", potencial: 78 },
+      { nome: "Carlos Souza", origem: "Stock Car Brasil", potencial: 82 },
+      { nome: "Stefan Müller", origem: "DTM", potencial: 83 },
+      { nome: "Toby Johnson", origem: "Indy Lights", potencial: 86 },
+      { nome: "Marco Bellini", origem: "Kart Europeu", potencial: 88 }
     ];
 
-    function scout() {
-      const sorteado = talentosPossiveis[Math.floor(Math.random() * talentosPossiveis.length)];
-      document.getElementById("resultadoScout").textContent = 
-        `Encontrado: ${sorteado.nome} (${sorteado.nacionalidade}) - Potencial: ${sorteado.potencial}`;
-      
-      // Você pode salvar esse talento no save para adicionar no mercado futuramente.
+    function buscarTalento() {
+      const talento = talentos[Math.floor(Math.random() * talentos.length)];
+      document.getElementById("resultado").innerHTML = `
+        <p><strong>Nome:</strong> ${talento.nome}</p>
+        <p><strong>Origem:</strong> ${talento.origem}</p>
+        <p><strong>Potencial:</strong> ${talento.potencial}/100</p>
+        <button onclick="contratar('${talento.nome}', ${talento.potencial})">✍️ Contratar</button>
+      `;
+    }
+
+    function contratar(nome, potencial) {
+      estadoJogo.pilotos.push({ nome, potencial });
+      salvarEstadoJogo(estadoJogo);
+      document.getElementById("resultado").innerHTML += `<p>✅ ${nome} foi contratado e adicionado ao seu time!</p>`;
     }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
+
+    window.onload = () => {
+      carregarJogo();
+    };
   </script>
 </body>
 </html>
