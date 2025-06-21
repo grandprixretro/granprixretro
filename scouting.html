@@ -3,43 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Scouting</title>
+  <title>Scouting de Pilotos</title>
   <link rel="stylesheet" href="style.css" />
   <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>📋 Departamento de Scouting</h1>
-    <p>Escolha uma região para buscar talentos:</p>
+    <h1>📋 Scouting Internacional</h1>
+    <p class="subtitulo">Descubra novos talentos em categorias menores</p>
 
-    <select id="regiao">
-      <option value="america">América</option>
-      <option value="europa">Europa</option>
-      <option value="asia">Ásia</option>
-      <option value="oceania">Oceania</option>
-      <option value="africa">África</option>
-    </select>
+    <div id="listaScouting"></div>
 
-    <button onclick="buscarTalentos()">🔍 Buscar</button>
-
-    <div id="resultadoBusca"></div>
-
+    <p id="infoScouting"></p>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const talentos = {
-      america: ["Juan Pablo (COL)", "Tony Kanaan (BRA)", "Helio Castroneves (BRA)"],
-      europa: ["Jenson Button (ENG)", "Kimi Räikkönen (FIN)", "Fernando Alonso (ESP)"],
-      asia: ["Takuma Sato (JPN)", "Yuji Ide (JPN)", "Narain Karthikeyan (IND)"],
-      oceania: ["Mark Webber (AUS)", "Scott Dixon (NZL)", "Will Power (AUS)"],
-      africa: ["Alan van der Merwe (RSA)", "Gavin Cronje (RSA)", "Taki Lee (RSA)"]
-    };
+    const jovensPilotos = [
+      { nome: "Felipe Alvarez", categoria: "F3", idade: 19, potencial: 87 },
+      { nome: "Giovanni Russo", categoria: "F2", idade: 21, potencial: 91 },
+      { nome: "Lucas Tanaka", categoria: "Indy Lights", idade: 22, potencial: 85 },
+      { nome: "Pablo Rios", categoria: "Stock Car", idade: 23, potencial: 83 },
+      { nome: "Elias Petrov", categoria: "Kart", idade: 18, potencial: 88 }
+    ];
 
-    function buscarTalentos() {
-      const regiao = document.getElementById("regiao").value;
-      const resultados = talentos[regiao];
-      document.getElementById("resultadoBusca").innerHTML = "<ul>" + resultados.map(t => `<li>${t}</li>`).join("") + "</ul>";
+    const container = document.getElementById("listaScouting");
+
+    jovensPilotos.forEach(piloto => {
+      const btn = document.createElement("button");
+      btn.textContent = `${piloto.nome} (${piloto.categoria}) - Idade: ${piloto.idade}`;
+      btn.onclick = () => selecionarPiloto(piloto);
+      container.appendChild(btn);
+      container.appendChild(document.createElement("br"));
+    });
+
+    function selecionarPiloto(piloto) {
+      document.getElementById("infoScouting").textContent =
+        `Você está de olho em ${piloto.nome}, com potencial ${piloto.potencial}/100.`;
     }
 
     function voltar() {
@@ -48,3 +48,4 @@
   </script>
 </body>
 </html>
+
