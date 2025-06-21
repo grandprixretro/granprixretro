@@ -1,16 +1,55 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="main.js"></script>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Seleção de Equipe - GPM Retro</title>
-  <link rel="stylesheet" href="css/estilo.css" />
-  <script src="js/selecao.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="main.js"></script>
 </head>
 <body>
-  <h1>Selecione sua Equipe</h1>
-  <div id="grid-equipes" class="grid-equipes"></div>
-  <button onclick="selecionarEquipe(equipe)">Escolher</button>
-  <p id="equipe-selecionada"></p>
+  <div class="container">
+    <h1>Escolha sua equipe</h1>
+    <div id="listaEquipes"></div>
+    <button onclick="voltar()">⬅️ Voltar</button>
+  </div>
+
+  <script>
+    const equipes = [
+      { nome: "Williams", motor: "Renault", pais: "Reino Unido" },
+      { nome: "Benetton", motor: "Ford", pais: "Reino Unido" },
+      { nome: "Ferrari", motor: "Ferrari", pais: "Itália" },
+      { nome: "McLaren", motor: "Peugeot", pais: "Reino Unido" },
+      { nome: "Jordan", motor: "Hart", pais: "Irlanda" },
+      { nome: "Sauber", motor: "Mercedes", pais: "Suíça" },
+      { nome: "Ligier", motor: "Renault", pais: "França" },
+      { nome: "Footwork", motor: "Ford", pais: "Japão" },
+      { nome: "Minardi", motor: "Ford", pais: "Itália" },
+      { nome: "Larrousse", motor: "Ford", pais: "França" }
+    ];
+
+    const container = document.getElementById("listaEquipes");
+
+    equipes.forEach(equipe => {
+      const div = document.createElement("div");
+      div.classList.add("equipe-card");
+      div.innerHTML = `
+        <h2>${equipe.nome}</h2>
+        <p>Motor: ${equipe.motor}</p>
+        <p>País: ${equipe.pais}</p>
+        <button onclick='selecionarEquipe(${JSON.stringify(equipe)})'>Selecionar</button>
+      `;
+      container.appendChild(div);
+    });
+
+    function selecionarEquipe(equipe) {
+      localStorage.setItem("equipeSelecionada", JSON.stringify(equipe));
+      window.location.href = "gerenciamento.html";
+    }
+
+    function voltar() {
+      window.location.href = "index.html";
+    }
+  </script>
 </body>
 </html>
