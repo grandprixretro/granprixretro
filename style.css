@@ -1,0 +1,31 @@
+body {
+  font-family: 'Courier New', monospace;
+  background-color: #111;
+  color: #0f0;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+.opcoes {
+  margin-top: 30px;
+}
