@@ -10,27 +10,38 @@
 <body>
   <div class="container">
     <h1>🤝 Patrocinadores</h1>
-    <p>Escolha até 3 patrocinadores principais:</p>
-    <form id="formPatrocinadores">
-      <label><input type="checkbox" name="patro" value="Marlboro"> Marlboro</label><br>
-      <label><input type="checkbox" name="patro" value="Canon"> Canon</label><br>
-      <label><input type="checkbox" name="patro" value="Shell"> Shell</label><br>
-      <label><input type="checkbox" name="patro" value="Goodyear"> Goodyear</label><br>
-      <label><input type="checkbox" name="patro" value="Total"> Total</label><br>
-    </form>
-    <button onclick="confirmarPatrocinadores()">✅ Confirmar</button>
-    <p id="mensagem"></p>
+    <p class="subtitulo">Selecione seus patrocinadores para a temporada</p>
+
+    <div id="listaPatrocinadores"></div>
+
+    <p id="patrocinioEscolhido"></p>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    function confirmarPatrocinadores() {
-      const selecionados = Array.from(document.querySelectorAll('input[name="patro"]:checked')).map(cb => cb.value);
-      if (selecionados.length > 3) {
-        document.getElementById("mensagem").textContent = "Escolha no máximo 3 patrocinadores.";
-      } else {
-        document.getElementById("mensagem").textContent = `Patrocinadores confirmados: ${selecionados.join(", ")}`;
-      }
+    const patrocinadores = [
+      { nome: "Shell", bonus: 1000000 },
+      { nome: "Marlboro", bonus: 1200000 },
+      { nome: "Goodyear", bonus: 950000 },
+      { nome: "Mobil 1", bonus: 1100000 },
+      { nome: "Camel", bonus: 850000 },
+      { nome: "Castrol", bonus: 800000 }
+    ];
+
+    const container = document.getElementById("listaPatrocinadores");
+
+    patrocinadores.forEach(p => {
+      const btn = document.createElement("button");
+      btn.textContent = `${p.nome} 💵 ${p.bonus.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+      btn.onclick = () => selecionarPatrocinador(p);
+      container.appendChild(btn);
+      container.appendChild(document.createElement("br"));
+    });
+
+    function selecionarPatrocinador(p) {
+      localStorage.setItem("patrocinador", JSON.stringify(p));
+      document.getElementById("patrocinioEscolhido").textContent =
+        `Você selecionou o patrocinador ${p.nome} com ${p.bonus.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} para a temporada.`;
     }
 
     function voltar() {
