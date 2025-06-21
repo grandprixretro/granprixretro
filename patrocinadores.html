@@ -1,62 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="main.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Patrocinadores</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>🤝 Patrocinadores Disponíveis</h1>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Valor (por corrida)</th>
-          <th>Exigência</th>
-          <th>Selecionar</th>
-        </tr>
-      </thead>
-      <tbody id="tabelaPatrocinadores">
-        <!-- Dados inseridos dinamicamente -->
-      </tbody>
-    </table>
-
+    <h1>🤝 Patrocinadores</h1>
+    <p>Escolha um novo patrocinador para aumentar sua receita.</p>
+    <ul id="listaPatrocinadores"></ul>
     <p id="mensagem"></p>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
     const patrocinadores = [
-      { nome: "Marlboro", valor: 50000, exigencia: "Top 6" },
-      { nome: "Shell", valor: 30000, exigencia: "Top 10" },
-      { nome: "Goodyear", valor: 20000, exigencia: "Completar corrida" },
-      { nome: "Camel", valor: 35000, exigencia: "Top 8" }
+      { nome: "Marlboro", valor: 500000 },
+      { nome: "Shell", valor: 300000 },
+      { nome: "Mobil", valor: 250000 },
+      { nome: "Canon", valor: 200000 },
+      { nome: "Goodyear", valor: 150000 }
     ];
 
-    const tabela = document.getElementById("tabelaPatrocinadores");
-    patrocinadores.forEach((pat, index) => {
-      const linha = document.createElement("tr");
-      linha.innerHTML = `
-        <td>${pat.nome}</td>
-        <td>$${pat.valor.toLocaleString()}</td>
-        <td>${pat.exigencia}</td>
-        <td><button onclick="selecionar(${index})">Escolher</button></td>
-      `;
-      tabela.appendChild(linha);
-    });
+    function selecionarPatrocinador(nome, valor) {
+      estadoJogo.patrocinador = { nome, valor };
+      estadoJogo.financas += valor;
+      salvarEstadoJogo(estadoJogo);
+      document.getElementById("mensagem").textContent = `Você escolheu ${nome}! Recebeu R$ ${valor.toLocaleString()}.`;
+    }
 
-    function selecionar(index) {
-      localStorage.setItem("patrocinadorSelecionado", JSON.stringify(patrocinadores[index]));
-      document.getElementById("mensagem").textContent = `Patrocinador ${patrocinadores[index].nome} selecionado com sucesso!`;
+    function carregarLista() {
+      const ul = document.getElementById("listaPatrocinadores");
+      patrocinadores.forEach(p => {
+        const li = document.createElement("li");
+        li.innerHTML = `<button onclick="selecionarPatrocinador('${p.nome}', ${p.valor})">${p.nome} - R$ ${p.valor.toLocaleString()}</button>`;
+        ul.appendChild(li);
+      });
     }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
+
+    window.onload = () => {
+      carregarJogo();
+      carregarLista();
+    };
   </script>
 </body>
 </html>
