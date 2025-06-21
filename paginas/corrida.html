@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Corrida</title>
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../saveManager.js"></script>
+  <script defer src="../data/pistas.json"></script>
+  <script defer>
+    async function simularCorrida() {
+      const jogo = loadGameData();
+      const pistas = await fetch("../data/pistas.json").then(res => res.json());
+      const atual = jogo.progresso.corridaAtual - 1;
+      if (atual >= pistas.length) {
+        alert("Temporada encerrada.");
+        return;
+      }
+
+      const pista = pistas[atual];
+      document.getElementById("info").textContent = `Corrida em ${pista.nome} - ${pista.pais}`;
+
+      const pos = Math.floor(Math.random() * 10) + 1;
+      document.getElementById("resultado").textContent = `Seu piloto principal chegou em P${pos}`;
+
+      jogo.progresso.corridaAtual++;
+      saveGame(jogo);
+    }
+
+    window.onload = simularCorrida;
+  </script>
+</head>
+<body>
+  <h1>Corrida</h1>
+  <p id="info"></p>
+  <p id="resultado"></p>
+  <br><br>
+  <button onclick="window.location.href='../index.html'">Voltar</button>
+</body>
+</html>
