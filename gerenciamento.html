@@ -1,62 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="main.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gerenciamento da Equipe - GPM Retro</title>
+  <title>Seleção de Equipe - GPM Retro</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="save.js"></script>
+  <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1 id="tituloEquipe">Equipe</h1>
-    <p id="infoMotor"></p>
-    <p id="infoPais"></p>
-    <p>Nível da fábrica: <span id="nivelFabrica">--</span>/100</p>
-    <p>💰 Dinheiro disponível: $<span id="dinheiroAtual">--</span></p>
-
-    <hr>
-
-    <h2>Departamentos</h2>
-    <ul>
-      <li><a href="pilotos.html">👨‍✈️ Pilotos</a></li>
-      <li><a href="fabrica.html">🛠️ Fábrica e Engenharia</a></li>
-      <li><a href="patrocinadores.html">🤝 Patrocinadores</a></li>
-      <li><a href="scouting.html">📋 Scouting</a></li>
-      <li><a href="jornal.html">📰 Jornal Retro</a></li>
-    </ul>
-
-    <hr>
-
-    <button onclick="salvarJogo()">💾 Salvar Jogo</button>
-    <button onclick="resetarJogo()">🔄 Resetar Jogo</button>
+    <h1>Escolha sua equipe</h1>
+    <div id="listaEquipes"></div>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    window.onload = () => {
-      const equipe = JSON.parse(localStorage.getItem("equipeSelecionada"));
-      if (equipe) {
-        document.getElementById("tituloEquipe").textContent = `Equipe: ${equipe.nome}`;
-        document.getElementById("infoMotor").textContent = `Motor: ${equipe.motor}`;
-        document.getElementById("infoPais").textContent = `País: ${equipe.pais}`;
-      } else {
-        document.getElementById("tituloEquipe").textContent = "Nenhuma equipe selecionada.";
-      }
+    const equipes = [
+      { nome: "Williams", motor: "Renault", pais: "Reino Unido" },
+      { nome: "Benetton", motor: "Ford", pais: "Reino Unido" },
+      { nome: "Ferrari", motor: "Ferrari", pais: "Itália" },
+      { nome: "McLaren", motor: "Peugeot", pais: "Reino Unido" },
+      { nome: "Jordan", motor: "Hart", pais: "Irlanda" },
+      { nome: "Sauber", motor: "Mercedes", pais: "Suíça" },
+      { nome: "Ligier", motor: "Renault", pais: "França" },
+      { nome: "Footwork", motor: "Ford", pais: "Japão" },
+      { nome: "Minardi", motor: "Ford", pais: "Itália" },
+      { nome: "Larrousse", motor: "Ford", pais: "França" }
+    ];
 
-      const estadoJogo = carregarJogo();
-      if (estadoJogo) {
-        document.getElementById("nivelFabrica").textContent = estadoJogo.nivelFabrica ?? "--";
-        document.getElementById("dinheiroAtual").textContent = estadoJogo.dinheiro ?? "--";
-      }
-    };
+    const container = document.getElementById("listaEquipes");
+
+    equipes.forEach(equipe => {
+      const div = document.createElement("div");
+      div.classList.add("equipe-card");
+      div.innerHTML = `
+        <h2>${equipe.nome}</h2>
+        <p>Motor: ${equipe.motor}</p>
+        <p>País: ${equipe.pais}</p>
+        <button onclick='selecionarEquipe(${JSON.stringify(equipe)})'>Selecionar</button>
+      `;
+      container.appendChild(div);
+    });
+
+    function selecionarEquipe(equipe) {
+      localStorage.setItem("equipeSelecionada", JSON.stringify(equipe));
+      window.location.href = "gerenciamento.html";
+    }
 
     function voltar() {
-      window.location.href = "selecionar.html";
+      window.location.href = "index.html";
     }
   </script>
 </body>
-  <script src="save.js"></script>
 </html>
 
