@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="main.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fábrica</title>
   <link rel="stylesheet" href="style.css">
-  <script src="save.js"></script>
+  <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>Fábrica e Desenvolvimento</h1>
-    <p>Nível atual da fábrica: <span id="nivelFabrica">0</span>/100</p>
+    <p>Nível atual da fábrica: <span id="nivelFabrica">70</span>/100</p>
     <button onclick="investir()">💰 Investir na fábrica</button>
     <p id="mensagem"></p>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    let estadoJogo = carregarJogo() || {
-      nivelFabrica: 70,
-      dinheiro: 1000000
-    };
-
-    function atualizarTela() {
-      document.getElementById("nivelFabrica").textContent = estadoJogo.nivelFabrica;
-    }
+    let nivel = 70;
 
     function investir() {
-      if (estadoJogo.nivelFabrica < 100 && estadoJogo.dinheiro >= 50000) {
-        estadoJogo.nivelFabrica += 5;
-        estadoJogo.dinheiro -= 50000;
-        salvarJogo(estadoJogo);
-        atualizarTela();
-        document.getElementById("mensagem").textContent = "✅ Investimento realizado com sucesso!";
-      } else if (estadoJogo.dinheiro < 50000) {
-        document.getElementById("mensagem").textContent = "⚠️ Dinheiro insuficiente!";
+      if (nivel < 100) {
+        nivel += 5;
+        document.getElementById("nivelFabrica").textContent = nivel;
+        document.getElementById("mensagem").textContent = "Investimento realizado com sucesso!";
+        salvarEstadoJogo({ nivelFabrica: nivel });
       } else {
-        document.getElementById("mensagem").textContent = "🏁 Fábrica já está no nível máximo.";
+        document.getElementById("mensagem").textContent = "Fábrica já está no nível máximo.";
       }
     }
 
@@ -45,8 +34,13 @@
       window.location.href = "gerenciamento.html";
     }
 
-    window.onload = atualizarTela;
+    window.onload = () => {
+      if (carregarJogo()) {
+        nivel = estadoJogo.nivelFabrica || 70;
+        document.getElementById("nivelFabrica").textContent = nivel;
+      }
+    };
   </script>
 </body>
-  <script src="save.js"></script>
 </html>
+
