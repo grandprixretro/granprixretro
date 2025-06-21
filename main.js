@@ -5,13 +5,15 @@
 let estadoJogo = {
   equipeSelecionada: null,
   nivelFabrica: 70,
-  dinheiro: 5000000, // 5 milhões como exemplo
+  dinheiro: 5000000, // Exemplo: 5 milhões
   pilotos: [],
   patrocinadores: [],
   scouting: [],
   eventosJornal: [],
   reputacaoEquipe: 50
 };
+
+let dadosJogo = {}; // Dados carregados do dados.json
 
 // =======================
 // Funções de Salvamento
@@ -35,6 +37,30 @@ function resetarJogo() {
   if (confirm("Tem certeza que deseja resetar o jogo?")) {
     localStorage.removeItem("estadoJogo");
     location.reload();
+  }
+}
+
+// =======================
+// Carregamento de Dados do JSON
+// =======================
+
+async function carregarDados() {
+  try {
+    const resposta = await fetch("dados.json");
+    dadosJogo = await resposta.json();
+    console.log("✅ Dados carregados:", dadosJogo);
+    inicializarEquipePadrao();
+  } catch (erro) {
+    console.error("❌ Erro ao carregar dados.json:", erro);
+  }
+}
+
+function inicializarEquipePadrao() {
+  if (!estadoJogo.equipeSelecionada && dadosJogo.equipes && dadosJogo.equipes.length > 0) {
+    const equipeInicial = dadosJogo.equipes[0];
+    estadoJogo.equipeSelecionada = equipeInicial;
+    salvarJogo();
+    console.log("📌 Equipe inicial definida:", equipeInicial);
   }
 }
 
@@ -64,3 +90,12 @@ function mostrarEquipeNaTela() {
     document.getElementById("tituloEquipe").textContent = "Nenhuma equipe selecionada.";
   }
 }
+
+// =======================
+// Execução ao Carregar
+// =======================
+
+window.onload = () => {
+  carregarDados(); // Carrega dados do JSON
+  carregarJogo();  // Se houver save, carrega
+};
