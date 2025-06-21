@@ -55,12 +55,14 @@ async function carregarDados() {
   }
 }
 
-function inicializarEquipePadrao() {
-  if (!estadoJogo.equipeSelecionada && dadosJogo.equipes && dadosJogo.equipes.length > 0) {
-    const equipeInicial = dadosJogo.equipes[0];
-    estadoJogo.equipeSelecionada = equipeInicial;
-    salvarJogo();
-    console.log("📌 Equipe inicial definida:", equipeInicial);
+function mostrarEquipeNaTela() {
+  const equipe = estadoJogo.equipeSelecionada;
+  if (equipe) {
+    document.getElementById("tituloEquipe").textContent = `Equipe: ${equipe.nome}`;
+    document.getElementById("infoMotor").textContent = `Motor: ${equipe.motor}`;
+    document.getElementById("infoPais").textContent = `País: ${equipe.pais}`;
+  } else {
+    document.getElementById("tituloEquipe").textContent = "Nenhuma equipe selecionada.";
   }
 }
 
