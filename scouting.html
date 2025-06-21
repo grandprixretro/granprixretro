@@ -3,32 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Scouting Internacional</title>
+  <title>Scouting</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="save.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Scouting de Talentos</h1>
-    <p>Buscando talentos ao redor do mundo...</p>
-    <ul id="resultadoScouting"></ul>
+    <h1>📋 Scouting de Novos Talentos</h1>
+
+    <button onclick="scout()">🔍 Procurar Talento</button>
+    <p id="resultadoScout"></p>
+
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const resultados = [
-      "Scott Dixon (Nova Zelândia) - Jovem promessa da Indy",
-      "Tom Kristensen (Dinamarca) - Especialista em Le Mans",
-      "Sebastien Loeb (França) - Talento do Rally",
-      "Tony Kanaan (Brasil) - Rápido e consistente",
-      "Fernando Alonso (Espanha) - Jovem revelação do Kart"
+    const talentosPossiveis = [
+      { nome: "Juan López", nacionalidade: "Argentina", potencial: 79 },
+      { nome: "Daisuke Tanaka", nacionalidade: "Japão", potencial: 84 },
+      { nome: "Pierre Leclerc", nacionalidade: "França", potencial: 81 },
+      { nome: "Marcus Silva", nacionalidade: "Brasil", potencial: 77 },
+      { nome: "Leon Hartmann", nacionalidade: "Alemanha", potencial: 85 }
     ];
 
-    const ul = document.getElementById("resultadoScouting");
-    resultados.forEach(nome => {
-      const li = document.createElement("li");
-      li.textContent = nome;
-      ul.appendChild(li);
-    });
+    function scout() {
+      const sorteado = talentosPossiveis[Math.floor(Math.random() * talentosPossiveis.length)];
+      document.getElementById("resultadoScout").textContent = 
+        `Encontrado: ${sorteado.nome} (${sorteado.nacionalidade}) - Potencial: ${sorteado.potencial}`;
+      
+      // Você pode salvar esse talento no save para adicionar no mercado futuramente.
+    }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
@@ -36,3 +40,4 @@
   </script>
 </body>
 </html>
+
