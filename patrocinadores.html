@@ -5,33 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Patrocinadores</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="save.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Patrocinadores Disponíveis</h1>
-    <ul id="listaPatrocinadores"></ul>
+    <h1>🤝 Patrocinadores da Equipe</h1>
+
+    <div id="listaPatrocinadores"></div>
+
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const patrocinadores = [
-      "Marlboro - $12M",
-      "Shell - $8M",
-      "Goodyear - $5M",
-      "Camel - $6M",
-      "Mobil 1 - $7M"
-    ];
+    const estado = carregarJogo();
 
-    const ul = document.getElementById("listaPatrocinadores");
-    patrocinadores.forEach(p => {
-      const li = document.createElement("li");
-      li.textContent = p;
-      ul.appendChild(li);
-    });
+    function mostrarPatrocinadores() {
+      const listaDiv = document.getElementById("listaPatrocinadores");
+
+      if (estado && estado.patrocinadores && estado.patrocinadores.length > 0) {
+        estado.patrocinadores.forEach(p => {
+          const item = document.createElement("p");
+          item.textContent = `🏢 ${p.nome} - Contribuição: $${p.valor.toLocaleString()}`;
+          listaDiv.appendChild(item);
+        });
+      } else {
+        listaDiv.innerHTML = "<p>Nenhum patrocinador selecionado.</p>";
+      }
+    }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
+
+    window.onload = mostrarPatrocinadores;
   </script>
 </body>
 </html>
+
