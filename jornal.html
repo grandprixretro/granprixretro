@@ -10,30 +10,48 @@
 <body>
   <div class="container">
     <h1>📰 AutoSport Retro</h1>
-    <p>Confira as últimas manchetes do paddock:</p>
-    <ul id="noticias"></ul>
+    <p class="subtitulo">As manchetes e rumores mais quentes da temporada</p>
+
+    <div class="jornal-section">
+      <h2>🔮 Palpite do Especialista</h2>
+      <p id="palpite"></p>
+    </div>
+
+    <div class="jornal-section">
+      <h2>💬 Rumores do Mercado</h2>
+      <ul id="rumores"></ul>
+    </div>
+
+    <div class="jornal-section">
+      <h2>📝 Notas das Equipes</h2>
+      <ul id="notasEquipes"></ul>
+    </div>
+
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const manchetes = [
-      "FIA anuncia mudanças nas regras para a próxima temporada.",
-      "Rumores apontam que equipe Lotus pode retornar ao grid.",
-      "Equipe Williams aposta em jovens talentos do kart.",
-      "Controle de tração volta a ser debatido nos bastidores.",
-      "Novo fornecedor de pneus chega à Fórmula Retro.",
-      "Críticas à performance da equipe Andrea Moda aumentam.",
-      "Especialista prevê domínio da Ferrari nos próximos anos."
+    const palpites = [
+      "Senna é favorito em Mônaco com a McLaren refinada.",
+      "Ferrari aposta tudo no motor V12 para Silverstone.",
+      "Williams teme que suas novas asas não surtam efeito."
     ];
 
-    window.onload = () => {
-      const lista = document.getElementById("noticias");
-      manchetes.forEach(manchete => {
-        const item = document.createElement("li");
-        item.textContent = `🗞️ ${manchete}`;
-        lista.appendChild(item);
-      });
-    };
+    const rumores = [
+      "Ligier pode assinar com um piloto da Indy.",
+      "Rumores de tração integral sendo testada por equipe menor.",
+      "Benetton cogita trocar de fornecedor de pneus em 1995."
+    ];
+
+    const notas = [
+      "Jordan impressiona nos testes de inverno.",
+      "Footwork enfrenta dificuldades técnicas com o novo chassi.",
+      "Sauber surpreende com desenvolvimento aerodinâmico estável."
+    ];
+
+    document.getElementById("palpite").textContent = palpites[Math.floor(Math.random() * palpites.length)];
+    document.getElementById("rumores").innerHTML = rumores.map(r => `<li>${r}</li>`).join("");
+    document.getElementById("notasEquipes").innerHTML = notas.map(n => `<li>${n}</li>`).join("");
 
     function voltar() {
       window.location.href = "gerenciamento.html";
@@ -41,3 +59,4 @@
   </script>
 </body>
 </html>
+
