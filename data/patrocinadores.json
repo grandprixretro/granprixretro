@@ -1,0 +1,5 @@
+[
+  { "nome": "Marlboro", "bonus": 2000000, "condicao": "Top 5 Construtores" },
+  { "nome": "Shell", "bonus": 1500000, "condicao": "Ter piloto entre Top 10" },
+  { "nome": "Goodyear", "bonus": 1000000, "condicao": "Pontuar em 3 corridas" }
+]
