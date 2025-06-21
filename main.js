@@ -1,43 +1,66 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const botaoIniciar = document.getElementById('btnIniciar');
-  const status = document.getElementById('status');
+// =======================
+// Estado Global do Jogo
+// =======================
 
-  botaoIniciar.addEventListener('click', () => {
-    status.textContent = '🔧 Carregando dados das equipes...';
+let estadoJogo = {
+  equipeSelecionada: null,
+  nivelFabrica: 70,
+  dinheiro: 5000000, // 5 milhões como exemplo
+  pilotos: [],
+  patrocinadores: [],
+  scouting: [],
+  eventosJornal: [],
+  reputacaoEquipe: 50
+};
 
-    // Simulação de delay de carregamento
-    setTimeout(() => {
-      const equipes = [
-        'Williams-Renault',
-        'Benetton-Ford',
-        'Ferrari',
-        'McLaren-Peugeot',
-        'Jordan-Hart',
-        'Ligier-Renault',
-        'Sauber-Mercedes',
-        'Lotus-Mugen'
-      ];
+// =======================
+// Funções de Salvamento
+// =======================
 
-      let selecao = '🏁 Selecione sua equipe:\n';
-      equipes.forEach((equipe, index) => {
-        selecao += `${index + 1}. ${equipe}\n`;
-      });
+function salvarJogo() {
+  localStorage.setItem("estadoJogo", JSON.stringify(estadoJogo));
+  alert("Jogo salvo com sucesso!");
+}
 
-      const escolha = prompt(selecao);
-      const indice = parseInt(escolha) - 1;
+function carregarJogo() {
+  const dados = localStorage.getItem("estadoJogo");
+  if (dados) {
+    estadoJogo = JSON.parse(dados);
+    return true;
+  }
+  return false;
+}
 
-      if (indice >= 0 && indice < equipes.length) {
-        const equipeSelecionada = equipes[indice];
-        status.innerHTML = `✅ Equipe selecionada: <strong>${equipeSelecionada}</strong><br>Simulando primeira corrida...`;
+function resetarJogo() {
+  if (confirm("Tem certeza que deseja resetar o jogo?")) {
+    localStorage.removeItem("estadoJogo");
+    location.reload();
+  }
+}
 
-        // Simulação da corrida com resultado aleatório
-        setTimeout(() => {
-          const posicao = Math.floor(Math.random() * 10) + 1;
-          status.innerHTML += `<br>🏎️ Resultado: sua equipe chegou em <strong>${posicao}º</strong> lugar!`;
-        }, 2000);
-      } else {
-        status.textContent = '❌ Seleção inválida.';
-      }
-    }, 1000);
-  });
-});
+// =======================
+// Utilitários Globais
+// =======================
+
+function atualizarDinheiro(valor) {
+  estadoJogo.dinheiro += valor;
+  const el = document.getElementById("dinheiroAtual");
+  if (el) el.textContent = `💰 Dinheiro: $${estadoJogo.dinheiro.toLocaleString()}`;
+}
+
+function selecionarEquipe(equipe) {
+  estadoJogo.equipeSelecionada = equipe;
+  salvarJogo();
+  window.location.href = "gerenciamento.html";
+}
+
+function mostrarEquipeNaTela() {
+  const equipe = estadoJogo.equipeSelecionada;
+  if (equipe) {
+    document.getElementById("tituloEquipe").textContent = `Equipe: ${equipe.nome}`;
+    document.getElementById("infoMotor").textContent = `Motor: ${equipe.motor}`;
+    document.getElementById("infoPais").textContent = `País: ${equipe.pais}`;
+  } else {
+    document.getElementById("tituloEquipe").textContent = "Nenhuma equipe selecionada.";
+  }
+}
