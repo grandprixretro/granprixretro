@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="main.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gerenciamento da Equipe - GPM Retro</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="main.js" defer></script>
 </head>
 <body>
-  <button onclick="salvarJogo()">💾 Salvar Jogo</button>
-  <button onclick="resetarJogo()">🔄 Resetar Jogo</button>
-  
   <div class="container">
     <h1 id="tituloEquipe">Equipe</h1>
     <p id="infoMotor"></p>
     <p id="infoPais"></p>
+    <p id="dinheiroAtual"></p>
 
     <hr>
 
@@ -27,13 +25,20 @@
       <li><a href="jornal.html">📰 Jornal Retro</a></li>
     </ul>
 
+    <button onclick="salvarJogo()">💾 Salvar Jogo</button>
+    <button onclick="resetarJogo()">🔄 Resetar Jogo</button>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
     window.onload = () => {
-      carregarJogo();
-      mostrarEquipeNaTela();
+      if (carregarJogo()) {
+        mostrarEquipeNaTela();
+        atualizarDinheiro(0); // apenas atualiza visualmente
+      } else {
+        alert("Nenhum jogo salvo. Por favor, selecione uma equipe.");
+        window.location.href = "selecionar.html";
+      }
     };
 
     function voltar() {
