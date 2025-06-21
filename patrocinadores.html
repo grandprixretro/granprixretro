@@ -5,39 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Patrocinadores</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="save.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>🤝 Patrocinadores da Equipe</h1>
+    <h1>🤝 Patrocinadores Disponíveis</h1>
 
-    <div id="listaPatrocinadores"></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor (por corrida)</th>
+          <th>Exigência</th>
+          <th>Selecionar</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaPatrocinadores">
+        <!-- Dados inseridos dinamicamente -->
+      </tbody>
+    </table>
 
+    <p id="mensagem"></p>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const estado = carregarJogo();
+    const patrocinadores = [
+      { nome: "Marlboro", valor: 50000, exigencia: "Top 6" },
+      { nome: "Shell", valor: 30000, exigencia: "Top 10" },
+      { nome: "Goodyear", valor: 20000, exigencia: "Completar corrida" },
+      { nome: "Camel", valor: 35000, exigencia: "Top 8" }
+    ];
 
-    function mostrarPatrocinadores() {
-      const listaDiv = document.getElementById("listaPatrocinadores");
+    const tabela = document.getElementById("tabelaPatrocinadores");
+    patrocinadores.forEach((pat, index) => {
+      const linha = document.createElement("tr");
+      linha.innerHTML = `
+        <td>${pat.nome}</td>
+        <td>$${pat.valor.toLocaleString()}</td>
+        <td>${pat.exigencia}</td>
+        <td><button onclick="selecionar(${index})">Escolher</button></td>
+      `;
+      tabela.appendChild(linha);
+    });
 
-      if (estado && estado.patrocinadores && estado.patrocinadores.length > 0) {
-        estado.patrocinadores.forEach(p => {
-          const item = document.createElement("p");
-          item.textContent = `🏢 ${p.nome} - Contribuição: $${p.valor.toLocaleString()}`;
-          listaDiv.appendChild(item);
-        });
-      } else {
-        listaDiv.innerHTML = "<p>Nenhum patrocinador selecionado.</p>";
-      }
+    function selecionar(index) {
+      localStorage.setItem("patrocinadorSelecionado", JSON.stringify(patrocinadores[index]));
+      document.getElementById("mensagem").textContent = `Patrocinador ${patrocinadores[index].nome} selecionado com sucesso!`;
     }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
-
-    window.onload = mostrarPatrocinadores;
   </script>
 </body>
 </html>
