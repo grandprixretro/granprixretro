@@ -3,55 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AutoSport Retro</title>
+  <title>AutoSport Retro - Jornal</title>
   <link rel="stylesheet" href="style.css" />
   <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>📰 AutoSport Retro</h1>
-    <p class="subtitulo">As manchetes e rumores mais quentes da temporada</p>
+    <p class="subtitulo">As últimas notícias do paddock</p>
 
-    <div class="jornal-section">
-      <h2>🔮 Palpite do Especialista</h2>
-      <p id="palpite"></p>
-    </div>
+    <h2>Palpite do Especialista</h2>
+    <p id="palpite"></p>
 
-    <div class="jornal-section">
-      <h2>💬 Rumores do Mercado</h2>
-      <ul id="rumores"></ul>
-    </div>
+    <h2>Rumores do Mercado</h2>
+    <p id="rumores"></p>
 
-    <div class="jornal-section">
-      <h2>📝 Notas das Equipes</h2>
-      <ul id="notasEquipes"></ul>
-    </div>
+    <h2>Notas das Equipes</h2>
+    <p id="notasEquipes"></p>
 
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
     const palpites = [
-      "Senna é favorito em Mônaco com a McLaren refinada.",
-      "Ferrari aposta tudo no motor V12 para Silverstone.",
-      "Williams teme que suas novas asas não surtam efeito."
+      "Senna ainda é o favorito absoluto para o título desta temporada.",
+      "A Williams pode estar escondendo o jogo no desenvolvimento.",
+      "Expectativas altas para a Jordan após investimentos recentes."
     ];
 
     const rumores = [
-      "Ligier pode assinar com um piloto da Indy.",
-      "Rumores de tração integral sendo testada por equipe menor.",
-      "Benetton cogita trocar de fornecedor de pneus em 1995."
+      "Rumores indicam que um piloto da Indy pode vir para a F1.",
+      "Fontes afirmam que uma nova fornecedora de pneus está negociando com equipes.",
+      "Há conversas sobre volta de motores turbo nos próximos anos."
     ];
 
     const notas = [
-      "Jordan impressiona nos testes de inverno.",
-      "Footwork enfrenta dificuldades técnicas com o novo chassi.",
-      "Sauber surpreende com desenvolvimento aerodinâmico estável."
+      "Ferrari recebeu nota 8/10 pela evolução da fábrica.",
+      "McLaren foi criticada pela escolha do novo projetista.",
+      "Ligier surpreende com desempenho acima da média."
     ];
 
-    document.getElementById("palpite").textContent = palpites[Math.floor(Math.random() * palpites.length)];
-    document.getElementById("rumores").innerHTML = rumores.map(r => `<li>${r}</li>`).join("");
-    document.getElementById("notasEquipes").innerHTML = notas.map(n => `<li>${n}</li>`).join("");
+    document.getElementById("palpite").textContent =
+      palpites[Math.floor(Math.random() * palpites.length)];
+    document.getElementById("rumores").textContent =
+      rumores[Math.floor(Math.random() * rumores.length)];
+    document.getElementById("notasEquipes").textContent =
+      notas[Math.floor(Math.random() * notas.length)];
 
     function voltar() {
       window.location.href = "gerenciamento.html";
@@ -59,4 +56,3 @@
   </script>
 </body>
 </html>
-
