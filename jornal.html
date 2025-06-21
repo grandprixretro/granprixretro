@@ -1,44 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <script src="main.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AutoSport Retro</title>
+  <title>AutoSport Retro - Jornal</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>📰 AutoSport Retro</h1>
 
-    <section>
-      <h2>Palpite do Especialista</h2>
-      <p>Segundo nossos especialistas, a McLaren pode surpreender este ano com avanços na aerodinâmica.</p>
-    </section>
+    <h2>🏁 Palpite do Especialista</h2>
+    <p id="palpiteEspecialista">A Ferrari promete surpreender nesta temporada!</p>
 
-    <section>
-      <h2>Rumores do Mercado</h2>
-      <ul>
-        <li>Ayrton Senna estaria em negociações com uma equipe rival para 1995.</li>
-        <li>Equipes de Le Mans observam talentos brasileiros no kart.</li>
-      </ul>
-    </section>
+    <h2>💼 Rumores do Mercado</h2>
+    <ul id="rumoresMercado">
+      <li>Benetton estaria negociando com um jovem talento vindo da Fórmula 3.</li>
+      <li>A McLaren pode trocar de fornecedora de pneus para a próxima temporada.</li>
+    </ul>
 
-    <section>
-      <h2>Notas das Equipes</h2>
-      <ul>
-        <li>Ferrari: 8.5 - Bom começo de temporada.</li>
-        <li>Benetton: 9.0 - Equipe consistente, mas precisa manter o ritmo.</li>
-        <li>Ligier: 6.0 - Potencial subutilizado.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Regras para esta temporada</h2>
-      <p>
-        A FIA anunciou mudanças nas regras aerodinâmicas e restrições no uso de controle de tração. Suspensão ativa também está proibida.
-      </p>
-    </section>
+    <h2>📋 Notas das Equipes</h2>
+    <ul id="notasEquipes">
+      <li>Williams: 9.0</li>
+      <li>Benetton: 8.5</li>
+      <li>McLaren: 7.5</li>
+      <li>Jordan: 6.0</li>
+    </ul>
 
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
@@ -47,6 +35,10 @@
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
+
+    window.onload = () => {
+      carregarJogo(); // garante acesso a estadoJogo se quiser gerar manchetes dinâmicas futuramente
+    };
   </script>
 </body>
 </html>
