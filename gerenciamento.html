@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <script src="save.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gerenciamento da Equipe - GPM Retro</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <button onclick="salvarJogo()">💾 Salvar Jogo</button>
+<button onclick="resetarJogo()">🔄 Resetar Jogo</button>
   <div class="container">
     <h1 id="tituloEquipe">Equipe</h1>
     <p id="infoMotor"></p>
@@ -26,7 +29,17 @@
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
+<script>
+  window.onload = () => {
+    if (carregarJogo()) {
+      document.getElementById("nivelFabrica").textContent = estadoJogo.nivelFabrica;
+      // Atualize os demais elementos visuais com os dados carregados
+    }
+  };
+</script>
+ 
   <script>
+    
     const equipe = JSON.parse(localStorage.getItem("equipeSelecionada"));
     if (equipe) {
       document.getElementById("tituloEquipe").textContent = `Equipe: ${equipe.nome}`;
