@@ -1,34 +1,33 @@
-// save.js
-
-const estadoJogo = {
-  equipe: "",
-  pilotos: [],
+// Estado inicial do jogo (caso não haja save anterior)
+let estadoJogo = {
   nivelFabrica: 70,
+  dinheiro: 1000000, // valor inicial em dólares
+  pilotos: [],
   patrocinadores: [],
-  progressoCampeonato: 0,
-  jornalRetro: [],
   scouting: [],
-  temporadaAtual: 1994,
-  dinheiro: 10000000 // 10 milhões para começar
+  eventosLidos: []
 };
 
+// Salvar jogo no localStorage
 function salvarJogo() {
-  localStorage.setItem("GPMRETRO_SAVE", JSON.stringify(estadoJogo));
-  alert("✅ Jogo salvo com sucesso!");
+  localStorage.setItem("estadoJogo", JSON.stringify(estadoJogo));
+  alert("Jogo salvo com sucesso!");
 }
 
+// Carregar jogo do localStorage
 function carregarJogo() {
-  const dadosSalvos = localStorage.getItem("GPMRETRO_SAVE");
+  const dadosSalvos = localStorage.getItem("estadoJogo");
   if (dadosSalvos) {
-    Object.assign(estadoJogo, JSON.parse(dadosSalvos));
-    console.log("🎮 Jogo carregado:", estadoJogo);
-    return true;
+    estadoJogo = JSON.parse(dadosSalvos);
+    return estadoJogo;
   }
-  return false;
+  return null;
 }
 
+// Resetar jogo completamente
 function resetarJogo() {
-  localStorage.removeItem("GPMRETRO_SAVE");
-  alert("🔄 Jogo resetado!");
-  location.reload();
+  if (confirm("Tem certeza que deseja resetar todo o jogo?")) {
+    localStorage.removeItem("estadoJogo");
+    location.reload();
+  }
 }
