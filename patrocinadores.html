@@ -3,42 +3,51 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Patrocinadores</title>
+  <title>Patrocinadores - GPM Retro</title>
   <link rel="stylesheet" href="style.css" />
   <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>🤝 Patrocinadores</h1>
-    <p>Escolha um novo patrocinador para aumentar sua receita.</p>
-    <ul id="listaPatrocinadores"></ul>
+    <p>Escolha um novo patrocinador para sua equipe:</p>
+
+    <div id="listaPatrocinadores">
+      <!-- Será preenchido pelo JS -->
+    </div>
+
     <p id="mensagem"></p>
+
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
     const patrocinadores = [
-      { nome: "Marlboro", valor: 500000 },
-      { nome: "Shell", valor: 300000 },
-      { nome: "Mobil", valor: 250000 },
-      { nome: "Canon", valor: 200000 },
-      { nome: "Goodyear", valor: 150000 }
+      { nome: "Shell", bonus: 500000 },
+      { nome: "Marlboro", bonus: 750000 },
+      { nome: "Canon", bonus: 400000 },
+      { nome: "Goodyear", bonus: 600000 }
     ];
 
-    function selecionarPatrocinador(nome, valor) {
-      estadoJogo.patrocinador = { nome, valor };
-      estadoJogo.financas += valor;
-      salvarEstadoJogo(estadoJogo);
-      document.getElementById("mensagem").textContent = `Você escolheu ${nome}! Recebeu R$ ${valor.toLocaleString()}.`;
+    function mostrarPatrocinadores() {
+      const div = document.getElementById("listaPatrocinadores");
+      patrocinadores.forEach(p => {
+        const botao = document.createElement("button");
+        botao.textContent = `${p.nome} (+$${p.bonus.toLocaleString()})`;
+        botao.onclick = () => escolherPatrocinador(p);
+        div.appendChild(botao);
+      });
     }
 
-    function carregarLista() {
-      const ul = document.getElementById("listaPatrocinadores");
-      patrocinadores.forEach(p => {
-        const li = document.createElement("li");
-        li.innerHTML = `<button onclick="selecionarPatrocinador('${p.nome}', ${p.valor})">${p.nome} - R$ ${p.valor.toLocaleString()}</button>`;
-        ul.appendChild(li);
-      });
+    function escolherPatrocinador(patrocinador) {
+      if (!estadoJogo.patrocinador) {
+        estadoJogo.patrocinador = patrocinador.nome;
+        estadoJogo.dinheiro += patrocinador.bonus;
+        salvarJogo();
+        document.getElementById("mensagem").textContent = `Patrocinador ${patrocinador.nome} escolhido com sucesso!`;
+      } else {
+        document.getElementById("mensagem").textContent = `Você já possui um patrocinador (${estadoJogo.patrocinador}).`;
+      }
     }
 
     function voltar() {
@@ -47,9 +56,10 @@
 
     window.onload = () => {
       carregarJogo();
-      carregarLista();
+      mostrarPatrocinadores();
     };
   </script>
 </body>
 </html>
+
 
