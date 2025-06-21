@@ -4,6 +4,11 @@
   { "nome": "Ferrari", "motor": "Ferrari", "logo": "imagens/equipes/ferrari.png" },
   { "nome": "McLaren", "motor": "Peugeot", "logo": "imagens/equipes/mclaren.png" },
   { "nome": "Jordan", "motor": "Hart", "logo": "imagens/equipes/jordan.png" },
+  { "nome": "Ligier", "motor": "Renault", "logo": "imagens/equipes/ligier.png" },
+  { "nome": "Sauber", "motor": "Mercedes", "logo": "imagens/equipes/sauber.png" },
+  { "nome": "Footwork", "motor": "Ford", "logo": "imagens/equipes/footwork.png" },
+  { "nome": "Minardi", "motor": "Ford", "logo": "imagens/equipes/minardi.png" },
+  { "nome": "Simtek", "motor": "Ford", "logo": "imagens/equipes/simtek.png" },
   { "nome": "Equipe Extra 1", "motor": "Mugen", "logo": "imagens/equipes/extra1.png" },
   { "nome": "Equipe Extra 2", "motor": "Yamaha", "logo": "imagens/equipes/extra2.png" }
 ]
