@@ -1,0 +1,15 @@
+{
+  "dinheiro": 5000000,
+  "equipe": "Williams",
+  "pilotos": ["Ayrton Senna", "Damon Hill"],
+  "fabrica": {
+    "nota": 6.0,
+    "investimento": 0
+  },
+  "patrocinadores": [],
+  "temporada": 1994,
+  "progresso": {
+    "corridaAtual": 1
+  },
+  "reputacao": 50
+}
