@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Fábrica</title>
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../saveManager.js"></script>
+  <script defer>
+    window.onload = () => {
+      const jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado!");
+        location.href = "../index.html";
+        return;
+      }
+      document.getElementById("nomeEquipe").innerText = jogo.equipe;
+      document.getElementById("notaFabrica").innerText = jogo.fabrica.nota.toFixed(1);
+      document.getElementById("dinheiro").innerText = jogo.dinheiro.toLocaleString();
+    }
+
+    function investir(valor) {
+      const jogo = loadGameData();
+      if (jogo.dinheiro < valor) {
+        alert("Dinheiro insuficiente!");
+        return;
+      }
+      jogo.dinheiro -= valor;
+      jogo.fabrica.nota += valor / 1000000;
+      saveGame(jogo);
+      location.reload();
+    }
+  </script>
+</head>
+<body>
+  <h1>Fábrica da Equipe</h1>
+  <p><strong>Equipe:</strong> <span id="nomeEquipe"></span></p>
+  <p><strong>Nota da Fábrica:</strong> <span id="notaFabrica"></span></p>
+  <p><strong>Dinheiro disponível:</strong> $<span id="dinheiro"></span></p>
+
+  <h3>Investir na Fábrica</h3>
+  <button onclick="investir(1000000)">Investir $1M</button>
+  <button onclick="investir(2000000)">Investir $2M</button>
+  <br><br>
+  <button onclick="window.location.href='../index.html'">Voltar</button>
+</body>
+</html>
