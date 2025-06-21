@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gestão de Pilotos</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilotos</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="save.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>Pilotos da Equipe</h1>
-    <div id="pilotosLista"></div>
+
+    <div id="piloto1" class="piloto"></div>
+    <div id="piloto2" class="piloto"></div>
+    <div id="reserva" class="piloto"></div>
+
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const pilotos = [
-      { nome: "Ayrton Senna", idade: 34, nacionalidade: "Brasil", habilidade: 99 },
-      { nome: "Damon Hill", idade: 33, nacionalidade: "Reino Unido", habilidade: 90 },
-      { nome: "Mika Hakkinen", idade: 29, nacionalidade: "Finlândia", habilidade: 88 },
-      { nome: "Rubens Barrichello", idade: 22, nacionalidade: "Brasil", habilidade: 85 }
-    ];
+    const estado = carregarJogo();
 
-    const container = document.getElementById("pilotosLista");
-    pilotos.forEach(piloto => {
-      const p = document.createElement("p");
-      p.textContent = `${piloto.nome} (${piloto.nacionalidade}) - Habilidade: ${piloto.habilidade}`;
-      container.appendChild(p);
-    });
+    function exibirPilotos() {
+      if (estado) {
+        document.getElementById("piloto1").textContent = `Titular 1: ${estado.piloto1?.nome || 'Desconhecido'} - Habilidade: ${estado.piloto1?.habilidade || 'N/A'}`;
+        document.getElementById("piloto2").textContent = `Titular 2: ${estado.piloto2?.nome || 'Desconhecido'} - Habilidade: ${estado.piloto2?.habilidade || 'N/A'}`;
+        document.getElementById("reserva").textContent = `Reserva: ${estado.pilotoReserva?.nome || 'Desconhecido'} - Habilidade: ${estado.pilotoReserva?.habilidade || 'N/A'}`;
+      } else {
+        document.getElementById("piloto1").textContent = "Dados não carregados.";
+        document.getElementById("piloto2").textContent = "";
+        document.getElementById("reserva").textContent = "";
+      }
+    }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
+
+    window.onload = exibirPilotos;
   </script>
 </body>
 </html>
