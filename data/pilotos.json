@@ -1,10 +1,15 @@
 [
-  { "nome": "Ayrton Senna", "idade": 34, "pais": "Brasil", "talento": 98 },
-  { "nome": "Michael Schumacher", "idade": 25, "pais": "Alemanha", "talento": 96 },
-  { "nome": "Rubens Barrichello", "idade": 21, "pais": "Brasil", "talento": 85 },
-  { "nome": "Jacques Villeneuve", "idade": 23, "pais": "Canadá", "talento": 88 },
-  { "nome": "Juan Pablo Montoya", "idade": 19, "pais": "Colômbia", "talento": 87 },
-  { "nome": "Helio Castroneves", "idade": 19, "pais": "Brasil", "talento": 80 },
-  { "nome": "Jeff Gordon", "idade": 22, "pais": "EUA", "talento": 82 },
-  { "nome": "Tom Kristensen", "idade": 26, "pais": "Dinamarca", "talento": 83 }
+  { "nome": "Ayrton Senna", "pais": "Brasil", "talento": 98, "idade": 34, "equipe": "Williams" },
+  { "nome": "Damon Hill", "pais": "Reino Unido", "talento": 90, "idade": 33, "equipe": "Williams" },
+  { "nome": "Michael Schumacher", "pais": "Alemanha", "talento": 97, "idade": 25, "equipe": "Benetton" },
+  { "nome": "Jos Verstappen", "pais": "Holanda", "talento": 82, "idade": 22, "equipe": "Benetton" },
+  { "nome": "Gerhard Berger", "pais": "Áustria", "talento": 87, "idade": 34, "equipe": "Ferrari" },
+  { "nome": "Jean Alesi", "pais": "França", "talento": 86, "idade": 30, "equipe": "Ferrari" },
+  { "nome": "Rubens Barrichello", "pais": "Brasil", "talento": 85, "idade": 21, "equipe": "Jordan" },
+  { "nome": "Martin Brundle", "pais": "Reino Unido", "talento": 82, "idade": 34, "equipe": "McLaren" },
+  { "nome": "Jacques Villeneuve", "pais": "Canadá", "talento": 88, "idade": 23, "equipe": "" },
+  { "nome": "Juan Pablo Montoya", "pais": "Colômbia", "talento": 87, "idade": 19, "equipe": "" },
+  { "nome": "Jeff Gordon", "pais": "EUA", "talento": 82, "idade": 22, "equipe": "" },
+  { "nome": "Tom Kristensen", "pais": "Dinamarca", "talento": 83, "idade": 26, "equipe": "" },
+  { "nome": "Mark Webber", "pais": "Austrália", "talento": 79, "idade": 18, "equipe": "" }
 ]
