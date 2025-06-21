@@ -1,45 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pilotos</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pilotos - GPM Retro</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Pilotos da Equipe</h1>
-    <div id="pilotos"></div>
+    <h1>👨‍✈️ Gerenciamento de Pilotos</h1>
+
+    <div id="listaPilotos"></div>
+    <p id="mensagem"></p>
+
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const pilotosData = [
-      { nome: "Ayrton Senna", pais: "🇧🇷", idade: 34, habilidade: 99 },
-      { nome: "Damon Hill", pais: "🇬🇧", idade: 33, habilidade: 87 },
-      { nome: "Michael Schumacher", pais: "🇩🇪", idade: 25, habilidade: 95 },
-      { nome: "Mika Häkkinen", pais: "🇫🇮", idade: 26, habilidade: 84 }
+    const pilotosDisponiveis = [
+      { nome: "Ayrton Senna", pais: "Brasil", habilidade: 99 },
+      { nome: "Michael Schumacher", pais: "Alemanha", habilidade: 96 },
+      { nome: "Damon Hill", pais: "Reino Unido", habilidade: 90 },
+      { nome: "Jacques Villeneuve", pais: "Canadá", habilidade: 88 },
+      { nome: "Rubens Barrichello", pais: "Brasil", habilidade: 85 }
     ];
 
-    function exibirPilotos() {
-      const container = document.getElementById("pilotos");
-      container.innerHTML = "";
-
-      pilotosData.forEach(piloto => {
-        const el = document.createElement("div");
-        el.classList.add("piloto-card");
-        el.innerHTML = `
-          <h3>${piloto.nome} ${piloto.pais}</h3>
-          <p>Idade: ${piloto.idade}</p>
-          <p>Habilidade: ${piloto.habilidade}</p>
-        `;
-        container.appendChild(el);
+    function mostrarPilotos() {
+      const div = document.getElementById("listaPilotos");
+      pilotosDisponiveis.forEach(p => {
+        const botao = document.createElement("button");
+        botao.textContent = `${p.nome} (${p.pais}) - Habilidade: ${p.habilidade}`;
+        botao.onclick = () => contratarPiloto(p);
+        div.appendChild(botao);
       });
+    }
+
+    function contratarPiloto(piloto) {
+      if (!estadoJogo.pilotos) {
+        estadoJogo.pilotos = [];
+      }
+      if (estadoJogo.pilotos.length < 2) {
+        estadoJogo.pilotos.push(piloto);
+        salvarJogo();
+        document.getElementById("mensagem").textContent = `Piloto ${piloto.nome} contratado!`;
+      } else {
+        document.getElementById("mensagem").textContent = "Você já possui dois pilotos.";
+      }
     }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
 
-    window.
+    window.onload = () => {
+      carregarJogo();
+      mostrarPilotos();
+    };
+  </script>
+</body>
+</html>
+
