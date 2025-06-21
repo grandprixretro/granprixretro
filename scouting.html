@@ -3,54 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Scouting</title>
+  <title>Departamento de Scouting</title>
   <link rel="stylesheet" href="style.css" />
   <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>📋 Scouting Internacional</h1>
-    <p>Descubra talentos em categorias alternativas:</p>
-    <button onclick="buscarTalento()">🔍 Buscar novo talento</button>
-    <div id="resultado"></div>
+    <p>Descubra novos talentos ao redor do mundo:</p>
+    <button onclick="scout()">🔍 Procurar Piloto</button>
+    <p id="resultado"></p>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
     const talentos = [
-      { nome: "Juan López", origem: "Fórmula 3", potencial: 80 },
-      { nome: "Hideki Tanaka", origem: "Fórmula Nippon", potencial: 85 },
-      { nome: "Jean Moreau", origem: "Fórmula Renault", potencial: 78 },
-      { nome: "Carlos Souza", origem: "Stock Car Brasil", potencial: 82 },
-      { nome: "Stefan Müller", origem: "DTM", potencial: 83 },
-      { nome: "Toby Johnson", origem: "Indy Lights", potencial: 86 },
-      { nome: "Marco Bellini", origem: "Kart Europeu", potencial: 88 }
+      { nome: "Juan Pérez", pais: "Argentina", habilidade: 72 },
+      { nome: "Takeshi Yamamoto", pais: "Japão", habilidade: 68 },
+      { nome: "Lucas Bianchi", pais: "Brasil", habilidade: 75 },
+      { nome: "Karl Steiner", pais: "Alemanha", habilidade: 70 },
+      { nome: "Marco Bellini", pais: "Itália", habilidade: 77 },
+      { nome: "Jean Lefèvre", pais: "França", habilidade: 74 }
     ];
 
-    function buscarTalento() {
-      const talento = talentos[Math.floor(Math.random() * talentos.length)];
-      document.getElementById("resultado").innerHTML = `
-        <p><strong>Nome:</strong> ${talento.nome}</p>
-        <p><strong>Origem:</strong> ${talento.origem}</p>
-        <p><strong>Potencial:</strong> ${talento.potencial}/100</p>
-        <button onclick="contratar('${talento.nome}', ${talento.potencial})">✍️ Contratar</button>
-      `;
-    }
-
-    function contratar(nome, potencial) {
-      estadoJogo.pilotos.push({ nome, potencial });
-      salvarEstadoJogo(estadoJogo);
-      document.getElementById("resultado").innerHTML += `<p>✅ ${nome} foi contratado e adicionado ao seu time!</p>`;
+    function scout() {
+      const aleatorio = talentos[Math.floor(Math.random() * talentos.length)];
+      document.getElementById("resultado").innerHTML =
+        `🎯 Novo talento encontrado:<br><strong>${aleatorio.nome}</strong> (${aleatorio.pais}) - Habilidade: ${aleatorio.habilidade}`;
     }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
-
-    window.onload = () => {
-      carregarJogo();
-    };
   </script>
 </body>
 </html>
-
