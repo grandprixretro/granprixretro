@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fábrica</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fábrica e Engenharia</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="main.js"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Fábrica e Desenvolvimento</h1>
-    <p>Nível atual da fábrica: <span id="nivelFabrica">70</span>/100</p>
+    <h1>🛠️ Fábrica e Desenvolvimento</h1>
+    <p>Nível atual da fábrica: <span id="nivelFabrica">0</span>/100</p>
     <button onclick="investir()">💰 Investir na fábrica</button>
     <p id="mensagem"></p>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    let nivel = 70;
-
     function investir() {
-      if (nivel < 100) {
-        nivel += 5;
-        document.getElementById("nivelFabrica").textContent = nivel;
-        document.getElementById("mensagem").textContent = "Investimento realizado com sucesso!";
-        salvarEstadoJogo({ nivelFabrica: nivel });
+      carregarJogo();
+      if (estadoJogo.nivelFabrica < 100) {
+        estadoJogo.nivelFabrica += 5;
+        document.getElementById("nivelFabrica").textContent = estadoJogo.nivelFabrica;
+        document.getElementById("mensagem").textContent = "Investimento realizado!";
+        salvarJogo();
       } else {
-        document.getElementById("mensagem").textContent = "Fábrica já está no nível máximo.";
+        document.getElementById("mensagem").textContent = "Fábrica já está no nível máximo!";
       }
     }
 
@@ -35,12 +34,11 @@
     }
 
     window.onload = () => {
-      if (carregarJogo()) {
-        nivel = estadoJogo.nivelFabrica || 70;
-        document.getElementById("nivelFabrica").textContent = nivel;
-      }
+      carregarJogo();
+      document.getElementById("nivelFabrica").textContent = estadoJogo.nivelFabrica || 0;
     };
   </script>
 </body>
 </html>
+
 
