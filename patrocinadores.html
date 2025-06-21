@@ -9,46 +9,33 @@
 </head>
 <body>
   <div class="container">
-    <h1>🤝 Patrocinadores Disponíveis</h1>
-    <div id="listaPatrocinadores"></div>
+    <h1>🤝 Patrocinadores</h1>
+    <p>Escolha até 3 patrocinadores principais:</p>
+    <form id="formPatrocinadores">
+      <label><input type="checkbox" name="patro" value="Marlboro"> Marlboro</label><br>
+      <label><input type="checkbox" name="patro" value="Canon"> Canon</label><br>
+      <label><input type="checkbox" name="patro" value="Shell"> Shell</label><br>
+      <label><input type="checkbox" name="patro" value="Goodyear"> Goodyear</label><br>
+      <label><input type="checkbox" name="patro" value="Total"> Total</label><br>
+    </form>
+    <button onclick="confirmarPatrocinadores()">✅ Confirmar</button>
     <p id="mensagem"></p>
     <button onclick="voltar()">⬅️ Voltar</button>
   </div>
 
   <script>
-    const patrocinadores = [
-      { nome: "Marlboro", aporte: 500000 },
-      { nome: "Canon", aporte: 300000 },
-      { nome: "Shell", aporte: 400000 },
-      { nome: "Goodyear", aporte: 250000 }
-    ];
-
-    function selecionarPatrocinador(nome, aporte) {
-      carregarJogo();
-      estadoJogo.patrocinador = nome;
-      estadoJogo.dinheiro += aporte;
-      salvarJogo();
-      document.getElementById("mensagem").textContent = `Patrocinador ${nome} selecionado! +$${aporte.toLocaleString()}`;
+    function confirmarPatrocinadores() {
+      const selecionados = Array.from(document.querySelectorAll('input[name="patro"]:checked')).map(cb => cb.value);
+      if (selecionados.length > 3) {
+        document.getElementById("mensagem").textContent = "Escolha no máximo 3 patrocinadores.";
+      } else {
+        document.getElementById("mensagem").textContent = `Patrocinadores confirmados: ${selecionados.join(", ")}`;
+      }
     }
 
     function voltar() {
       window.location.href = "gerenciamento.html";
     }
-
-    function exibirPatrocinadores() {
-      let html = "<ul>";
-      patrocinadores.forEach(p => {
-        html += `<li>${p.nome} - 💰 $${p.aporte.toLocaleString()} 
-                  <button onclick="selecionarPatrocinador('${p.nome}', ${p.aporte})">Selecionar</button></li>`;
-      });
-      html += "</ul>";
-      document.getElementById("listaPatrocinadores").innerHTML = html;
-    }
-
-    window.onload = () => {
-      exibirPatrocinadores();
-      carregarJogo();
-    };
   </script>
 </body>
 </html>
