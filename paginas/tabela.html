@@ -16,14 +16,14 @@
       const pilotos = [...classif.pilotos].sort((a, b) => b.pontos - a.pontos);
       const equipes = [...classif.equipes].sort((a, b) => b.pontos - a.pontos);
 
-      pilotosDiv.innerHTML = "<h3>Pilotos</h3>";
+      pilotosDiv.innerHTML = "<h3>🏁 Pilotos</h3>";
       pilotos.forEach((p, i) => {
         const linha = document.createElement("p");
         linha.textContent = `${i + 1}º - ${p.nome}: ${p.pontos} pts`;
         pilotosDiv.appendChild(linha);
       });
 
-      equipesDiv.innerHTML = "<h3>Equipes</h3>";
+      equipesDiv.innerHTML = "<h3>🏢 Equipes</h3>";
       equipes.forEach((e, i) => {
         const linha = document.createElement("p");
         linha.textContent = `${i + 1}º - ${e.nome}: ${e.pontos} pts`;
@@ -60,8 +60,7 @@
   <div id="classPilotos"></div>
   <hr>
   <div id="classEquipes"></div>
-  <br>
-  <button onclick="location.href='../menu-principal.html'">Voltar ao Menu</button>
+  <br><br>
+  <button onclick="location.href='../menu-principal.html'" style="padding:10px 20px; font-weight:bold;">⬅️ Voltar ao Menu</button>
 </body>
 </html>
-
