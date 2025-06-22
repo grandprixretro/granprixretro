@@ -1,15 +1,230 @@
 [
-  { "nome": "Ayrton Senna", "pais": "Brasil", "talento": 98, "idade": 34, "equipe": "Williams" },
-  { "nome": "Damon Hill", "pais": "Reino Unido", "talento": 90, "idade": 33, "equipe": "Williams" },
-  { "nome": "Michael Schumacher", "pais": "Alemanha", "talento": 97, "idade": 25, "equipe": "Benetton" },
-  { "nome": "Jos Verstappen", "pais": "Holanda", "talento": 82, "idade": 22, "equipe": "Benetton" },
-  { "nome": "Gerhard Berger", "pais": "Áustria", "talento": 87, "idade": 34, "equipe": "Ferrari" },
-  { "nome": "Jean Alesi", "pais": "França", "talento": 86, "idade": 30, "equipe": "Ferrari" },
-  { "nome": "Rubens Barrichello", "pais": "Brasil", "talento": 85, "idade": 21, "equipe": "Jordan" },
-  { "nome": "Martin Brundle", "pais": "Reino Unido", "talento": 82, "idade": 34, "equipe": "McLaren" },
-  { "nome": "Jacques Villeneuve", "pais": "Canadá", "talento": 88, "idade": 23, "equipe": "" },
-  { "nome": "Juan Pablo Montoya", "pais": "Colômbia", "talento": 87, "idade": 19, "equipe": "" },
-  { "nome": "Jeff Gordon", "pais": "EUA", "talento": 82, "idade": 22, "equipe": "" },
-  { "nome": "Tom Kristensen", "pais": "Dinamarca", "talento": 83, "idade": 26, "equipe": "" },
-  { "nome": "Mark Webber", "pais": "Austrália", "talento": 79, "idade": 18, "equipe": "" }
+  {
+    "nome": "Ayrton Senna",
+    "pais": "Brasil",
+    "talento": 9.9,
+    "equipe": "Williams"
+  },
+  {
+    "nome": "Roland Ratzenberger",
+    "pais": "Áustria",
+    "talento": 6.4,
+    "equipe": "Simtek"
+  },
+{
+    "nome": "Alain Prost",
+    "pais": "Brasil",
+    "talento": 9.2,
+    "equipe": ""
+  },
+  {
+    "nome": "Damon Hill",
+    "pais": "Reino Unido",
+    "talento": 9.0,
+    "equipe": "Williams"
+  },
+  {
+    "nome": "Nigel Mansell",
+    "pais": "Reino Unido",
+    "talento": 9.1,
+    "equipe": ""
+  },
+  {
+    "nome": "Michael Schumacher",
+    "pais": "Alemanha",
+    "talento": 9.3,
+    "equipe": "Benetton"
+  },
+  {
+    "nome": "Jos Verstappen",
+    "pais": "Holanda",
+    "talento": 7.0,
+    "equipe": "Benetton"
+  },
+  {
+    "nome": "Jean Alesi",
+    "pais": "França",
+    "talento": 8.2,
+    "equipe": "Ferrari"
+  },
+  {
+    "nome": "Gerhard Berger",
+    "pais": "Áustria",
+    "talento": 8.4,
+    "equipe": "Ferrari"
+  },
+  {
+    "nome": "Mika Häkkinen",
+    "pais": "Finlândia",
+    "talento": 8.5,
+    "equipe": "McLaren"
+  },
+  {
+    "nome": "Martin Brundle",
+    "pais": "Reino Unido",
+    "talento": 7.8,
+    "equipe": "McLaren"
+  },
+  {
+    "nome": "Rubens Barrichello",
+    "pais": "Brasil",
+    "talento": 8.0,
+    "equipe": "Jordan"
+  },
+  {
+    "nome": "Eddie Irvine",
+    "pais": "Irlanda do Norte",
+    "talento": 7.6,
+    "equipe": "Jordan"
+  },
+  {
+    "nome": "Olivier Panis",
+    "pais": "França",
+    "talento": 7.2,
+    "equipe": "Ligier"
+  },
+  {
+    "nome": "Éric Bernard",
+    "pais": "França",
+    "talento": 6.9,
+    "equipe": "Ligier"
+  },
+  {
+    "nome": "Heinz-Harald Frentzen",
+    "pais": "Alemanha",
+    "talento": 7.8,
+    "equipe": "Sauber"
+  },
+  {
+    "nome": "Andrea de Cesaris",
+    "pais": "Itália",
+    "talento": 6.8,
+    "equipe": "Sauber"
+  },
+  {
+    "nome": "Pierluigi Martini",
+    "pais": "Itália",
+    "talento": 6.7,
+    "equipe": "Minardi"
+  },
+  {
+    "nome": "Michele Alboreto",
+    "pais": "Itália",
+    "talento": 6.5,
+    "equipe": "Minardi"
+  },
+  {
+    "nome": "David Brabham",
+    "pais": "Austrália",
+    "talento": 6.4,
+    "equipe": "Simtek"
+  },
+  {
+    "nome": "Jean-Marc Gounon",
+    "pais": "França",
+    "talento": 6.3,
+    "equipe": "Simtek"
+  },
+  {
+    "nome": "Bertrand Gachot",
+    "pais": "Luxemburgo",
+    "talento": 6.2,
+    "equipe": "Pacific"
+  },
+  {
+    "nome": "Paul Belmondo",
+    "pais": "França",
+    "talento": 5.9,
+    "equipe": "Pacific"
+  },
+  {
+    "nome": "Christian Fittipaldi",
+    "pais": "Brasil",
+    "talento": 7.1,
+    "equipe": "Footwork"
+  },
+  {
+    "nome": "Gianni Morbidelli",
+    "pais": "Itália",
+    "talento": 6.6,
+    "equipe": "Footwork"
+  },
+  {
+    "nome": "Johnny Herbert",
+    "pais": "Reino Unido",
+    "talento": 7.4,
+    "equipe": "Lotus"
+  },
+  {
+    "nome": "Alessandro Zanardi",
+    "pais": "Itália",
+    "talento": 7.0,
+    "equipe": "Lotus"
+  },
+  {
+    "nome": "David Coulthard",
+    "pais": "Reino Unido",
+    "talento": 8.1,
+    "equipe": ""
+  },
+  {
+    "nome": "Alain Prost",
+    "pais": "França",
+    "talento": 9.3,
+    "equipe": ""
+  },
+  {
+    "nome": "Nelson Piquet",
+    "pais": "Brasil",
+    "talento": 8.9,
+    "equipe": ""
+  },
+  {
+    "nome": "Roberto Moreno",
+    "pais": "Brasil",
+    "talento": 7.2,
+    "equipe": ""
+  },
+  {
+    "nome": "Ricardo Zonta",
+    "pais": "Brasil",
+    "talento": 6.5,
+    "equipe": ""
+  },
+  {
+    "nome": "Pedro Lamy",
+    "pais": "Portugal",
+    "talento": 6.7,
+    "equipe": ""
+  },
+  {
+    "nome": "Aguri Suzuki",
+    "pais": "Japão",
+    "talento": 6.5,
+    "equipe": ""
+  },
+  {
+    "nome": "Ukyo Katayama",
+    "pais": "Japão",
+    "talento": 6.3,
+    "equipe": ""
+  },
+  {
+    "nome": "Jos Verstappen",
+    "pais": "Holanda",
+    "talento": 7.0,
+    "equipe": ""
+  },
+  {
+    "nome": "J.J. Lehto",
+    "pais": "Finlândia",
+    "talento": 6.9,
+    "equipe": ""
+  },
+  {
+    "nome": "Nicola Larini",
+    "pais": "Itália",
+    "talento": 6.6,
+    "equipe": ""
+  }
 ]
