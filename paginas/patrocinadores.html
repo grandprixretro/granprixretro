@@ -7,6 +7,7 @@
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
+
     async function carregar() {
       jogo = loadGameData();
       if (!jogo) {
@@ -19,18 +20,30 @@
       const div = document.getElementById("lista");
 
       lista.forEach(p => {
-        const ativo = jogo.patrocinadores.includes(p.nome);
-        const botao = ativo ? "(Assinado)" : `<button onclick="assinar('${p.nome}', ${p.bonus})">Assinar</button>`;
+        const jaTem = jogo.patrocinadores.includes(p.nome);
+        const foiUsado = (jogo.patrocinadoresGlobais || []).filter(n => n === p.nome).length;
+
+        // Verifica se já atingiu o máximo
+        if (p.maxEquipes && foiUsado >= p.maxEquipes && !jaTem) return;
+
+        const botao = jaTem
+          ? "(Assinado)"
+          : `<button onclick="assinar('${p.nome}', ${p.bonus})">Assinar</button>`;
+
         const linha = document.createElement("div");
         linha.innerHTML = `<strong>${p.nome}</strong> - Bônus: $${p.bonus.toLocaleString()} - ${p.condicao} ${botao}`;
         div.appendChild(linha);
       });
     }
 
-    function assinar(nome, valor) {
+    async function assinar(nome, valor) {
       if (jogo.patrocinadores.includes(nome)) return;
       jogo.patrocinadores.push(nome);
       jogo.dinheiro += valor;
+
+      if (!jogo.patrocinadoresGlobais) jogo.patrocinadoresGlobais = [];
+      jogo.patrocinadoresGlobais.push(nome);
+
       saveGame(jogo);
       alert(`${nome} assinado! +$${valor.toLocaleString()}`);
       location.reload();
