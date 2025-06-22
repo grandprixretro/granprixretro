@@ -6,36 +6,47 @@
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer>
-    async function carregarPatrocinadores() {
-      const jogo = loadGameData();
-      const patrocinadores = await fetch("../data/patrocinadores.json").then(res => res.json());
+    let jogo = {};
+
+    async function carregar() {
+      jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        location.href = "../menu.html";
+        return;
+      }
+
+      const lista = await fetch("../data/patrocinadores.json").then(r => r.json());
       const div = document.getElementById("lista");
 
-      patrocinadores.forEach(p => {
-        const item = document.createElement("div");
-        const contratado = jogo.patrocinadores.includes(p.nome);
-        item.innerHTML = `<strong>${p.nome}</strong>: ${p.condicao} - Bônus: $${p.bonus.toLocaleString()} ${contratado ? "(Contratado)" : `<button onclick="contratar('${p.nome}', ${p.bonus})">Assinar</button>`}`;
-        div.appendChild(item);
+      lista.forEach(p => {
+        const ativo = jogo.patrocinadores.includes(p.nome);
+        const botao = ativo ? "(Assinado)" : `<button onclick="assinar('${p.nome}', ${p.bonus})">Assinar</button>`;
+        const linha = document.createElement("div");
+        linha.innerHTML = `<strong>${p.nome}</strong> - Bônus: $${p.bonus.toLocaleString()} - ${p.condicao} ${botao}`;
+        div.appendChild(linha);
       });
     }
 
-    function contratar(nome, bonus) {
-      const jogo = loadGameData();
+    function assinar(nome, valor) {
       if (jogo.patrocinadores.includes(nome)) return;
       jogo.patrocinadores.push(nome);
-      jogo.dinheiro += bonus;
+      jogo.dinheiro += valor;
       saveGame(jogo);
-      alert(`${nome} assinado! +$${bonus.toLocaleString()}`);
+      alert(`${nome} assinado! +$${valor.toLocaleString()}`);
       location.reload();
     }
 
-    window.onload = carregarPatrocinadores;
+    window.onload = carregar;
   </script>
 </head>
 <body>
   <h1>Negociação com Patrocinadores</h1>
   <div id="lista"></div>
-  <br><br>
-  <button onclick="window.location.href='../index.html'">Voltar</button>
+  <br>
+  <button onclick="location.href='../menu.html'">Voltar</button>
+  <button onclick="saveGame(jogo)">Salvar</button>
+  <button onclick="location.reload()">Carregar</button>
+  <button onclick="localStorage.clear(); alert('Jogo resetado'); location.href='../menu.html';">Resetar</button>
 </body>
 </html>
