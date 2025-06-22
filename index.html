@@ -10,15 +10,15 @@
       location.href = "menu.html";
     }
 
-    function carregarJogo() {
-      const save = loadGameData();
-      if (save) {
-        alert("Jogo carregado com sucesso!");
-        location.href = "menu.html";
-      } else {
-        alert("Nenhum jogo salvo encontrado.");
-      }
-    }
+function carregarJogo() {
+  const save = loadGameData();
+  if (save) {
+    alert("Jogo carregado com sucesso!");
+    location.href = "menu-principal.html"; // <--- DEVE APONTAR PARA SUA TELA DE CONTROLE
+  } else {
+    alert("Nenhum jogo salvo encontrado.");
+  }
+}
   </script>
 </head>
 <body>
