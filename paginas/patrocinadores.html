@@ -27,6 +27,7 @@ async function carregar() {
 function assinar(nome, valor, nivel) {
   jogo.patrocinadores.push(nome);
   jogo.dinheiro += valor;
+  jogo.novoPatrocinador = nome; // REGISTRA NO JORNAL
   saveGame(jogo);
   alert(`${nome} contratado por $${valor.toLocaleString()}`);
   location.reload();
