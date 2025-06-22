@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório Financeiro</title>
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../saveManager.js"></script>
+  <script defer>
+    let jogo = {};
+    window.onload = () => {
+      jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        location.href = "../index.html";
+        return;
+      }
+
+      const div = document.getElementById("relatorio");
+      const historico = jogo.historicoFinanceiro || [];
+
+      if (historico.length === 0) {
+        div.innerHTML = "<p>Sem dados financeiros disponíveis ainda.</p>";
+        return;
+      }
+
+      const ultima = historico[historico.length - 1];
+      div.innerHTML = `
+        <h2>Corrida ${ultima.corrida}</h2>
+        <p><strong>Patrocínios recebidos:</strong> $${ultima.entradas.toLocaleString()}</p>
+        <p><strong>Despesas totais:</strong> -$${ultima.saidas.toLocaleString()}</p>
+        <p><strong>Saldo da corrida:</strong> <span style="color:${ultima.saldo >= 0 ? 'green' : 'red'}">$${ultima.saldo.toLocaleString()}</span></p>
+        <hr>
+        <h3>Saldo atual em caixa: $${jogo.dinheiro.toLocaleString()}</h3>
+        <h3>Total de corridas: ${historico.length}</h3>
+      `;
+
+      const ul = document.createElement("ul");
+      ul.innerHTML = "<h4>Resumo financeiro da temporada:</h4>";
+      historico.forEach(r => {
+        const li = document.createElement("li");
+        li.textContent = `Corrida ${r.corrida}: +$${r.entradas.toLocaleString()} / -$${r.saidas.toLocaleString()} → $${r.saldo.toLocaleString()}`;
+        ul.appendChild(li);
+      });
+      div.appendChild(ul);
+    };
+  </script>
+</head>
+<body>
+  <h1>📊 Relatório Financeiro</h1>
+  <div id="relatorio"></div>
+  <br>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+</body>
+</html>
