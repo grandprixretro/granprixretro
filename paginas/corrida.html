@@ -5,14 +5,42 @@
   <title>Corrida - Simulação Avançada</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
-  <script defer src="../data/pilotos.json"></script>
   <script defer>
     let jogo = {};
 
+    function podeAdicionarNovaEquipe(listaEquipes) {
+      const equipesAtivas = listaEquipes.filter(eq => eq.ativa !== false);
+      return equipesAtivas.length < 13;
+    }
+
+    function substituirEquipeFalida(equipes) {
+      const equipesAtivas = equipes.filter(e => e.ativa !== false);
+      const equipesReservas = equipes.filter(e => e.ativa === false && !e.foiAtiva);
+
+      if (equipesAtivas.length >= 13) return equipes;
+
+      const novaEquipe = equipesReservas.shift();
+      if (novaEquipe) {
+        novaEquipe.ativa = true;
+        novaEquipe.foiAtiva = true;
+        novaEquipe.dinheiro = 1000000;
+        novaEquipe.fabrica = { nota: 3.0 };
+        novaEquipe.pilotos = [];
+        novaEquipe.reservas = [];
+        novaEquipe.staff = {};
+        novaEquipe.patrocinadores = [];
+        novaEquipe.progresso = { corridaAtual: 1 };
+        novaEquipe.historicoFinanceiro = [];
+        novaEquipe.ultimasNoticias = [`🆕 A equipe ${novaEquipe.nome} entrou no lugar de uma equipe falida.`];
+      }
+
+      return equipes;
+    }
+
     async function simularCorrida() {
       jogo = loadGameData();
-      if (!jogo) {
-        alert("Jogo não carregado.");
+      if (!jogo || !jogo.ativo) {
+        alert("Jogo não carregado ou equipe falida.");
         location.href = "../menu.html";
         return;
       }
@@ -43,9 +71,7 @@
         performance *= motor;
 
         const quebrou = Math.random() < 0.05;
-        if (quebrou) {
-          performance = 0;
-        }
+        if (quebrou) performance = 0;
 
         grid.push({
           nome: p.nome,
@@ -69,23 +95,15 @@
       atualizarClassificacao(grid);
       jogo.progresso.corridaAtual++;
 
-      // -------------------------------
-      // 💰 Sistema Financeiro da Corrida
-      // -------------------------------
+      // 💰 Sistema financeiro
       const custoPilotos = (jogo.pilotos.length || 0) * 200000;
       const custoStaff = (jogo.staff?.chefeEquipe ? 150000 : 0)
                        + (jogo.staff?.chefeDesign ? 120000 : 0)
                        + (jogo.staff?.engenheiro ? 100000 : 0);
       const custoFabrica = 180000;
       const custoOperacional = 250000;
-
       const saidas = custoPilotos + custoStaff + custoFabrica + custoOperacional;
-
-      const patrocinio =
-        (jogo.patrocinadores?.alto?.length || 0) * 1500000 +
-        (jogo.patrocinadores?.medio?.length || 0) * 500000 +
-        (jogo.patrocinadores?.baixo?.length || 0) * 200000;
-
+      const patrocinio = (jogo.patrocinadores.length || 0) * 300000;
       const saldoCorrida = patrocinio - saidas;
       jogo.dinheiro += saldoCorrida;
 
@@ -97,9 +115,6 @@
         saldo: saldoCorrida
       });
 
-      // -----------------------
-      // 🔴 Sistema de falência
-      // -----------------------
       if (jogo.dinheiro < 0) {
         jogo.falenciaCountdown = (jogo.falenciaCountdown || 2) - 1;
         if (jogo.falenciaCountdown <= 0) {
@@ -115,35 +130,24 @@
         jogo.falenciaCountdown = 2;
       }
 
-      // ------------------------------------------
-      // 🔴 Perda de patrocinador por desempenho ruim
-      // ------------------------------------------
-      const totalPatrocinadores =
-        (jogo.patrocinadores?.alto?.length || 0) +
-        (jogo.patrocinadores?.medio?.length || 0) +
-        (jogo.patrocinadores?.baixo?.length || 0);
-
-      if (jogo.progresso.corridaAtual % 3 === 0 && !pontuou && totalPatrocinadores > 0) {
+      // Perda de patrocinador
+      if (jogo.progresso.corridaAtual % 3 === 0 && !pontuou && jogo.patrocinadores.length > 0) {
         const chance = Math.random();
         if (chance < 0.25) {
-          let perdido;
-          const tipos = ["alto", "medio", "baixo"];
-          while (!perdido) {
-            const tipo = tipos[Math.floor(Math.random() * tipos.length)];
-            const lista = jogo.patrocinadores[tipo];
-            if (lista.length > 0) {
-              const idx = Math.floor(Math.random() * lista.length);
-              perdido = lista.splice(idx, 1)[0];
-              jogo.patrocinadorPerdido = perdido;
-              alert(`💸 Você perdeu o patrocínio de ${perdido} por desempenho fraco.`);
-              break;
-            }
-          }
+          const idx = Math.floor(Math.random() * jogo.patrocinadores.length);
+          const perdido = jogo.patrocinadores.splice(idx, 1)[0];
+          jogo.patrocinadorPerdido = perdido;
+          alert(`💸 Você perdeu o patrocínio de ${perdido} por desempenho fraco.`);
         } else {
           jogo.patrocinadorPerdido = null;
         }
       } else {
         jogo.patrocinadorPerdido = null;
+      }
+
+      // Substituição automática de equipes (simulação)
+      if (jogo.equipes) {
+        jogo.equipes = substituirEquipeFalida(jogo.equipes);
       }
 
       saveGame(jogo);
@@ -152,7 +156,6 @@
 
     function atualizarClassificacao(grid) {
       const classif = loadClassificacao();
-
       grid.forEach(p => {
         if (p.abandonou) return;
 
@@ -177,7 +180,6 @@
     function mostrarResultado(grid) {
       const div = document.getElementById("resultado");
       div.innerHTML = "";
-
       grid.forEach((p, i) => {
         const pos = i + 1;
         const linha = document.createElement("p");
