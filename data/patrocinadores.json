@@ -1,7 +1,11 @@
 [
-  { "nome": "Marlboro", "bonus": 2500000, "condicao": "Terminar temporada entre top 5" },
-  { "nome": "Shell", "bonus": 1800000, "condicao": "Pontuar em 3 corridas" },
-  { "nome": "Goodyear", "bonus": 1200000, "condicao": "Largar entre os 10 primeiros" },
-  { "nome": "Mobil 1", "bonus": 1600000, "condicao": "Terminar corrida sem quebras" },
-  { "nome": "Red Bull", "bonus": 1000000, "condicao": "Usar piloto jovem" }
+  { "nome": "Rothmans", "bonus": 3000000, "condicao": "Patrocinador da Williams", "maxEquipes": 2, "principal": true },
+  { "nome": "Mild Seven", "bonus": 2800000, "condicao": "Patrocinador da Benetton", "maxEquipes": 2, "principal": true },
+  { "nome": "Marlboro", "bonus": 3200000, "condicao": "Patrocina Ferrari e McLaren", "maxEquipes": 2, "principal": true },
+  { "nome": "Sasol", "bonus": 800000, "condicao": "Patrocinador da Jordan", "maxEquipes": 1, "principal": true },
+  { "nome": "Elf", "bonus": 1500000, "condicao": "Motores Renault/Ford", "maxEquipes": null, "principal": false },
+  { "nome": "Shell", "bonus": 1800000, "condicao": "Motor Ferrari", "maxEquipes": null, "principal": false },
+  { "nome": "Mobil 1", "bonus": 1600000, "condicao": "Motor Ford/Renault", "maxEquipes": null, "principal": false },
+  { "nome": "Red Bull", "bonus": 900000, "condicao": "Jovens talentos", "maxEquipes": null, "principal": false },
+  { "nome": "Canon", "bonus": 1000000, "condicao": "Equipe pequena", "maxEquipes": null, "principal": false }
 ]
