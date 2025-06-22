@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Equipes e Pilotos</title>
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../saveManager.js"></script>
+  <script defer>
+    let equipes = [];
+    let pilotos = [];
+
+    async function carregarDados() {
+      const eq = await fetch("../data/equipes.json").then(r => r.json());
+      const pil = await fetch("../data/pilotos.json").then(r => r.json());
+
+      equipes = eq;
+      pilotos = pil;
+      renderizar();
+    }
+
+    function renderizar() {
+      const container = document.getElementById("tabelaEquipes");
+      container.innerHTML = "";
+
+      equipes
+        .filter(e => e.ativa)
+        .forEach(eq => {
+          const pilotosEquipe = pilotos.filter(p => p.equipe === eq.nome);
+          const bloco = document.createElement("div");
+          bloco.innerHTML = `
+            <h3>${eq.nome} (${eq.motor})</h3>
+            <ul>
+              ${pilotosEquipe.map(p => `<li>${p.nome} (${p.pais}) - Talento: ${p.talento}</li>`).join("")}
+            </ul>
+            <hr>
+          `;
+          container.appendChild(bloco);
+        });
+    }
+
+    window.onload = carregarDados;
+  </script>
+</head>
+<body>
+  <h1>Formação das Equipes</h1>
+  <div id="tabelaEquipes"></div>
+  <br>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+</body>
+</html>
