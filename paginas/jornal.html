@@ -7,6 +7,7 @@
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
+
     window.onload = () => {
       jogo = loadGameData();
       if (!jogo) {
@@ -21,6 +22,19 @@
         `⚙️ Equipes menores focam em fábrica para surpreender.`
       ];
 
+      // Novas notícias financeiras
+      if (jogo.patrocinadorPerdido) {
+        noticias.unshift(`💸 ${jogo.equipe} perdeu o patrocínio de ${jogo.patrocinadorPerdido} por baixo desempenho.`);
+      }
+
+      if (jogo.falenciaCountdown === 1) {
+        noticias.unshift(`⚠️ ${jogo.equipe} está à beira da falência. Última chance de evitar colapso financeiro!`);
+      }
+
+      if (jogo.novoPatrocinador) {
+        noticias.unshift(`✅ ${jogo.equipe} anuncia novo acordo com ${jogo.novoPatrocinador} para a temporada.`);
+      }
+
       const div = document.getElementById("noticias");
       noticias.forEach(n => {
         const p = document.createElement("p");
@@ -31,7 +45,7 @@
   </script>
 </head>
 <body>
-  <h1>AutoSport Retro</h1>
+  <h1>📰 AutoSport Retro</h1>
   <div id="noticias"></div>
   <br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
