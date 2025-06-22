@@ -1,61 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Patrocinadores</title>
-  <link rel="stylesheet" href="../style.css">
-  <script defer src="../saveManager.js"></script>
-  <script defer>
-    let jogo = {};
-
-    async function carregar() {
-      jogo = loadGameData();
-      if (!jogo) {
-        alert("Jogo não carregado.");
-        location.href = "../index.html";
-        return;
-      }
-
-      const lista = await fetch("../data/patrocinadores.json").then(r => r.json());
-      const div = document.getElementById("lista");
-
-      lista.forEach(p => {
-        const jaTem = jogo.patrocinadores.includes(p.nome);
-        const foiUsado = (jogo.patrocinadoresGlobais || []).filter(n => n === p.nome).length;
-
-        // Verifica se já atingiu o máximo
-        if (p.maxEquipes && foiUsado >= p.maxEquipes && !jaTem) return;
-
-        const botao = jaTem
-          ? "(Assinado)"
-          : `<button onclick="assinar('${p.nome}', ${p.bonus})">Assinar</button>`;
-
-        const linha = document.createElement("div");
-        linha.innerHTML = `<strong>${p.nome}</strong> - Bônus: $${p.bonus.toLocaleString()} - ${p.condicao} ${botao}`;
-        div.appendChild(linha);
-      });
-    }
-
-    async function assinar(nome, valor) {
-      if (jogo.patrocinadores.includes(nome)) return;
-      jogo.patrocinadores.push(nome);
-      jogo.dinheiro += valor;
-
-      if (!jogo.patrocinadoresGlobais) jogo.patrocinadoresGlobais = [];
-      jogo.patrocinadoresGlobais.push(nome);
-
-      saveGame(jogo);
-      alert(`${nome} assinado! +$${valor.toLocaleString()}`);
-      location.reload();
-    }
-
-    window.onload = carregar;
-  </script>
-</head>
+<head><meta charset="UTF-8"><title>Patrocinadores</title><link rel="stylesheet" href="../style.css"><script defer src="../saveManager.js"></script><script defer>
+let jogo = {};
+async function carregar() {
+  jogo = loadGameData();
+  if (!jogo) {location.href="../index.html"; return;}
+  const lista = await fetch("../data/patrocinadores.json").then(r => r.json());
+  const div = document.getElementById("lista");
+  const contagem = { alto:0, medio:0, baixo:0 };
+  jogo.patrocinadores.forEach(n => {
+    const p = lista.find(x=>x.nome===n);
+    if (p) contagem[p.nivel]++;
+  });
+  lista.forEach(p => {
+    if (jogo.patrocinadores.includes(p.nome)) return;
+    const escala = 1 + (jogo.reputacao/1000);
+    const valor = Math.floor(p.bonus * escala);
+    if (p.nivel==="alto" && contagem.alto>=1) return;
+    if (p.nivel==="medio" && contagem.medio>=4) return;
+    const botao = `<button onclick="assinar('${p.nome}', ${valor}, '${p.nivel}')">Assinar</button>`;
+    const linha = document.createElement("div");
+    linha.innerHTML = `<strong>${p.nome}</strong> ($${valor.toLocaleString()}) - ${p.condicao} ${botao}`;
+    div.appendChild(linha);
+  });
+}
+function assinar(nome, valor, nivel) {
+  jogo.patrocinadores.push(nome);
+  jogo.dinheiro += valor;
+  saveGame(jogo);
+  alert(`${nome} contratado por $${valor.toLocaleString()}`);
+  location.reload();
+}
+window.onload = carregar;
+</script></head>
 <body>
-  <h1>Negociação com Patrocinadores</h1>
-  <div id="lista"></div>
-  <br>
-  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+<h1>Mercado de Patrocinadores</h1>
+<div id="lista"></div><br>
+<button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
