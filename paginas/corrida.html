@@ -2,13 +2,14 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Corrida</title>
+  <title>Corrida - Simulação Avançada</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
+  <script defer src="../data/pilotos.json"></script>
   <script defer>
     let jogo = {};
 
-    async function simular() {
+    async function simularCorrida() {
       jogo = loadGameData();
       if (!jogo) {
         alert("Jogo não carregado.");
@@ -17,6 +18,7 @@
       }
 
       const pistas = await fetch("../data/pistas.json").then(r => r.json());
+      const pilotosBase = await fetch("../data/pilotos.json").then(r => r.json());
       const atual = jogo.progresso.corridaAtual - 1;
 
       if (atual >= pistas.length) {
@@ -25,21 +27,94 @@
       }
 
       const pista = pistas[atual];
-      const pos = Math.floor(Math.random() * 10) + 1;
       document.getElementById("info").textContent = `Corrida em ${pista.nome} - ${pista.pais}`;
-      document.getElementById("resultado").textContent = `Seu piloto principal chegou em P${pos}`;
 
+      const grid = [];
+
+      pilotosBase.forEach(p => {
+        const equipe = (p.equipe && p.equipe !== "") ? p.equipe : "Equipe Extra";
+        const isJogador = jogo.pilotos.includes(p.nome);
+        const notaFabrica = isJogador ? jogo.fabrica.nota : Math.random() * 3 + 3; // 3.0 a 6.0
+        const motor = isJogador ? 1.0 : (Math.random() * 0.4 + 0.8); // motor influencia levemente
+
+        let performance = p.talento * (Math.random() * 0.3 + 0.85); // sorte
+        performance *= notaFabrica;
+        performance *= motor;
+
+        const quebrou = Math.random() < 0.05; // 5% de falha
+        if (quebrou) {
+          performance = 0;
+        }
+
+        grid.push({
+          nome: p.nome,
+          equipe: equipe,
+          pontos: 0,
+          desempenho: performance.toFixed(2),
+          abandonou: quebrou
+        });
+      });
+
+      grid.sort((a, b) => b.desempenho - a.desempenho);
+      const pontuacao = [10, 6, 4, 3, 2, 1];
+
+      grid.forEach((p, i) => {
+        if (i < 6 && !p.abandonou) {
+          p.pontos = pontuacao[i];
+        }
+      });
+
+      atualizarClassificacao(grid);
       jogo.progresso.corridaAtual++;
       saveGame(jogo);
+      mostrarResultado(grid);
     }
 
-    window.onload = simular;
+    function atualizarClassificacao(grid) {
+      const classif = loadClassificacao();
+
+      grid.forEach(p => {
+        if (p.abandonou) return;
+
+        // Pilotos
+        let piloto = classif.pilotos.find(pp => pp.nome === p.nome);
+        if (!piloto) {
+          piloto = { nome: p.nome, pontos: 0 };
+          classif.pilotos.push(piloto);
+        }
+        piloto.pontos += p.pontos;
+
+        // Equipes
+        let equipe = classif.equipes.find(ee => ee.nome === p.equipe);
+        if (!equipe) {
+          equipe = { nome: p.equipe, pontos: 0 };
+          classif.equipes.push(equipe);
+        }
+        equipe.pontos += p.pontos;
+      });
+
+      saveClassificacao(classif);
+    }
+
+    function mostrarResultado(grid) {
+      const div = document.getElementById("resultado");
+      div.innerHTML = "";
+
+      grid.forEach((p, i) => {
+        const pos = i + 1;
+        const linha = document.createElement("p");
+        linha.textContent = `${pos}º - ${p.nome} (${p.equipe}) ${p.abandonou ? "- Abandonou" : `- ${p.pontos} pts`}`;
+        div.appendChild(linha);
+      });
+    }
+
+    window.onload = simularCorrida;
   </script>
 </head>
 <body>
   <h1>Simulação de Corrida</h1>
   <p id="info"></p>
-  <p id="resultado"></p>
+  <div id="resultado"></div>
   <br>
   <button onclick="location.href='../menu.html'">Voltar</button>
   <button onclick="saveGame(jogo)">Salvar</button>
