@@ -52,6 +52,8 @@
           item.innerHTML = `
             <strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento}
             <br>Salário mínimo: $${p.salarioMinimo.toLocaleString()} 
+            | Interesse base: ${(p.interesseBase * 100).toFixed(0)}%
+            <br>
             <input type='number' placeholder='Oferta $ por corrida' id='salario-${p.nome}' style='width:160px;'>
             <button onclick="tentarContratar('${p.nome}')">Contratar</button>
           `;
