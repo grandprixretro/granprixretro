@@ -6,41 +6,55 @@
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer>
-    async function carregarPilotos() {
-      const jogo = loadGameData();
-      const pilotos = await fetch("../data/pilotos.json").then(res => res.json());
-      const lista = document.getElementById("listaPilotos");
+    let jogo = {};
+
+    async function carregar() {
+      jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        location.href = "../menu.html";
+        return;
+      }
+
+      const pilotos = await fetch("../data/pilotos.json").then(r => r.json());
+      const lista = document.getElementById("lista");
 
       pilotos.forEach(p => {
+        const contratado = jogo.pilotos.includes(p.nome);
+        const botao = contratado
+          ? "(Contratado)"
+          : `<button onclick="contratar('${p.nome}')">Contratar</button>`;
         const item = document.createElement("div");
-        item.innerHTML = `<strong>${p.nome}</strong> - ${p.pais} - Talento: ${p.talento} <button onclick="contratar('${p.nome}')">Contratar</button>`;
+        item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} ${botao}`;
         lista.appendChild(item);
       });
     }
 
     function contratar(nome) {
-      const jogo = loadGameData();
       if (jogo.pilotos.includes(nome)) {
-        alert("Piloto já contratado.");
+        alert("Piloto já está contratado.");
         return;
       }
       if (jogo.pilotos.length >= 2) {
-        alert("Limite de 2 pilotos atingido.");
+        alert("Você só pode ter 2 pilotos.");
         return;
       }
       jogo.pilotos.push(nome);
       saveGame(jogo);
-      alert(`${nome} contratado com sucesso!`);
+      alert(`${nome} contratado.`);
       location.reload();
     }
 
-    window.onload = carregarPilotos;
+    window.onload = carregar;
   </script>
 </head>
 <body>
   <h1>Mercado de Pilotos</h1>
-  <div id="listaPilotos"></div>
-  <br><br>
-  <button onclick="window.location.href='../index.html'">Voltar</button>
+  <div id="lista"></div>
+  <br>
+  <button onclick="location.href='../menu.html'">Voltar</button>
+  <button onclick="saveGame(jogo)">Salvar</button>
+  <button onclick="location.reload()">Carregar</button>
+  <button onclick="localStorage.clear(); alert('Jogo resetado'); location.href='../menu.html';">Resetar</button>
 </body>
 </html>
