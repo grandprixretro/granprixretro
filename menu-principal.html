@@ -15,15 +15,10 @@
         location.href = "index.html";
         return;
       }
-
-      const dinheiroFormatado = jogo.dinheiro !== undefined
-        ? `$${jogo.dinheiro.toLocaleString()}`
-        : "Indefinido";
-
       document.getElementById("status").innerHTML = `
         <p><strong>Equipe:</strong> ${jogo.equipe} (${jogo.motor})</p>
-        <p><strong>Pilotos:</strong> ${jogo.pilotos?.join(" e ") || "Nenhum"}</p>
-        <p><strong>Dinheiro:</strong> ${dinheiroFormatado}</p>
+        <p><strong>Pilotos:</strong> ${jogo.pilotos.join(" e ")}</p>
+        <p><strong>Dinheiro:</strong> $${jogo.dinheiro.toLocaleString()}</p>
       `;
     };
 
@@ -37,17 +32,18 @@
   <div id="status"></div>
   <br>
 
-  <button onclick="irPara('paginas/fabrica.html')">🏭 Fábrica</button>
-  <button onclick="irPara('paginas/pilotos.html')">👨‍✈️ Pilotos</button>
-  <button onclick="irPara('paginas/patrocinadores.html')">💰 Patrocinadores</button>
-  <button onclick="irPara('paginas/staff.html')">🧠 Staff</button>
-  <button onclick="irPara('paginas/jornal.html')">📰 Jornal Retro</button>
-  <button onclick="irPara('paginas/corrida.html')">🏁 Corrida</button>
-  <button onclick="irPara('paginas/tabela.html')">📊 Tabela</button>
-  <button onclick="irPara('paginas/financeiro.html')">📈 Relatório Financeiro</button>
+  <button onclick="irPara('paginas/fabrica.html')">Fábrica</button>
+  <button onclick="irPara('paginas/pilotos.html')">Pilotos</button>
+  <button onclick="irPara('paginas/staff.html')">Staff</button>
+  <button onclick="irPara('paginas/patrocinadores.html')">Patrocinadores</button>
+  <button onclick="irPara('paginas/jornal.html')">Jornal Retro</button>
+  <button onclick="irPara('paginas/corrida.html')">Corrida</button>
+  <button onclick="irPara('paginas/tabela.html')">Tabela</button>
+  <button onclick="irPara('paginas/equipes.html')">Equipes</button>
+  <button onclick="irPara('paginas/relatorio.html')">Relatório Financeiro</button>
+  <button onclick="irPara('paginas/financeiro.html')">Resumo Financeiro</button>
 
   <br><br>
-  <button onclick="saveGame(jogo)">💾 Salvar Jogo</button>
-  <button onclick="localStorage.clear(); alert('Jogo resetado.'); location.href='index.html';">🗑️ Resetar Jogo</button>
+  <button onclick="localStorage.clear(); alert('Jogo resetado.'); location.href='index.html';">Resetar</button>
 </body>
 </html>
