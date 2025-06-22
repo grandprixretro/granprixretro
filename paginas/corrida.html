@@ -68,35 +68,34 @@
 
       atualizarClassificacao(grid);
       jogo.progresso.corridaAtual++;
+
       // -------------------------------
-// 💰 Sistema Financeiro da Corrida
-// -------------------------------
+      // 💰 Sistema Financeiro da Corrida
+      // -------------------------------
+      const custoPilotos = (jogo.pilotos.length || 0) * 200000;
+      const custoStaff = (jogo.staff?.chefeEquipe ? 150000 : 0)
+                       + (jogo.staff?.chefeDesign ? 120000 : 0)
+                       + (jogo.staff?.engenheiro ? 100000 : 0);
+      const custoFabrica = 180000;
+      const custoOperacional = 250000;
 
-const custoPilotos = (jogo.pilotos.length || 0) * 200000;
-const custoStaff = (jogo.staff?.chefeEquipe ? 150000 : 0)
-                 + (jogo.staff?.chefeDesign ? 120000 : 0)
-                 + (jogo.staff?.engenheiro ? 100000 : 0);
-const custoFabrica = 180000;
-const custoOperacional = 250000;
+      const saidas = custoPilotos + custoStaff + custoFabrica + custoOperacional;
 
-const saidas = custoPilotos + custoStaff + custoFabrica + custoOperacional;
+      const patrocinio =
+        (jogo.patrocinadores?.alto?.length || 0) * 1500000 +
+        (jogo.patrocinadores?.medio?.length || 0) * 500000 +
+        (jogo.patrocinadores?.baixo?.length || 0) * 200000;
 
-// Patrocínios
-const patrocinio = (jogo.patrocinadores.length || 0) * 300000;
+      const saldoCorrida = patrocinio - saidas;
+      jogo.dinheiro += saldoCorrida;
 
-// Saldo
-const saldoCorrida = patrocinio - saidas;
-jogo.dinheiro += saldoCorrida;
-
-// Armazena histórico
-jogo.historicoFinanceiro = jogo.historicoFinanceiro || [];
-jogo.historicoFinanceiro.push({
-  corrida: jogo.progresso.corridaAtual,
-  entradas: patrocinio,
-  saidas: saidas,
-  saldo: saldoCorrida
-});
-
+      jogo.historicoFinanceiro = jogo.historicoFinanceiro || [];
+      jogo.historicoFinanceiro.push({
+        corrida: jogo.progresso.corridaAtual,
+        entradas: patrocinio,
+        saidas: saidas,
+        saldo: saldoCorrida
+      });
 
       // -----------------------
       // 🔴 Sistema de falência
@@ -119,13 +118,27 @@ jogo.historicoFinanceiro.push({
       // ------------------------------------------
       // 🔴 Perda de patrocinador por desempenho ruim
       // ------------------------------------------
-      if (jogo.progresso.corridaAtual % 3 === 0 && !pontuou && jogo.patrocinadores.length > 0) {
+      const totalPatrocinadores =
+        (jogo.patrocinadores?.alto?.length || 0) +
+        (jogo.patrocinadores?.medio?.length || 0) +
+        (jogo.patrocinadores?.baixo?.length || 0);
+
+      if (jogo.progresso.corridaAtual % 3 === 0 && !pontuou && totalPatrocinadores > 0) {
         const chance = Math.random();
         if (chance < 0.25) {
-          const idx = Math.floor(Math.random() * jogo.patrocinadores.length);
-          const perdido = jogo.patrocinadores.splice(idx, 1)[0];
-          jogo.patrocinadorPerdido = perdido;
-          alert(`💸 Você perdeu o patrocínio de ${perdido} por desempenho fraco.`);
+          let perdido;
+          const tipos = ["alto", "medio", "baixo"];
+          while (!perdido) {
+            const tipo = tipos[Math.floor(Math.random() * tipos.length)];
+            const lista = jogo.patrocinadores[tipo];
+            if (lista.length > 0) {
+              const idx = Math.floor(Math.random() * lista.length);
+              perdido = lista.splice(idx, 1)[0];
+              jogo.patrocinadorPerdido = perdido;
+              alert(`💸 Você perdeu o patrocínio de ${perdido} por desempenho fraco.`);
+              break;
+            }
+          }
         } else {
           jogo.patrocinadorPerdido = null;
         }
