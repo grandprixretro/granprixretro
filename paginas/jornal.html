@@ -2,32 +2,42 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>AutoSport Retro</title>
+  <title>Jornal Retro</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer>
+    let jogo = {};
+
     window.onload = () => {
-      const jogo = loadGameData();
-      const ano = jogo.temporada;
+      jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        location.href = "../menu.html";
+        return;
+      }
+
       const noticias = [
-        `📰 FIA anuncia novas regras para ${ano}: limite de pressão do turbo reduzido.`,
-        `🗞️ Rumor: piloto jovem cotado para vaga na McLaren.`,
-        `🔧 Equipes devem investir pesado em fábrica para manter desempenho técnico.`
+        `🚨 FIA revela mudanças técnicas para ${jogo.temporada}.`,
+        `🗞️ Rumor: piloto da Indy pode assinar com equipe europeia.`,
+        `⚙️ Equipes menores focam em fábrica para surpreender.`
       ];
 
-      const container = document.getElementById("noticias");
+      const div = document.getElementById("noticias");
       noticias.forEach(n => {
-        const div = document.createElement("p");
-        div.textContent = n;
-        container.appendChild(div);
+        const p = document.createElement("p");
+        p.textContent = n;
+        div.appendChild(p);
       });
-    }
+    };
   </script>
 </head>
 <body>
   <h1>AutoSport Retro</h1>
   <div id="noticias"></div>
-  <br><br>
-  <button onclick="window.location.href='../index.html'">Voltar</button>
+  <br>
+  <button onclick="location.href='../menu.html'">Voltar</button>
+  <button onclick="saveGame(jogo)">Salvar</button>
+  <button onclick="location.reload()">Carregar</button>
+  <button onclick="localStorage.clear(); alert('Jogo resetado'); location.href='../menu.html';">Resetar</button>
 </body>
 </html>
