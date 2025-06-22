@@ -7,6 +7,7 @@
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
+
     async function carregar() {
       jogo = loadGameData();
       if (!jogo) {
@@ -17,45 +18,92 @@
 
       const pilotos = await fetch("../data/pilotos.json").then(r => r.json());
       const lista = document.getElementById("lista");
+      lista.innerHTML = "";
 
-      pilotos
-        .filter(p => !p.equipe || p.equipe === jogo.equipe || jogo.pilotos.includes(p.nome))
-        .forEach(p => {
-          const contratado = jogo.pilotos.includes(p.nome);
-          let botao;
+      // Separar contratados dos disponíveis
+      const contratados = pilotos.filter(p => jogo.pilotos.includes(p.nome));
+      const disponiveis = pilotos.filter(p => !jogo.pilotos.includes(p.nome) && (!p.equipe || p.equipe === ""));
 
-          if (contratado) {
-            botao = `<button onclick=\"demitir('${p.nome}')\">Demitir</button>`;
-          } else {
-            botao = `<button onclick=\"contratar('${p.nome}')\">Contratar</button>`;
-          }
+      if (contratados.length > 0) {
+        const titulo = document.createElement("h3");
+        titulo.textContent = "Seus Pilotos";
+        lista.appendChild(titulo);
 
+        contratados.forEach(p => {
           const item = document.createElement("div");
-          item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} ${botao}`;
+          item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} <button onclick="demitir('${p.nome}')">Demitir</button>`;
           lista.appendChild(item);
         });
+      }
+
+      if (disponiveis.length > 0) {
+        const titulo = document.createElement("h3");
+        titulo.textContent = "Mercado de Pilotos";
+        lista.appendChild(titulo);
+
+        disponiveis.forEach(p => {
+          const item = document.createElement("div");
+          item.innerHTML = `
+            <strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento}
+            <input type='number' placeholder='Salário por corrida' id='salario-${p.nome}' style='width:160px;'>
+            <button onclick="tentarContratar('${p.nome}')">Contratar</button>
+          `;
+          lista.appendChild(item);
+        });
+      }
     }
 
-    function contratar(nome) {
-      if (jogo.pilotos.includes(nome)) {
-        alert("Piloto já está contratado.");
+    function tentarContratar(nome) {
+      const input = document.getElementById(`salario-${nome}`);
+      const valor = parseInt(input.value);
+
+      if (isNaN(valor) || valor <= 0) {
+        alert("Informe um valor de salário válido.");
         return;
       }
-      if (jogo.pilotos.length >= 4) {
-        alert("Você só pode ter até 4 pilotos (2 titulares e 2 reservas)." );
-        return;
-      }
-      jogo.pilotos.push(nome);
 
-      jogo.ultimasNoticias = jogo.ultimasNoticias || [];
-      jogo.ultimasNoticias.push(`✅ Piloto ${nome} foi contratado pela equipe ${jogo.equipe}.`);
-      if (jogo.ultimasNoticias.length > 20) {
-        jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
-      }
+      fetch("../data/pilotos.json")
+        .then(r => r.json())
+        .then(pilotos => {
+          const piloto = pilotos.find(p => p.nome === nome);
+          if (!piloto) return;
 
-      saveGame(jogo);
-      alert(`${nome} contratado.`);
-      location.reload();
+          if (jogo.pilotos.includes(nome)) {
+            alert("Piloto já está contratado.");
+            return;
+          }
+
+          if (jogo.pilotos.length >= 4) {
+            alert("Você só pode ter até 4 pilotos.");
+            return;
+          }
+
+          const interesse = piloto.interesseBase || 0.5;
+          const notaFabrica = jogo.fabrica?.nota || 5.0;
+          const chance = interesse + (notaFabrica - 5) * 0.1;
+
+          if (valor < (piloto.salarioMinimo || 200000)) {
+            alert(`❌ ${nome} recusou sua proposta. Valor abaixo do salário mínimo exigido.`);
+            return;
+          }
+
+          if (Math.random() > chance) {
+            alert(`❌ ${nome} recusou sua proposta. Não acredita no potencial da sua equipe.`);
+            return;
+          }
+
+          jogo.pilotos.push(nome);
+          jogo.salarios = jogo.salarios || {};
+          jogo.salarios[nome] = valor;
+
+          jogo.ultimasNoticias = jogo.ultimasNoticias || [];
+          jogo.ultimasNoticias.push(`✅ Piloto ${nome} foi contratado pela equipe ${jogo.equipe} por $${valor.toLocaleString()} por corrida.`);
+          if (jogo.ultimasNoticias.length > 20) jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+
+          saveGame(jogo);
+          alert(`${nome} contratado com sucesso.`);
+          location.reload();
+        });
     }
 
     function demitir(nome) {
@@ -65,12 +113,11 @@
       const indice = jogo.pilotos.indexOf(nome);
       if (indice !== -1) {
         jogo.pilotos.splice(indice, 1);
+        if (jogo.salarios) delete jogo.salarios[nome];
 
         jogo.ultimasNoticias = jogo.ultimasNoticias || [];
         jogo.ultimasNoticias.push(`🔥 Piloto ${nome} foi demitido da equipe ${jogo.equipe}.`);
-        if (jogo.ultimasNoticias.length > 20) {
-          jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
-        }
+        if (jogo.ultimasNoticias.length > 20) jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
 
         saveGame(jogo);
         alert(`${nome} demitido.`);
@@ -82,7 +129,7 @@
   </script>
 </head>
 <body>
-  <h1>Mercado de Pilotos</h1>
+  <h1>Gestão de Pilotos</h1>
   <div id="lista"></div>
   <br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
