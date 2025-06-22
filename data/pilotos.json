@@ -1,298 +1,38 @@
 [
-  {
-    "nome": "Ayrton Senna",
-    "pais": "Brasil",
-    "talento": 9.9,
-    "equipe": "Williams",
-    "salarioMinimo": 900000,
-    "interesseBase": 0.1
-  },
-  {
-    "nome": "Roland Ratzenberger",
-    "pais": "Áustria",
-    "talento": 6.4,
-    "equipe": "Simtek",
-    "salarioMinimo": 180000,
-    "interesseBase": 0.5
-  },
-  {
-    "nome": "Alain Prost",
-    "pais": "França",
-    "talento": 9.3,
-    "equipe": "",
-    "salarioMinimo": 850000,
-    "interesseBase": 0.2
-  },
-  {
-    "nome": "Damon Hill",
-    "pais": "Reino Unido",
-    "talento": 9.0,
-    "equipe": "Williams",
-    "salarioMinimo": 820000,
-    "interesseBase": 0.15
-  },
-  {
-    "nome": "Nigel Mansell",
-    "pais": "Reino Unido",
-    "talento": 9.1,
-    "equipe": "",
-    "salarioMinimo": 860000,
-    "interesseBase": 0.25
-  },
-  {
-    "nome": "Michael Schumacher",
-    "pais": "Alemanha",
-    "talento": 9.5,
-    "equipe": "Benetton",
-    "salarioMinimo": 870000,
-    "interesseBase": 0.1
-  },
-  {
-    "nome": "Jos Verstappen",
-    "pais": "Holanda",
-    "talento": 7.0,
-    "equipe": "Benetton",
-    "salarioMinimo": 300000,
-    "interesseBase": 0.5
-  },
-  {
-    "nome": "Jean Alesi",
-    "pais": "França",
-    "talento": 8.2,
-    "equipe": "Ferrari",
-    "salarioMinimo": 600000,
-    "interesseBase": 0.2
-  },
-  {
-    "nome": "Gerhard Berger",
-    "pais": "Áustria",
-    "talento": 8.4,
-    "equipe": "Ferrari",
-    "salarioMinimo": 620000,
-    "interesseBase": 0.2
-  },
-  {
-    "nome": "Mika Häkkinen",
-    "pais": "Finlândia",
-    "talento": 8.5,
-    "equipe": "McLaren",
-    "salarioMinimo": 630000,
-    "interesseBase": 0.2
-  },
-  {
-    "nome": "Martin Brundle",
-    "pais": "Reino Unido",
-    "talento": 7.8,
-    "equipe": "McLaren",
-    "salarioMinimo": 450000,
-    "interesseBase": 0.35
-  },
-  {
-    "nome": "Rubens Barrichello",
-    "pais": "Brasil",
-    "talento": 8.4,
-    "equipe": "Jordan",
-    "salarioMinimo": 580000,
-    "interesseBase": 0.3
-  },
-  {
-    "nome": "Eddie Irvine",
-    "pais": "Irlanda do Norte",
-    "talento": 7.6,
-    "equipe": "Jordan",
-    "salarioMinimo": 400000,
-    "interesseBase": 0.35
-  },
-  {
-    "nome": "Olivier Panis",
-    "pais": "França",
-    "talento": 7.2,
-    "equipe": "Ligier",
-    "salarioMinimo": 350000,
-    "interesseBase": 0.4
-  },
-  {
-    "nome": "Éric Bernard",
-    "pais": "França",
-    "talento": 6.9,
-    "equipe": "Ligier",
-    "salarioMinimo": 280000,
-    "interesseBase": 0.45
-  },
-  {
-    "nome": "Heinz-Harald Frentzen",
-    "pais": "Alemanha",
-    "talento": 7.8,
-    "equipe": "Sauber",
-    "salarioMinimo": 420000,
-    "interesseBase": 0.35
-  },
-  {
-    "nome": "Andrea de Cesaris",
-    "pais": "Itália",
-    "talento": 6.8,
-    "equipe": "Sauber",
-    "salarioMinimo": 270000,
-    "interesseBase": 0.45
-  },
-  {
-    "nome": "Pierluigi Martini",
-    "pais": "Itália",
-    "talento": 6.7,
-    "equipe": "Minardi",
-    "salarioMinimo": 260000,
-    "interesseBase": 0.45
-  },
-  {
-    "nome": "Michele Alboreto",
-    "pais": "Itália",
-    "talento": 6.5,
-    "equipe": "Minardi",
-    "salarioMinimo": 250000,
-    "interesseBase": 0.5
-  },
-  {
-    "nome": "David Brabham",
-    "pais": "Austrália",
-    "talento": 6.4,
-    "equipe": "Simtek",
-    "salarioMinimo": 128000,
-    "interesseBase": 30
-  },
-  {
-    "nome": "Jean-Marc Gounon",
-    "pais": "França",
-    "talento": 6.3,
-    "equipe": "Simtek",
-    "salarioMinimo": 126000,
-    "interesseBase": 28
-  },
-  {
-    "nome": "Bertrand Gachot",
-    "pais": "Luxemburgo",
-    "talento": 6.2,
-    "equipe": "Pacific",
-    "salarioMinimo": 124000,
-    "interesseBase": 27
-  },
-  {
-    "nome": "Paul Belmondo",
-    "pais": "França",
-    "talento": 5.9,
-    "equipe": "Pacific",
-    "salarioMinimo": 118000,
-    "interesseBase": 24
-  },
-  {
-    "nome": "Christian Fittipaldi",
-    "pais": "Brasil",
-    "talento": 7.1,
-    "equipe": "Footwork",
-    "salarioMinimo": 142000,
-    "interesseBase": 40
-  },
-  {
-    "nome": "Gianni Morbidelli",
-    "pais": "Itália",
-    "talento": 6.6,
-    "equipe": "Footwork",
-    "salarioMinimo": 132000,
-    "interesseBase": 34
-  },
-  {
-    "nome": "Johnny Herbert",
-    "pais": "Reino Unido",
-    "talento": 7.4,
-    "equipe": "Lotus",
-    "salarioMinimo": 148000,
-    "interesseBase": 42
-  },
-  {
-    "nome": "Alessandro Zanardi",
-    "pais": "Itália",
-    "talento": 7.0,
-    "equipe": "Lotus",
-    "salarioMinimo": 140000,
-    "interesseBase": 38
-  },
-  {
-    "nome": "David Coulthard",
-    "pais": "Reino Unido",
-    "talento": 8.1,
-    "equipe": "",
-    "salarioMinimo": 162000,
-    "interesseBase": 55
-  },
-  {
-    "nome": "Nelson Piquet",
-    "pais": "Brasil",
-    "talento": 9.0,
-    "equipe": "",
-    "salarioMinimo": 180000,
-    "interesseBase": 80
-  },
-  {
-    "nome": "Roberto Moreno",
-    "pais": "Brasil",
-    "talento": 7.7,
-    "equipe": "",
-    "salarioMinimo": 144000,
-    "interesseBase": 39
-  },
-  {
-    "nome": "Ricardo Zonta",
-    "pais": "Brasil",
-    "talento": 6.5,
-    "equipe": "",
-    "salarioMinimo": 130000,
-    "interesseBase": 32
-  },
-  {
-    "nome": "Pedro Lamy",
-    "pais": "Portugal",
-    "talento": 6.7,
-    "equipe": "",
-    "salarioMinimo": 134000,
-    "interesseBase": 35
-  },
-  {
-    "nome": "Aguri Suzuki",
-    "pais": "Japão",
-    "talento": 6.5,
-    "equipe": "",
-    "salarioMinimo": 130000,
-    "interesseBase": 33
-  },
-  {
-    "nome": "Ukyo Katayama",
-    "pais": "Japão",
-    "talento": 6.3,
-    "equipe": "",
-    "salarioMinimo": 126000,
-    "interesseBase": 29
-  },
-  {
-    "nome": "Jos Verstappen",
-    "pais": "Holanda",
-    "talento": 7.0,
-    "equipe": "",
-    "salarioMinimo": 140000,
-    "interesseBase": 37
-  },
-  {
-    "nome": "J.J. Lehto",
-    "pais": "Finlândia",
-    "talento": 6.9,
-    "equipe": "",
-    "salarioMinimo": 138000,
-    "interesseBase": 36
-  },
-  {
-    "nome": "Nicola Larini",
-    "pais": "Itália",
-    "talento": 6.6,
-    "equipe": "",
-    "salarioMinimo": 132000,
-    "interesseBase": 34
-  }
+  { "nome": "Ayrton Senna", "pais": "Brasil", "talento": 9.9, "equipe": "Williams", "salarioMinimo": 900000, "interesseBase": 0.95 },
+  { "nome": "Roland Ratzenberger", "pais": "Áustria", "talento": 6.4, "equipe": "Simtek", "salarioMinimo": 120000, "interesseBase": 0.4 },
+  { "nome": "Alain Prost", "pais": "França", "talento": 9.3, "equipe": "", "salarioMinimo": 800000, "interesseBase": 0.85 },
+  { "nome": "Damon Hill", "pais": "Reino Unido", "talento": 9.0, "equipe": "Williams", "salarioMinimo": 700000, "interesseBase": 0.9 },
+  { "nome": "Nigel Mansell", "pais": "Reino Unido", "talento": 9.1, "equipe": "", "salarioMinimo": 850000, "interesseBase": 0.87 },
+  { "nome": "Michael Schumacher", "pais": "Alemanha", "talento": 9.5, "equipe": "Benetton", "salarioMinimo": 950000, "interesseBase": 0.97 },
+  { "nome": "Jos Verstappen", "pais": "Holanda", "talento": 7.0, "equipe": "Benetton", "salarioMinimo": 200000, "interesseBase": 0.6 },
+  { "nome": "Jean Alesi", "pais": "França", "talento": 8.2, "equipe": "Ferrari", "salarioMinimo": 650000, "interesseBase": 0.8 },
+  { "nome": "Gerhard Berger", "pais": "Áustria", "talento": 8.4, "equipe": "Ferrari", "salarioMinimo": 700000, "interesseBase": 0.82 },
+  { "nome": "Mika Häkkinen", "pais": "Finlândia", "talento": 8.5, "equipe": "McLaren", "salarioMinimo": 650000, "interesseBase": 0.82 },
+  { "nome": "Martin Brundle", "pais": "Reino Unido", "talento": 7.8, "equipe": "McLaren", "salarioMinimo": 450000, "interesseBase": 0.7 },
+  { "nome": "Rubens Barrichello", "pais": "Brasil", "talento": 8.4, "equipe": "Jordan", "salarioMinimo": 500000, "interesseBase": 0.75 },
+  { "nome": "Eddie Irvine", "pais": "Irlanda do Norte", "talento": 7.6, "equipe": "Jordan", "salarioMinimo": 400000, "interesseBase": 0.65 },
+  { "nome": "Olivier Panis", "pais": "França", "talento": 7.2, "equipe": "Ligier", "salarioMinimo": 350000, "interesseBase": 0.62 },
+  { "nome": "Éric Bernard", "pais": "França", "talento": 6.9, "equipe": "Ligier", "salarioMinimo": 300000, "interesseBase": 0.6 },
+  { "nome": "Heinz-Harald Frentzen", "pais": "Alemanha", "talento": 7.8, "equipe": "Sauber", "salarioMinimo": 400000, "interesseBase": 0.7 },
+  { "nome": "Andrea de Cesaris", "pais": "Itália", "talento": 6.8, "equipe": "Sauber", "salarioMinimo": 300000, "interesseBase": 0.55 },
+  { "nome": "Pierluigi Martini", "pais": "Itália", "talento": 6.7, "equipe": "Minardi", "salarioMinimo": 280000, "interesseBase": 0.5 },
+  { "nome": "Michele Alboreto", "pais": "Itália", "talento": 6.5, "equipe": "Minardi", "salarioMinimo": 260000, "interesseBase": 0.5 },
+  { "nome": "David Brabham", "pais": "Austrália", "talento": 6.4, "equipe": "Simtek", "salarioMinimo": 250000, "interesseBase": 0.45 },
+  { "nome": "Jean-Marc Gounon", "pais": "França", "talento": 6.3, "equipe": "Simtek", "salarioMinimo": 220000, "interesseBase": 0.42 },
+  { "nome": "Bertrand Gachot", "pais": "Luxemburgo", "talento": 6.2, "equipe": "Pacific", "salarioMinimo": 220000, "interesseBase": 0.4 },
+  { "nome": "Paul Belmondo", "pais": "França", "talento": 5.9, "equipe": "Pacific", "salarioMinimo": 180000, "interesseBase": 0.35 },
+  { "nome": "Christian Fittipaldi", "pais": "Brasil", "talento": 7.1, "equipe": "Footwork", "salarioMinimo": 350000, "interesseBase": 0.6 },
+  { "nome": "Gianni Morbidelli", "pais": "Itália", "talento": 6.6, "equipe": "Footwork", "salarioMinimo": 280000, "interesseBase": 0.5 },
+  { "nome": "Johnny Herbert", "pais": "Reino Unido", "talento": 7.4, "equipe": "Lotus", "salarioMinimo": 400000, "interesseBase": 0.68 },
+  { "nome": "Alessandro Zanardi", "pais": "Itália", "talento": 7.0, "equipe": "Lotus", "salarioMinimo": 350000, "interesseBase": 0.6 },
+  { "nome": "David Coulthard", "pais": "Reino Unido", "talento": 8.1, "equipe": "", "salarioMinimo": 550000, "interesseBase": 0.75 },
+  { "nome": "Nelson Piquet", "pais": "Brasil", "talento": 9.0, "equipe": "", "salarioMinimo": 850000, "interesseBase": 0.8 },
+  { "nome": "Roberto Moreno", "pais": "Brasil", "talento": 7.2, "equipe": "", "salarioMinimo": 300000, "interesseBase": 0.55 },
+  { "nome": "Ricardo Zonta", "pais": "Brasil", "talento": 6.5, "equipe": "", "salarioMinimo": 250000, "interesseBase": 0.5 },
+  { "nome": "Pedro Lamy", "pais": "Portugal", "talento": 6.7, "equipe": "", "salarioMinimo": 260000, "interesseBase": 0.52 },
+  { "nome": "Aguri Suzuki", "pais": "Japão", "talento": 6.5, "equipe": "", "salarioMinimo": 250000, "interesseBase": 0.5 },
+  { "nome": "Ukyo Katayama", "pais": "Japão", "talento": 6.3, "equipe": "", "salarioMinimo": 240000, "interesseBase": 0.48 },
+  { "nome": "J.J. Lehto", "pais": "Finlândia", "talento": 6.9, "equipe": "", "salarioMinimo": 300000, "interesseBase": 0.55 },
+  { "nome": "Nicola Larini", "pais": "Itália", "talento": 6.6, "equipe": "", "salarioMinimo": 270000, "interesseBase": 0.5 }
 ]
