@@ -20,9 +20,10 @@
       const lista = document.getElementById("lista");
       lista.innerHTML = "";
 
-      // Separar contratados dos disponíveis
       const contratados = pilotos.filter(p => jogo.pilotos.includes(p.nome));
-      const disponiveis = pilotos.filter(p => !jogo.pilotos.includes(p.nome) && (!p.equipe || p.equipe === ""));
+      const disponiveis = pilotos.filter(p =>
+        !jogo.pilotos.includes(p.nome) && (!p.equipe || p.equipe === "")
+      );
 
       if (contratados.length > 0) {
         const titulo = document.createElement("h3");
@@ -30,8 +31,13 @@
         lista.appendChild(titulo);
 
         contratados.forEach(p => {
+          const salario = jogo.salarios?.[p.nome] || 0;
           const item = document.createElement("div");
-          item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} <button onclick="demitir('${p.nome}')">Demitir</button>`;
+          item.innerHTML = `
+            <strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} 
+            - Salário: $${salario.toLocaleString()} 
+            <button onclick="demitir('${p.nome}')">Demitir</button>
+          `;
           lista.appendChild(item);
         });
       }
@@ -45,7 +51,8 @@
           const item = document.createElement("div");
           item.innerHTML = `
             <strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento}
-            <input type='number' placeholder='Salário por corrida' id='salario-${p.nome}' style='width:160px;'>
+            <br>Salário mínimo: $${p.salarioMinimo.toLocaleString()} 
+            <input type='number' placeholder='Oferta $ por corrida' id='salario-${p.nome}' style='width:160px;'>
             <button onclick="tentarContratar('${p.nome}')">Contratar</button>
           `;
           lista.appendChild(item);
@@ -74,21 +81,22 @@
           }
 
           if (jogo.pilotos.length >= 4) {
-            alert("Você só pode ter até 4 pilotos.");
+            alert("Você só pode ter até 4 pilotos (2 titulares e 2 reservas).");
             return;
           }
 
-          const interesse = piloto.interesseBase || 0.5;
-          const notaFabrica = jogo.fabrica?.nota || 5.0;
-          const chance = interesse + (notaFabrica - 5) * 0.1;
-
-          if (valor < (piloto.salarioMinimo || 200000)) {
+          if (valor < piloto.salarioMinimo) {
             alert(`❌ ${nome} recusou sua proposta. Valor abaixo do salário mínimo exigido.`);
             return;
           }
 
-          if (Math.random() > chance) {
-            alert(`❌ ${nome} recusou sua proposta. Não acredita no potencial da sua equipe.`);
+          const fama = jogo.fama || 1.0;
+          const interesseBase = piloto.interesseBase || 0.5;
+          const chance = interesseBase * fama * (valor / piloto.salarioMinimo);
+          const aceitou = Math.random() < chance;
+
+          if (!aceitou) {
+            alert(`❌ ${nome} recusou sua proposta. Não acredita no projeto da equipe.`);
             return;
           }
 
@@ -97,8 +105,10 @@
           jogo.salarios[nome] = valor;
 
           jogo.ultimasNoticias = jogo.ultimasNoticias || [];
-          jogo.ultimasNoticias.push(`✅ Piloto ${nome} foi contratado pela equipe ${jogo.equipe} por $${valor.toLocaleString()} por corrida.`);
-          if (jogo.ultimasNoticias.length > 20) jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+          jogo.ultimasNoticias.push(`✅ Piloto ${nome} foi contratado por $${valor.toLocaleString()} por corrida.`);
+          if (jogo.ultimasNoticias.length > 20) {
+            jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+          }
 
           saveGame(jogo);
           alert(`${nome} contratado com sucesso.`);
@@ -107,8 +117,7 @@
     }
 
     function demitir(nome) {
-      const confirmacao = confirm(`Tem certeza que deseja demitir ${nome}?`);
-      if (!confirmacao) return;
+      if (!confirm(`Tem certeza que deseja demitir ${nome}?`)) return;
 
       const indice = jogo.pilotos.indexOf(nome);
       if (indice !== -1) {
@@ -117,7 +126,9 @@
 
         jogo.ultimasNoticias = jogo.ultimasNoticias || [];
         jogo.ultimasNoticias.push(`🔥 Piloto ${nome} foi demitido da equipe ${jogo.equipe}.`);
-        if (jogo.ultimasNoticias.length > 20) jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+        if (jogo.ultimasNoticias.length > 20) {
+          jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+        }
 
         saveGame(jogo);
         alert(`${nome} demitido.`);
