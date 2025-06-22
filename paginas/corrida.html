@@ -30,18 +30,19 @@
       document.getElementById("info").textContent = `Corrida em ${pista.nome} - ${pista.pais}`;
 
       const grid = [];
+      let pontuou = false;
 
       pilotosBase.forEach(p => {
         const equipe = (p.equipe && p.equipe !== "") ? p.equipe : "Equipe Extra";
         const isJogador = jogo.pilotos.includes(p.nome);
-        const notaFabrica = isJogador ? jogo.fabrica.nota : Math.random() * 3 + 3; // 3.0 a 6.0
-        const motor = isJogador ? 1.0 : (Math.random() * 0.4 + 0.8); // motor influencia levemente
+        const notaFabrica = isJogador ? jogo.fabrica.nota : Math.random() * 3 + 3;
+        const motor = isJogador ? 1.0 : (Math.random() * 0.4 + 0.8);
 
-        let performance = p.talento * (Math.random() * 0.3 + 0.85); // sorte
+        let performance = p.talento * (Math.random() * 0.3 + 0.85);
         performance *= notaFabrica;
         performance *= motor;
 
-        const quebrou = Math.random() < 0.05; // 5% de falha
+        const quebrou = Math.random() < 0.05;
         if (quebrou) {
           performance = 0;
         }
@@ -61,11 +62,48 @@
       grid.forEach((p, i) => {
         if (i < 6 && !p.abandonou) {
           p.pontos = pontuacao[i];
+          if (jogo.pilotos.includes(p.nome)) pontuou = true;
         }
       });
 
       atualizarClassificacao(grid);
       jogo.progresso.corridaAtual++;
+
+      // -----------------------
+      // 🔴 Sistema de falência
+      // -----------------------
+      if (jogo.dinheiro < 0) {
+        jogo.falenciaCountdown = (jogo.falenciaCountdown || 2) - 1;
+        if (jogo.falenciaCountdown <= 0) {
+          alert("Sua equipe declarou falência!");
+          jogo.ativo = false;
+          saveGame(jogo);
+          location.href = "../fim.html";
+          return;
+        } else {
+          alert(`⚠️ Seu caixa está negativo. Restam ${jogo.falenciaCountdown} corridas até a falência.`);
+        }
+      } else {
+        jogo.falenciaCountdown = 2;
+      }
+
+      // ------------------------------------------
+      // 🔴 Perda de patrocinador por desempenho ruim
+      // ------------------------------------------
+      if (jogo.progresso.corridaAtual % 3 === 0 && !pontuou && jogo.patrocinadores.length > 0) {
+        const chance = Math.random();
+        if (chance < 0.25) {
+          const idx = Math.floor(Math.random() * jogo.patrocinadores.length);
+          const perdido = jogo.patrocinadores.splice(idx, 1)[0];
+          jogo.patrocinadorPerdido = perdido;
+          alert(`💸 Você perdeu o patrocínio de ${perdido} por desempenho fraco.`);
+        } else {
+          jogo.patrocinadorPerdido = null;
+        }
+      } else {
+        jogo.patrocinadorPerdido = null;
+      }
+
       saveGame(jogo);
       mostrarResultado(grid);
     }
@@ -76,7 +114,6 @@
       grid.forEach(p => {
         if (p.abandonou) return;
 
-        // Pilotos
         let piloto = classif.pilotos.find(pp => pp.nome === p.nome);
         if (!piloto) {
           piloto = { nome: p.nome, pontos: 0 };
@@ -84,7 +121,6 @@
         }
         piloto.pontos += p.pontos;
 
-        // Equipes
         let equipe = classif.equipes.find(ee => ee.nome === p.equipe);
         if (!equipe) {
           equipe = { nome: p.equipe, pontos: 0 };
