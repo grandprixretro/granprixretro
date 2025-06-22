@@ -68,6 +68,35 @@
 
       atualizarClassificacao(grid);
       jogo.progresso.corridaAtual++;
+      // -------------------------------
+// 💰 Sistema Financeiro da Corrida
+// -------------------------------
+
+const custoPilotos = (jogo.pilotos.length || 0) * 200000;
+const custoStaff = (jogo.staff?.chefeEquipe ? 150000 : 0)
+                 + (jogo.staff?.chefeDesign ? 120000 : 0)
+                 + (jogo.staff?.engenheiro ? 100000 : 0);
+const custoFabrica = 180000;
+const custoOperacional = 250000;
+
+const saidas = custoPilotos + custoStaff + custoFabrica + custoOperacional;
+
+// Patrocínios
+const patrocinio = (jogo.patrocinadores.length || 0) * 300000;
+
+// Saldo
+const saldoCorrida = patrocinio - saidas;
+jogo.dinheiro += saldoCorrida;
+
+// Armazena histórico
+jogo.historicoFinanceiro = jogo.historicoFinanceiro || [];
+jogo.historicoFinanceiro.push({
+  corrida: jogo.progresso.corridaAtual,
+  entradas: patrocinio,
+  saidas: saidas,
+  saldo: saldoCorrida
+});
+
 
       // -----------------------
       // 🔴 Sistema de falência
