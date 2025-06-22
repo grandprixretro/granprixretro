@@ -11,7 +11,7 @@ async function loadEquipes() {
       <img src="${eq.logo}" alt="${eq.nome}">
       <p><strong>${eq.nome}</strong></p>
       <p>${eq.motor}</p>
-      <button onclick="escolherEquipe('${eq.nome}')">Selecionar</button>
+      <button onclick="escolherEquipe('Williams')">Selecionar</button>
     `;
     container.appendChild(div);
   });
