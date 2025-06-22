@@ -38,9 +38,9 @@ async function escolherEquipe(nomeEquipe) {
     progresso: { corridaAtual: 1 }
   };
 
-  saveGame(jogo);
-  alert(`Você agora está no comando da ${nomeEquipe}!`);
-  location.href = "index.html";
+saveGame(jogo);
+alert(`Você agora está no comando da ${nomeEquipe}!`);
+location.href = "index.html"; // Isso te leva de volta à intro (caso queira uma transição)
 }
 
 // Tenta carregar o jogo salvo e avança
