@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatório Financeiro</title>
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../saveManager.js"></script>
+  <script defer>
+    async function carregar() {
+      const save = loadGameData();
+      if (!save) {
+        alert("Jogo não carregado.");
+        location.href = "../index.html";
+        return;
+      }
+
+      const equipes = await fetch("../data/equipes.json").then(r => r.json());
+      const patrocinadores = await fetch("../data/patrocinadores.json").then(r => r.json());
+
+      const tabela = document.getElementById("tabela");
+
+      equipes.forEach(eq => {
+        let dinheiroBase = 5000000;
+        let patrocinioTotal = 0;
+        let patrocinadoresEquipe = [];
+
+        patrocinadores.forEach(p => {
+          if (p.principal) {
+            if (
+              (p.nome === "Rothmans" && eq.nome === "Williams") ||
+              (p.nome === "Mild Seven" && eq.nome === "Benetton") ||
+              (p.nome === "Marlboro" && (eq.nome === "Ferrari" || eq.nome === "McLaren")) ||
+              (p.nome === "Sasol" && eq.nome === "Jordan")
+            ) {
+              patrocinioTotal += p.bonus;
+              patrocinadoresEquipe.push(p.nome);
+            }
+          }
+        });
+
+        const total = dinheiroBase + patrocinioTotal;
+        let notaFabrica = 5.0;
+        let risco = total < 4000000 ? "Alto" : total < 6000000 ? "Médio" : "Baixo";
+
+        const linha = document.createElement("tr");
+        linha.innerHTML = `
+          <td>${eq.nome}</td>
+          <td>$${total.toLocaleString()}</td>
+          <td>${patrocinadoresEquipe.join(", ") || "Nenhum"}</td>
+          <td>${notaFabrica.toFixed(1)}</td>
+          <td>${risco}</td>
+        `;
+        tabela.appendChild(linha);
+      });
+    }
+
+    window.onload = carregar;
+  </script>
+</head>
+<body>
+  <h1>Relatório Financeiro por Equipe</h1>
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>Equipe</th>
+        <th>Dinheiro Atual</th>
+        <th>Patrocinadores</th>
+        <th>Fábrica</th>
+        <th>Risco de Falência</th>
+      </tr>
+    </thead>
+    <tbody id="tabela"></tbody>
+  </table>
+  <br>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+</body>
+</html>
