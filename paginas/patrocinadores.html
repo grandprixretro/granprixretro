@@ -7,12 +7,11 @@
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
-
     async function carregar() {
       jogo = loadGameData();
       if (!jogo) {
         alert("Jogo não carregado.");
-        location.href = "../menu.html";
+        location.href = "../index.html";
         return;
       }
 
@@ -44,9 +43,6 @@
   <h1>Negociação com Patrocinadores</h1>
   <div id="lista"></div>
   <br>
-  <button onclick="location.href='../menu.html'">Voltar</button>
-  <button onclick="saveGame(jogo)">Salvar</button>
-  <button onclick="location.reload()">Carregar</button>
-  <button onclick="localStorage.clear(); alert('Jogo resetado'); location.href='../menu.html';">Resetar</button>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
