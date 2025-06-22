@@ -6,22 +6,24 @@
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer>
+    let jogo = {};
+
     window.onload = () => {
-      const jogo = loadGameData();
+      jogo = loadGameData();
       if (!jogo) {
-        alert("Jogo não carregado!");
-        location.href = "../index.html";
+        alert("Jogo não carregado.");
+        location.href = "../menu.html";
         return;
       }
-      document.getElementById("nomeEquipe").innerText = jogo.equipe;
-      document.getElementById("notaFabrica").innerText = jogo.fabrica.nota.toFixed(1);
-      document.getElementById("dinheiro").innerText = jogo.dinheiro.toLocaleString();
-    }
+      document.getElementById("equipe").textContent = jogo.equipe;
+      document.getElementById("motor").textContent = jogo.motor;
+      document.getElementById("nota").textContent = jogo.fabrica.nota.toFixed(1);
+      document.getElementById("dinheiro").textContent = jogo.dinheiro.toLocaleString();
+    };
 
     function investir(valor) {
-      const jogo = loadGameData();
       if (jogo.dinheiro < valor) {
-        alert("Dinheiro insuficiente!");
+        alert("Dinheiro insuficiente.");
         return;
       }
       jogo.dinheiro -= valor;
@@ -33,14 +35,19 @@
 </head>
 <body>
   <h1>Fábrica da Equipe</h1>
-  <p><strong>Equipe:</strong> <span id="nomeEquipe"></span></p>
-  <p><strong>Nota da Fábrica:</strong> <span id="notaFabrica"></span></p>
+  <p><strong>Equipe:</strong> <span id="equipe"></span></p>
+  <p><strong>Motor:</strong> <span id="motor"></span></p>
+  <p><strong>Nota da Fábrica:</strong> <span id="nota"></span></p>
   <p><strong>Dinheiro disponível:</strong> $<span id="dinheiro"></span></p>
 
   <h3>Investir na Fábrica</h3>
   <button onclick="investir(1000000)">Investir $1M</button>
   <button onclick="investir(2000000)">Investir $2M</button>
+
   <br><br>
-  <button onclick="window.location.href='../index.html'">Voltar</button>
+  <button onclick="location.href='../menu.html'">Voltar</button>
+  <button onclick="saveGame(jogo)">Salvar</button>
+  <button onclick="location.reload()">Carregar</button>
+  <button onclick="localStorage.clear(); alert('Jogo resetado'); location.href='../menu.html';">Resetar</button>
 </body>
 </html>
