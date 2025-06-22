@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta http-equiv="refresh" content="0; url=menu.html">
   <meta charset="UTF-8">
   <title>Grand Prix Manager Retro</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="main.js"></script>
   <script defer src="saveManager.js"></script>
+  <script defer>
+    function novoJogo() {
+      location.href = "menu.html";
+    }
+
+    function carregarJogo() {
+      const save = loadGameData();
+      if (save) {
+        alert("Jogo carregado com sucesso!");
+        location.href = "menu.html";
+      } else {
+        alert("Nenhum jogo salvo encontrado.");
+      }
+    }
+  </script>
 </head>
 <body>
   <div class="menu">
     <h1>Grand Prix Manager Retro</h1>
-    <button onclick="startNewGame()">Novo Jogo</button>
-    <button onclick="loadGame()">Carregar Jogo</button>
-    <div class="opcoes">
-      <button onclick="irPara('paginas/fabrica.html')">Fábrica</button>
-      <button onclick="irPara('paginas/pilotos.html')">Pilotos</button>
-      <button onclick="irPara('paginas/patrocinadores.html')">Patrocinadores</button>
-      <button onclick="irPara('paginas/jornal.html')">Jornal Retro</button>
-      <button onclick="irPara('paginas/corrida.html')">Corrida</button>
-      <button onclick="irPara('paginas/tabela.html')">Tabela</button>
-    </div>
+    <button onclick="novoJogo()">Novo Jogo</button>
+    <button onclick="carregarJogo()">Carregar Jogo</button>
   </div>
 </body>
 </html>
