@@ -8,35 +8,50 @@
       return;
     }
 
+    jogo.pilotos = jogo.pilotos || [];
+    jogo.reservas = jogo.reservas || [];
+
     const pilotos = await fetch("../data/pilotos.json").then(r => r.json());
     const lista = document.getElementById("lista");
 
     pilotos.forEach(p => {
-      const contratado = jogo.pilotos.includes(p.nome);
-      let botao;
+      const isTitular = jogo.pilotos.includes(p.nome);
+      const isReserva = jogo.reservas.includes(p.nome);
+      let botao = "";
 
-      if (contratado) {
+      if (isTitular || isReserva) {
         botao = `<button onclick="demitir('${p.nome}')">Demitir</button>`;
       } else {
         botao = `<button onclick="contratar('${p.nome}')">Contratar</button>`;
       }
 
+      const status = isTitular ? "(Titular)" : isReserva ? "(Reserva)" : "";
+
       const item = document.createElement("div");
-      item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} ${botao}`;
+      item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} ${status} ${botao}`;
       lista.appendChild(item);
     });
   }
 
   function contratar(nome) {
-    if (jogo.pilotos.includes(nome)) {
+    jogo.pilotos = jogo.pilotos || [];
+    jogo.reservas = jogo.reservas || [];
+
+    if (jogo.pilotos.includes(nome) || jogo.reservas.includes(nome)) {
       alert("Piloto já está contratado.");
       return;
     }
-    if (jogo.pilotos.length >= 2) {
-      alert("Você só pode ter 2 pilotos.");
+
+    if (jogo.pilotos.length < 2) {
+      jogo.pilotos.push(nome);
+      alert(`${nome} contratado como TITULAR.`);
+    } else if (jogo.reservas.length < 2) {
+      jogo.reservas.push(nome);
+      alert(`${nome} contratado como RESERVA.`);
+    } else {
+      alert("Você já possui 2 titulares e 2 reservas.");
       return;
     }
-    jogo.pilotos.push(nome);
 
     jogo.ultimasNoticias = jogo.ultimasNoticias || [];
     jogo.ultimasNoticias.push(`✅ Piloto ${nome} foi contratado pela equipe ${jogo.equipe}.`);
@@ -45,7 +60,6 @@
     }
 
     saveGame(jogo);
-    alert(`${nome} contratado.`);
     location.reload();
   }
 
@@ -53,25 +67,22 @@
     const confirmacao = confirm(`Tem certeza que deseja demitir ${nome}?`);
     if (!confirmacao) return;
 
-    const indice = jogo.pilotos.indexOf(nome);
-    if (indice !== -1) {
-      jogo.pilotos.splice(indice, 1);
-
-      jogo.ultimasNoticias = jogo.ultimasNoticias || [];
-      jogo.ultimasNoticias.push(`🔥 Piloto ${nome} foi demitido da equipe ${jogo.equipe}.`);
-      if (jogo.ultimasNoticias.length > 20) {
-        jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
-      }
-
-      saveGame(jogo);
-      alert(`${nome} demitido.`);
-      location.reload();
+    if (jogo.pilotos.includes(nome)) {
+      jogo.pilotos = jogo.pilotos.filter(p => p !== nome);
+    } else if (jogo.reservas.includes(nome)) {
+      jogo.reservas = jogo.reservas.filter(p => p !== nome);
     }
+
+    jogo.ultimasNoticias = jogo.ultimasNoticias || [];
+    jogo.ultimasNoticias.push(`🔥 Piloto ${nome} foi demitido da equipe ${jogo.equipe}.`);
+    if (jogo.ultimasNoticias.length > 20) {
+      jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+    }
+
+    saveGame(jogo);
+    alert(`${nome} demitido.`);
+    location.reload();
   }
 
   window.onload = carregar;
 </script>
-
-  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
-</body>
-</html>
