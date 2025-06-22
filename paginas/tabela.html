@@ -6,21 +6,34 @@
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer>
+    let jogo = {};
+
     window.onload = () => {
-      const jogo = loadGameData();
-      const container = document.getElementById("info");
-      container.innerHTML = `
+      jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        location.href = "../menu.html";
+        return;
+      }
+
+      const div = document.getElementById("info");
+      div.innerHTML = `
         <p><strong>Corrida atual:</strong> ${jogo.progresso.corridaAtual}</p>
+        <p><strong>Equipe:</strong> ${jogo.equipe} (${jogo.motor})</p>
         <p><strong>Pilotos:</strong> ${jogo.pilotos.join(" e ")}</p>
         <p><strong>Dinheiro:</strong> $${jogo.dinheiro.toLocaleString()}</p>
+        <p><strong>Nota da Fábrica:</strong> ${jogo.fabrica.nota.toFixed(1)}</p>
       `;
     };
   </script>
 </head>
 <body>
-  <h1>Classificação</h1>
+  <h1>Tabela de Temporada</h1>
   <div id="info"></div>
-  <br><br>
-  <button onclick="window.location.href='../index.html'">Voltar</button>
+  <br>
+  <button onclick="location.href='../menu.html'">Voltar</button>
+  <button onclick="saveGame(jogo)">Salvar</button>
+  <button onclick="location.reload()">Carregar</button>
+  <button onclick="localStorage.clear(); alert('Jogo resetado'); location.href='../menu.html';">Resetar</button>
 </body>
 </html>
