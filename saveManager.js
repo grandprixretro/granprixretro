@@ -4,7 +4,26 @@ function saveGame(dados) {
 
 function loadGameData() {
   const data = localStorage.getItem("gpmretro_save");
-  return data ? JSON.parse(data) : null;
+  if (!data) return null;
+
+  const jogo = JSON.parse(data);
+
+  // 🔁 Atualiza save antigo para nova estrutura de patrocinadores
+  if (Array.isArray(jogo.patrocinadores)) {
+    jogo.patrocinadores = {
+      alto: [],
+      medio: [],
+      baixo: [...jogo.patrocinadores]
+    };
+  } else if (!jogo.patrocinadores || typeof jogo.patrocinadores !== "object") {
+    jogo.patrocinadores = {
+      alto: [],
+      medio: [],
+      baixo: []
+    };
+  }
+
+  return jogo;
 }
 
 function saveClassificacao(classificacao) {
