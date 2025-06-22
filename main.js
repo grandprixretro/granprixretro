@@ -1,6 +1,6 @@
 let jogo = {};
 
-// Carrega lista de equipes e monta o menu de seleção
+// Carrega equipes
 async function loadEquipes() {
   const data = await fetch("data/equipes.json").then(r => r.json());
   const container = document.getElementById("equipes");
@@ -11,13 +11,13 @@ async function loadEquipes() {
       <img src="${eq.logo}" alt="${eq.nome}">
       <p><strong>${eq.nome}</strong></p>
       <p>${eq.motor}</p>
-      <button onclick="escolherEquipe('Williams')">Selecionar</button>
+      <button onclick="escolherEquipe('${eq.nome}')">Selecionar</button>
     `;
     container.appendChild(div);
   });
 }
 
-// Define o save do jogo com base na equipe escolhida
+// Cria o save com base na equipe escolhida
 async function escolherEquipe(nomeEquipe) {
   const equipes = await fetch("data/equipes.json").then(r => r.json());
   const pilotos = await fetch("data/pilotos.json").then(r => r.json());
@@ -38,36 +38,14 @@ async function escolherEquipe(nomeEquipe) {
     progresso: { corridaAtual: 1 }
   };
 
-saveGame(jogo);
-alert(`Você agora está no comando da ${nomeEquipe}!`);
-location.href = "index.html"; // Isso te leva de volta à intro (caso queira uma transição)
+  saveGame(jogo);
+  alert(`Você agora está no comando da ${nomeEquipe}!`);
+  location.href = "menu-principal.html";
 }
 
-// Tenta carregar o jogo salvo e avança
-function loadGame() {
-  const save = loadGameData();
-  if (save) {
-    jogo = save;
-    alert("Jogo carregado com sucesso!");
-  } else {
-    alert("Nenhum jogo salvo encontrado.");
-  }
-}
-
-// Redireciona para uma página protegida (exige jogo iniciado)
-function irPara(pagina) {
-  const save = loadGameData();
-  if (!save) {
-    alert("Você precisa iniciar ou carregar um jogo.");
-    return;
-  }
-  window.location.href = pagina;
-}
-
-// Inicialização automática para a tela de menu
+// Página de escolha de equipe
 window.onload = () => {
   if (document.getElementById("equipes")) {
     loadEquipes();
   }
-};
-
+}
