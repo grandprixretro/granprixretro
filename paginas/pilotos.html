@@ -2,12 +2,11 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Mercado de Pilotos</title>
+  <title>Pilotos</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
-
     async function carregar() {
       jogo = loadGameData();
       if (!jogo) {
@@ -19,23 +18,22 @@
       const pilotos = await fetch("../data/pilotos.json").then(r => r.json());
       const lista = document.getElementById("lista");
 
-      // Filtra apenas os pilotos livres (sem equipe atribuída)
-      const pilotosLivres = pilotos.filter(p => !p.equipe || p.equipe === "");
+      pilotos
+        .filter(p => !p.equipe || p.equipe === jogo.equipe || jogo.pilotos.includes(p.nome))
+        .forEach(p => {
+          const contratado = jogo.pilotos.includes(p.nome);
+          let botao;
 
-      pilotosLivres.forEach(p => {
-        const contratado = jogo.pilotos.includes(p.nome);
-        let botao;
+          if (contratado) {
+            botao = `<button onclick=\"demitir('${p.nome}')\">Demitir</button>`;
+          } else {
+            botao = `<button onclick=\"contratar('${p.nome}')\">Contratar</button>`;
+          }
 
-        if (contratado) {
-          botao = `<button onclick="demitir('${p.nome}')">Demitir</button>`;
-        } else {
-          botao = `<button onclick="contratar('${p.nome}')">Contratar</button>`;
-        }
-
-        const item = document.createElement("div");
-        item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} ${botao}`;
-        lista.appendChild(item);
-      });
+          const item = document.createElement("div");
+          item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} ${botao}`;
+          lista.appendChild(item);
+        });
     }
 
     function contratar(nome) {
@@ -44,7 +42,7 @@
         return;
       }
       if (jogo.pilotos.length >= 4) {
-        alert("Limite de 4 pilotos (2 titulares + 2 reservas) atingido.");
+        alert("Você só pode ter até 4 pilotos (2 titulares e 2 reservas)." );
         return;
       }
       jogo.pilotos.push(nome);
@@ -81,4 +79,12 @@
     }
 
     window.onload = carregar;
-  <
+  </script>
+</head>
+<body>
+  <h1>Mercado de Pilotos</h1>
+  <div id="lista"></div>
+  <br>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+</body>
+</html>
