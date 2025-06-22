@@ -2,38 +2,59 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Tabela</title>
+  <title>Tabela da Temporada</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
+    let classif = {};
+
+    function renderClassificacao() {
+      const pilotosDiv = document.getElementById("classPilotos");
+      const equipesDiv = document.getElementById("classEquipes");
+
+      const pilotos = [...classif.pilotos].sort((a, b) => b.pontos - a.pontos);
+      const equipes = [...classif.equipes].sort((a, b) => b.pontos - a.pontos);
+
+      pilotosDiv.innerHTML = "<h3>Pilotos</h3>";
+      pilotos.forEach((p, i) => {
+        const linha = document.createElement("p");
+        linha.textContent = `${i + 1}º - ${p.nome}: ${p.pontos} pts`;
+        pilotosDiv.appendChild(linha);
+      });
+
+      equipesDiv.innerHTML = "<h3>Equipes</h3>";
+      equipes.forEach((e, i) => {
+        const linha = document.createElement("p");
+        linha.textContent = `${i + 1}º - ${e.nome}: ${e.pontos} pts`;
+        equipesDiv.appendChild(linha);
+      });
+    }
 
     window.onload = () => {
       jogo = loadGameData();
+      classif = loadClassificacao();
+
       if (!jogo) {
         alert("Jogo não carregado.");
         location.href = "../menu.html";
         return;
       }
 
-      const div = document.getElementById("info");
-      div.innerHTML = `
+      document.getElementById("status").innerHTML = `
         <p><strong>Corrida atual:</strong> ${jogo.progresso.corridaAtual}</p>
         <p><strong>Equipe:</strong> ${jogo.equipe} (${jogo.motor})</p>
         <p><strong>Pilotos:</strong> ${jogo.pilotos.join(" e ")}</p>
         <p><strong>Dinheiro:</strong> $${jogo.dinheiro.toLocaleString()}</p>
         <p><strong>Nota da Fábrica:</strong> ${jogo.fabrica.nota.toFixed(1)}</p>
       `;
+
+      renderClassificacao();
     };
   </script>
 </head>
 <body>
-  <h1>Tabela de Temporada</h1>
-  <div id="info"></div>
-  <br>
-  <button onclick="location.href='../menu.html'">Voltar</button>
-  <button onclick="saveGame(jogo)">Salvar</button>
-  <button onclick="location.reload()">Carregar</button>
-  <button onclick="localStorage.clear(); alert('Jogo resetado'); location.href='../menu.html';">Resetar</button>
-</body>
-</html>
+  <h1>Tabela da Temporada</h1>
+  <div id="status"></div>
+  <hr>
+  <div id="classPilotos"></div>
