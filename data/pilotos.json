@@ -13,8 +13,8 @@
   },
   {
     "nome": "Alain Prost",
-    "pais": "Brasil",
-    "talento": 9.2,
+    "pais": "França",
+    "talento": 9.3,
     "equipe": ""
   },
   {
@@ -32,7 +32,7 @@
   {
     "nome": "Michael Schumacher",
     "pais": "Alemanha",
-    "talento": 9.3,
+    "talento": 9.5,
     "equipe": "Benetton"
   },
   {
@@ -68,7 +68,7 @@
   {
     "nome": "Rubens Barrichello",
     "pais": "Brasil",
-    "talento": 8.0,
+    "talento": 8.4,
     "equipe": "Jordan"
   },
   {
@@ -168,15 +168,9 @@
     "equipe": ""
   },
   {
-    "nome": "Alain Prost",
-    "pais": "França",
-    "talento": 9.3,
-    "equipe": ""
-  },
-  {
     "nome": "Nelson Piquet",
     "pais": "Brasil",
-    "talento": 8.9,
+    "talento": 9.0,
     "equipe": ""
   },
   {
