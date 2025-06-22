@@ -7,12 +7,11 @@
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
-
     window.onload = () => {
       jogo = loadGameData();
       if (!jogo) {
         alert("Jogo não carregado.");
-        location.href = "../menu.html";
+        location.href = "../index.html";
         return;
       }
       document.getElementById("equipe").textContent = jogo.equipe;
@@ -43,11 +42,7 @@
   <h3>Investir na Fábrica</h3>
   <button onclick="investir(1000000)">Investir $1M</button>
   <button onclick="investir(2000000)">Investir $2M</button>
-
   <br><br>
-  <button onclick="location.href='../menu.html'">Voltar</button>
-  <button onclick="saveGame(jogo)">Salvar</button>
-  <button onclick="location.reload()">Carregar</button>
-  <button onclick="localStorage.clear(); alert('Jogo resetado'); location.href='../menu.html';">Resetar</button>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
