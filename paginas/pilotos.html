@@ -7,6 +7,7 @@
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
+
     async function carregar() {
       jogo = loadGameData();
       if (!jogo) {
@@ -15,50 +16,38 @@
         return;
       }
 
-      jogo.pilotos = jogo.pilotos || [];
-      jogo.reservas = jogo.reservas || [];
-
       const pilotos = await fetch("../data/pilotos.json").then(r => r.json());
       const lista = document.getElementById("lista");
 
-      pilotos.forEach(p => {
-        const isTitular = jogo.pilotos.includes(p.nome);
-        const isReserva = jogo.reservas.includes(p.nome);
-        let botao = "";
+      // Filtra apenas os pilotos livres (sem equipe atribuída)
+      const pilotosLivres = pilotos.filter(p => !p.equipe || p.equipe === "");
 
-        if (isTitular || isReserva) {
+      pilotosLivres.forEach(p => {
+        const contratado = jogo.pilotos.includes(p.nome);
+        let botao;
+
+        if (contratado) {
           botao = `<button onclick="demitir('${p.nome}')">Demitir</button>`;
         } else {
           botao = `<button onclick="contratar('${p.nome}')">Contratar</button>`;
         }
 
-        const status = isTitular ? "(Titular)" : isReserva ? "(Reserva)" : "";
-
         const item = document.createElement("div");
-        item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} ${status} ${botao}`;
+        item.innerHTML = `<strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} ${botao}`;
         lista.appendChild(item);
       });
     }
 
     function contratar(nome) {
-      jogo.pilotos = jogo.pilotos || [];
-      jogo.reservas = jogo.reservas || [];
-
-      if (jogo.pilotos.includes(nome) || jogo.reservas.includes(nome)) {
+      if (jogo.pilotos.includes(nome)) {
         alert("Piloto já está contratado.");
         return;
       }
-
-      if (jogo.pilotos.length < 2) {
-        jogo.pilotos.push(nome);
-        alert(`${nome} contratado como TITULAR.`);
-      } else if (jogo.reservas.length < 2) {
-        jogo.reservas.push(nome);
-        alert(`${nome} contratado como RESERVA.`);
-      } else {
-        alert("Você já possui 2 titulares e 2 reservas.");
+      if (jogo.pilotos.length >= 4) {
+        alert("Limite de 4 pilotos (2 titulares + 2 reservas) atingido.");
         return;
       }
+      jogo.pilotos.push(nome);
 
       jogo.ultimasNoticias = jogo.ultimasNoticias || [];
       jogo.ultimasNoticias.push(`✅ Piloto ${nome} foi contratado pela equipe ${jogo.equipe}.`);
@@ -67,6 +56,7 @@
       }
 
       saveGame(jogo);
+      alert(`${nome} contratado.`);
       location.reload();
     }
 
@@ -74,30 +64,21 @@
       const confirmacao = confirm(`Tem certeza que deseja demitir ${nome}?`);
       if (!confirmacao) return;
 
-      if (jogo.pilotos.includes(nome)) {
-        jogo.pilotos = jogo.pilotos.filter(p => p !== nome);
-      } else if (jogo.reservas.includes(nome)) {
-        jogo.reservas = jogo.reservas.filter(p => p !== nome);
-      }
+      const indice = jogo.pilotos.indexOf(nome);
+      if (indice !== -1) {
+        jogo.pilotos.splice(indice, 1);
 
-      jogo.ultimasNoticias = jogo.ultimasNoticias || [];
-      jogo.ultimasNoticias.push(`🔥 Piloto ${nome} foi demitido da equipe ${jogo.equipe}.`);
-      if (jogo.ultimasNoticias.length > 20) {
-        jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
-      }
+        jogo.ultimasNoticias = jogo.ultimasNoticias || [];
+        jogo.ultimasNoticias.push(`🔥 Piloto ${nome} foi demitido da equipe ${jogo.equipe}.`);
+        if (jogo.ultimasNoticias.length > 20) {
+          jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+        }
 
-      saveGame(jogo);
-      alert(`${nome} demitido.`);
-      location.reload();
+        saveGame(jogo);
+        alert(`${nome} demitido.`);
+        location.reload();
+      }
     }
 
     window.onload = carregar;
-  </script>
-</head>
-<body>
-  <h1>Mercado de Pilotos</h1>
-  <div id="lista"></div>
-  <br>
-  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
-</body>
-</html>
+  <
