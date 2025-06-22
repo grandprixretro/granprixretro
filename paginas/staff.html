@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mercado de Staff</title>
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../saveManager.js"></script>
+  <script defer>
+    let jogo = {};
+
+    const staffBase = [
+      { nome: "Ross Brawn", funcao: "chefeEquipe", qualidade: 9.0, equipe: "" },
+      { nome: "Adrian Newey", funcao: "chefeDesign", qualidade: 9.5, equipe: "" },
+      { nome: "Pat Symonds", funcao: "engenheiro", qualidade: 8.8, equipe: "" },
+      { nome: "Jo Ramírez", funcao: "chefeEquipe", qualidade: 8.2, equipe: "" },
+      { nome: "Gustav Brunner", funcao: "chefeDesign", qualidade: 7.8, equipe: "" },
+      { nome: "Loïc Bigois", funcao: "engenheiro", qualidade: 7.5, equipe: "" }
+    ];
+
+    function renderizar() {
+      const lista = document.getElementById("lista");
+      lista.innerHTML = "";
+
+      staffBase
+        .filter(membro => !membro.equipe || membro.equipe === jogo.equipe || Object.values(jogo.staff).includes(membro.nome))
+        .forEach(p => {
+          const contratado = Object.values(jogo.staff).includes(p.nome);
+          let botao;
+
+          if (contratado) {
+            botao = `<button onclick="demitir('${p.funcao}')">Demitir</button>`;
+          } else {
+            botao = `<button onclick="contratar('${p.funcao}', '${p.nome}')">Contratar</button>`;
+          }
+
+          const item = document.createElement("div");
+          item.innerHTML = `<strong>${p.nome}</strong> (${p.funcao}) - Qualidade: ${p.qualidade} ${botao}`;
+          lista.appendChild(item);
+        });
+    }
+
+    function contratar(funcao, nome) {
+      jogo.staff = jogo.staff || {};
+      jogo.staff[funcao] = nome;
+
+      jogo.ultimasNoticias = jogo.ultimasNoticias || [];
+      jogo.ultimasNoticias.push(`🧠 ${nome} foi contratado como ${funcao} pela equipe ${jogo.equipe}.`);
+      if (jogo.ultimasNoticias.length > 20) jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+
+      saveGame(jogo);
+      alert(`${nome} contratado como ${funcao}.`);
+      renderizar();
+    }
+
+    function demitir(funcao) {
+      if (!confirm("Deseja realmente demitir este membro?")) return;
+      delete jogo.staff[funcao];
+
+      jogo.ultimasNoticias = jogo.ultimasNoticias || [];
+      jogo.ultimasNoticias.push(`⚠️ ${funcao} foi demitido da equipe ${jogo.equipe}.`);
+      if (jogo.ultimasNoticias.length > 20) jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+
+      saveGame(jogo);
+      alert(`Membro demitido de ${funcao}.`);
+      renderizar();
+    }
+
+    window.onload = () => {
+      jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        location.href = "../index.html";
+        return;
+      }
+      renderizar();
+    };
+  </script>
+</head>
+<body>
+  <h1>Mercado de Staff</h1>
+  <div id="lista"></div>
+  <br>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+</body>
+</html>
