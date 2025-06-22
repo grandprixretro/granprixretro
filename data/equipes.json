@@ -1,14 +1,92 @@
 [
-  { "nome": "Williams", "motor": "Renault", "logo": "imagens/equipes/williams.png" },
-  { "nome": "Benetton", "motor": "Ford", "logo": "imagens/equipes/benetton.png" },
-  { "nome": "Ferrari", "motor": "Ferrari", "logo": "imagens/equipes/ferrari.png" },
-  { "nome": "McLaren", "motor": "Peugeot", "logo": "imagens/equipes/mclaren.png" },
-  { "nome": "Jordan", "motor": "Hart", "logo": "imagens/equipes/jordan.png" },
-  { "nome": "Ligier", "motor": "Renault", "logo": "imagens/equipes/ligier.png" },
-  { "nome": "Sauber", "motor": "Mercedes", "logo": "imagens/equipes/sauber.png" },
-  { "nome": "Footwork", "motor": "Ford", "logo": "imagens/equipes/footwork.png" },
-  { "nome": "Minardi", "motor": "Ford", "logo": "imagens/equipes/minardi.png" },
-  { "nome": "Simtek", "motor": "Ford", "logo": "imagens/equipes/simtek.png" },
-  { "nome": "Equipe Extra 1", "motor": "Mugen", "logo": "imagens/equipes/extra1.png" },
-  { "nome": "Equipe Extra 2", "motor": "Yamaha", "logo": "imagens/equipes/extra2.png" }
+  {
+    "nome": "Williams",
+    "motor": "Renault",
+    "ativa": true
+  },
+  {
+    "nome": "Benetton",
+    "motor": "Ford",
+    "ativa": true
+  },
+  {
+    "nome": "Ferrari",
+    "motor": "Ferrari",
+    "ativa": true
+  },
+  {
+    "nome": "McLaren",
+    "motor": "Peugeot",
+    "ativa": true
+  },
+  {
+    "nome": "Jordan",
+    "motor": "Hart",
+    "ativa": true
+  },
+  {
+    "nome": "Sauber",
+    "motor": "Mercedes",
+    "ativa": true
+  },
+  {
+    "nome": "Ligier",
+    "motor": "Renault",
+    "ativa": true
+  },
+  {
+    "nome": "Minardi",
+    "motor": "Ford",
+    "ativa": true
+  },
+  {
+    "nome": "Tyrrell",
+    "motor": "Yamaha",
+    "ativa": true
+  },
+  {
+    "nome": "Footwork",
+    "motor": "Ford",
+    "ativa": true
+  },
+  {
+    "nome": "Lotus",
+    "motor": "Mugen-Honda",
+    "ativa": true
+  },
+  {
+    "nome": "Larrousse",
+    "motor": "Ford",
+    "ativa": true
+  },
+  {
+    "nome": "Simtek",
+    "motor": "Ford",
+    "ativa": true
+  },
+  {
+    "nome": "Pacific",
+    "motor": "Ilmor",
+    "ativa": false
+  },
+  {
+    "nome": "Andrea Moda",
+    "motor": "Judd",
+    "ativa": false
+  },
+  {
+    "nome": "AGS",
+    "motor": "Ford",
+    "ativa": false
+  },
+  {
+    "nome": "Coloni",
+    "motor": "Ford",
+    "ativa": false
+  },
+  {
+    "nome": "Onyx",
+    "motor": "Ford",
+    "ativa": false
+  }
 ]
