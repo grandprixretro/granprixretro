@@ -1,42 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><title>Patrocinadores</title><link rel="stylesheet" href="../style.css"><script defer src="../saveManager.js"></script><script defer>
-let jogo = {};
-async function carregar() {
-  jogo = loadGameData();
-  if (!jogo) {location.href="../index.html"; return;}
-  const lista = await fetch("../data/patrocinadores.json").then(r => r.json());
-  const div = document.getElementById("lista");
-  const contagem = { alto:0, medio:0, baixo:0 };
-  jogo.patrocinadores.forEach(n => {
-    const p = lista.find(x=>x.nome===n);
-    if (p) contagem[p.nivel]++;
-  });
-  lista.forEach(p => {
-    if (jogo.patrocinadores.includes(p.nome)) return;
-    const escala = 1 + (jogo.reputacao/1000);
-    const valor = Math.floor(p.bonus * escala);
-    if (p.nivel==="alto" && contagem.alto>=1) return;
-    if (p.nivel==="medio" && contagem.medio>=4) return;
-    const botao = `<button onclick="assinar('${p.nome}', ${valor}, '${p.nivel}')">Assinar</button>`;
-    const linha = document.createElement("div");
-    linha.innerHTML = `<strong>${p.nome}</strong> ($${valor.toLocaleString()}) - ${p.condicao} ${botao}`;
-    div.appendChild(linha);
-  });
-}
-function assinar(nome, valor, nivel) {
-  jogo.patrocinadores.push(nome);
-  jogo.dinheiro += valor;
-  jogo.novoPatrocinador = nome; // REGISTRA NO JORNAL
-  saveGame(jogo);
-  alert(`${nome} contratado por $${valor.toLocaleString()}`);
-  location.reload();
-}
-window.onload = carregar;
-</script></head>
+<head>
+  <meta charset="UTF-8">
+  <title>Patrocinadores</title>
+  <link rel="stylesheet" href="../style.css">
+  <script defer src="../saveManager.js"></script>
+  <script defer>
+    let jogo = {};
+
+    const listaPatrocinadores = {
+      alto: ["Marlboro", "Canon", "Camel", "Mobil 1", "Shell", "Mild Seven"],
+      medio: ["Goodyear", "Agip", "Elf", "Total", "NGK", "Castrol", "Texaco", "Bosch"],
+      baixo: ["STP", "Brembo", "Liqui Moly", "Champion", "Valvoline", "Autolite", "Facom", "Hella", "Ferodo", "Magneti Marelli"]
+    };
+
+    const valores = {
+      alto: 1500000,
+      medio: 500000,
+      baixo: 200000
+    };
+
+    window.onload = () => {
+      jogo = loadGameData();
+
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        location.href = "../index.html";
+        return;
+      }
+
+      if (!jogo.patrocinadores || typeof jogo.patrocinadores !== "object") {
+        jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
+      }
+
+      renderizarPatrocinadores();
+    };
+
+    function renderizarPatrocinadores() {
+      const container = document.getElementById("lista");
+      container.innerHTML = "";
+
+      ["alto", "medio", "baixo"].forEach(nivel => {
+        const titulo = document.createElement("h3");
+        titulo.textContent = `Patrocinadores ${nivel.toUpperCase()}`;
+        container.appendChild(titulo);
+
+        listaPatrocinadores[nivel].forEach(nome => {
+          const contratado = jogo.patrocinadores[nivel].includes(nome);
+          const total =
+            jogo.patrocinadores.alto.length +
+            jogo.patrocinadores.medio.length +
+            jogo.patrocinadores.baixo.length;
+
+          const botao = contratado
+            ? "(Contratado)"
+            : `<button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>`;
+
+          const item = document.createElement("div");
+          item.innerHTML = `<strong>${nome}</strong> - Valor: $${valores[nivel].toLocaleString()} ${botao}`;
+          container.appendChild(item);
+        });
+      });
+    }
+
+    function assinar(nome, valor, nivel) {
+      const total =
+        jogo.patrocinadores.alto.length +
+        jogo.patrocinadores.medio.length +
+        jogo.patrocinadores.baixo.length;
+
+      if (total >= 16) {
+        alert("Você já atingiu o limite de 16 patrocinadores.");
+        return;
+      }
+
+      if (nivel === "alto" && jogo.patrocinadores.alto.length >= 1) {
+        alert("Você já tem um patrocinador master.");
+        return;
+      }
+
+      if (nivel === "medio" && jogo.patrocinadores.medio.length >= 4) {
+        alert("Você já atingiu o limite de patrocinadores médios.");
+        return;
+      }
+
+      if (jogo.patrocinadores[nivel].includes(nome)) {
+        alert("Esse patrocinador já foi contratado.");
+        return;
+      }
+
+      jogo.patrocinadores[nivel].push(nome);
+      jogo.dinheiro += valor;
+      jogo.novoPatrocinador = nome;
+      saveGame(jogo);
+      alert(`${nome} contratado por $${valor.toLocaleString()}`);
+      renderizarPatrocinadores();
+    }
+  </script>
+</head>
 <body>
-<h1>Mercado de Patrocinadores</h1>
-<div id="lista"></div><br>
-<button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+  <h1>Patrocinadores</h1>
+  <div id="lista"></div>
+  <br>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
