@@ -14,6 +14,7 @@ h1 {
   color: #ff0000;
   margin-bottom: 30px;
   text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .lista-equipes {
@@ -21,7 +22,7 @@ h1 {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 25px;
   justify-content: center;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -32,6 +33,9 @@ h1 {
   border-radius: 10px;
   padding: 20px;
   transition: transform 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .equipe:hover {
@@ -42,13 +46,16 @@ h1 {
 .equipe img {
   width: 100%;
   max-width: 140px;
+  height: auto;
   margin-bottom: 15px;
+  image-rendering: pixelated;
 }
 
 .equipe h2 {
-  font-size: 20px;
+  font-size: 18px;
   color: #00ffcc;
   margin: 10px 0 5px;
+  text-transform: uppercase;
 }
 
 .equipe p {
@@ -74,6 +81,26 @@ h1 {
   background-color: #440000;
   border-color: #ff4d4d;
   color: #fff;
+}
+
+/* Estilo do botão Voltar */
+button.voltar {
+  margin-top: 30px;
+  background-color: #222;
+  color: #fff;
+  border: 2px solid #ff0000;
+  padding: 12px 35px;
+  font-size: 16px;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+button.voltar:hover {
+  background-color: #440000;
+  border-color: #ff4d4d;
 }
 
   width: 100px;
