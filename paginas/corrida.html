@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Corrida - Simulação Avançada</title>
   <link rel="stylesheet" href="../style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
@@ -97,10 +98,12 @@
 
       // 💰 Custo real de salários dos pilotos contratados
       let custoPilotos = 0;
+      const detalhesPilotos = [];
       if (jogo.salarios) {
         jogo.pilotos.forEach(nome => {
-          const salario = jogo.salarios[nome] || 200000; // fallback se faltando
+          const salario = jogo.salarios[nome] || 200000;
           custoPilotos += salario;
+          detalhesPilotos.push({ nome, salario });
         });
       }
 
@@ -119,7 +122,8 @@
         corrida: jogo.progresso.corridaAtual,
         entradas: patrocinio,
         saidas: saidas,
-        saldo: saldoCorrida
+        saldo: saldoCorrida,
+        caixa: jogo.dinheiro
       });
 
       if (jogo.dinheiro < 0) {
@@ -137,7 +141,6 @@
         jogo.falenciaCountdown = 2;
       }
 
-      // Perda de patrocinador
       if (jogo.progresso.corridaAtual % 3 === 0 && !pontuou && jogo.patrocinadores.length > 0) {
         const chance = Math.random();
         if (chance < 0.25) {
@@ -152,13 +155,13 @@
         jogo.patrocinadorPerdido = null;
       }
 
-      // Substituição automática de equipes (simulação)
       if (jogo.equipes) {
         jogo.equipes = substituirEquipeFalida(jogo.equipes);
       }
 
       saveGame(jogo);
       mostrarResultado(grid);
+      mostrarResumoFinanceiro(patrocinio, saidas, saldoCorrida, detalhesPilotos, jogo.historicoFinanceiro);
     }
 
     function atualizarClassificacao(grid) {
@@ -167,31 +170,57 @@
         if (p.abandonou) return;
 
         let piloto = classif.pilotos.find(pp => pp.nome === p.nome);
-        if (!piloto) {
-          piloto = { nome: p.nome, pontos: 0 };
-          classif.pilotos.push(piloto);
-        }
+        if (!piloto) piloto = classif.pilotos[classif.pilotos.push({ nome: p.nome, pontos: 0 }) - 1];
         piloto.pontos += p.pontos;
 
         let equipe = classif.equipes.find(ee => ee.nome === p.equipe);
-        if (!equipe) {
-          equipe = { nome: p.equipe, pontos: 0 };
-          classif.equipes.push(equipe);
-        }
+        if (!equipe) equipe = classif.equipes[classif.equipes.push({ nome: p.equipe, pontos: 0 }) - 1];
         equipe.pontos += p.pontos;
       });
-
       saveClassificacao(classif);
     }
 
     function mostrarResultado(grid) {
       const div = document.getElementById("resultado");
-      div.innerHTML = "";
+      div.innerHTML = "<h3>Resultado da Corrida</h3>";
       grid.forEach((p, i) => {
-        const pos = i + 1;
         const linha = document.createElement("p");
-        linha.textContent = `${pos}º - ${p.nome} (${p.equipe}) ${p.abandonou ? "- Abandonou" : `- ${p.pontos} pts`}`;
+        linha.textContent = `${i + 1}º - ${p.nome} (${p.equipe}) ${p.abandonou ? "- Abandonou" : `- ${p.pontos} pts`}`;
         div.appendChild(linha);
+      });
+    }
+
+    function mostrarResumoFinanceiro(patrocinio, saidas, saldo, pilotos, historico) {
+      const div = document.getElementById("financeiro");
+      div.innerHTML = `
+        <h3>Resumo Financeiro</h3>
+        <p>Patrocínio recebido: $${patrocinio.toLocaleString()}</p>
+        <p>Custo com staff/fábrica/operacional: $${(saidas - pilotos.reduce((s, p) => s + p.salario, 0)).toLocaleString()}</p>
+        <p>Custo com pilotos:</p>
+        <ul>${pilotos.map(p => `<li>${p.nome}: $${p.salario.toLocaleString()}</li>`).join("")}</ul>
+        <p><strong>Saídas totais:</strong> $${saidas.toLocaleString()}</p>
+        <p><strong>Saldo da corrida:</strong> $${saldo.toLocaleString()}</p>
+        <canvas id="graficoCaixa" width="400" height="150"></canvas>
+      `;
+
+      const ctx = document.getElementById("graficoCaixa").getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: historico.map(h => `Corrida ${h.corrida}`),
+          datasets: [{
+            label: "Evolução do Caixa",
+            data: historico.map(h => h.caixa),
+            borderColor: "lime",
+            backgroundColor: "rgba(0,255,0,0.2)",
+            tension: 0.3
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
       });
     }
 
@@ -202,6 +231,7 @@
   <h1>Simulação de Corrida</h1>
   <p id="info"></p>
   <div id="resultado"></div>
+  <div id="financeiro"></div>
   <br>
   <button onclick="location.href='../menu-principal.html'">Voltar</button>
   <button onclick="saveGame(jogo)">Salvar</button>
