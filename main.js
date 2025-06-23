@@ -1,5 +1,6 @@
 let jogo = {};
 
+// Salva os dados e redireciona ao menu principal
 async function escolherEquipe(nomeEquipe) {
   const equipes = await fetch("data/equipes.json").then(r => r.json());
   const pilotos = await fetch("data/pilotos.json").then(r => r.json());
@@ -8,7 +9,6 @@ async function escolherEquipe(nomeEquipe) {
   const equipe = equipes.find(e => e.nome === nomeEquipe);
   const titulares = pilotos.filter(p => p.equipe === nomeEquipe).slice(0, 2);
 
-  // Verifica patrocinador principal dessa equipe
   let patrocinadoresIniciais = [];
   let dinheiroInicial = 5000000;
 
@@ -45,24 +45,12 @@ async function escolherEquipe(nomeEquipe) {
   location.href = "menu-principal.html";
 }
 
-async function loadEquipes() {
-  const data = await fetch("data/equipes.json").then(r => r.json());
-  const container = document.getElementById("equipes");
-  data.forEach(eq => {
-    const div = document.createElement("div");
-    div.className = "equipe-card";
-    div.innerHTML = `
-      <img src="${eq.logo}" alt="${eq.nome}">
-      <p><strong>${eq.nome}</strong></p>
-      <p>${eq.motor}</p>
-      <button onclick="escolherEquipe('${eq.nome}')">Selecionar</button>
-    `;
-    container.appendChild(div);
-  });
-}
-
+// Remove carregamento automático das equipes — agora definidas no HTML
 window.onload = () => {
-  if (document.getElementById("equipes")) {
-    loadEquipes();
+  const voltarBtn = document.getElementById("btn-voltar");
+  if (voltarBtn) {
+    voltarBtn.onclick = () => {
+      window.location.href = "index.html";
+    };
   }
-}
+};
