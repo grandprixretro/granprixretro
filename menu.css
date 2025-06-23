@@ -1,37 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
 body {
-  background-color: black;
-  color: lime;
-  font-family: 'Courier New', monospace;
-  text-align: center;
+  background-color: #0e0e0e;
+  color: #ffffff;
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
   padding: 20px;
+  text-align: center;
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 28px;
+  color: #ff0000;
   margin-bottom: 30px;
+  text-transform: uppercase;
 }
 
 .lista-equipes {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
   justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.equipe-card {
-  border: 1px solid lime;
-  margin: 10px;
-  padding: 10px;
-  width: 150px;
+.equipe {
+  background-color: #1a1a1a;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.equipe:hover {
+  transform: scale(1.05);
+  border-color: #ff4d4d;
+}
+
+.equipe img {
+  width: 100%;
+  max-width: 140px;
+  margin-bottom: 15px;
+}
+
+.equipe h2 {
+  font-size: 20px;
+  color: #00ffcc;
+  margin: 10px 0 5px;
+}
+
+.equipe p {
+  font-size: 14px;
+  color: #cccccc;
+  margin-bottom: 15px;
+}
+
+.equipe button {
+  background-color: #222;
+  color: #fff;
+  border: 2px solid #ff0000;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-family: 'Orbitron', sans-serif;
+  border-radius: 6px;
   cursor: pointer;
-  background-color: #000;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  text-transform: uppercase;
 }
 
-.equipe-card:hover {
-  background-color: lime;
-  color: black;
+.equipe button:hover {
+  background-color: #440000;
+  border-color: #ff4d4d;
+  color: #fff;
 }
 
-.equipe-card img {
   width: 100px;
   height: auto;
 }
