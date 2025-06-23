@@ -95,8 +95,15 @@
       atualizarClassificacao(grid);
       jogo.progresso.corridaAtual++;
 
-      // 💰 Sistema financeiro
-      const custoPilotos = (jogo.pilotos.length || 0) * 200000;
+      // 💰 Custo real de salários dos pilotos contratados
+      let custoPilotos = 0;
+      if (jogo.salarios) {
+        jogo.pilotos.forEach(nome => {
+          const salario = jogo.salarios[nome] || 200000; // fallback se faltando
+          custoPilotos += salario;
+        });
+      }
+
       const custoStaff = (jogo.staff?.chefeEquipe ? 150000 : 0)
                        + (jogo.staff?.chefeDesign ? 120000 : 0)
                        + (jogo.staff?.engenheiro ? 100000 : 0);
