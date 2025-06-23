@@ -45,7 +45,7 @@ async function escolherEquipe(nomeEquipe) {
   location.href = "menu-principal.html";
 }
 
-// Remove carregamento automático das equipes — agora definidas no HTML
+// Função do botão "Voltar"
 window.onload = () => {
   const voltarBtn = document.getElementById("btn-voltar");
   if (voltarBtn) {
@@ -54,3 +54,6 @@ window.onload = () => {
     };
   }
 };
+
+// Torna a função acessível globalmente
+window.escolherEquipe = escolherEquipe;
