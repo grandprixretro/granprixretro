@@ -6,63 +6,71 @@
   <link rel="stylesheet" href="menu.css">
   <script defer src="saveManager.js"></script>
   <script defer src="main.js"></script>
+  <script>
+    function selecionarEquipe(equipe) {
+      // Salva a equipe escolhida no localStorage
+      localStorage.setItem("equipeSelecionada", equipe);
+      // Redireciona para o menu principal
+      window.location.href = "menu-principal.html";
+    }
+  </script>
 </head>
 <body>
-  <h1>Escolha sua Equipe</h1>
+  <h1>ESCOLHA SUA EQUIPE</h1>
 
   <div id="equipes" class="lista-equipes">
     <div class="equipe">
       <img src="img/equipes/williams.png" alt="Williams" />
       <h2>Williams</h2>
       <p>Renault</p>
-      <button onclick="selecionarEquipe('Williams')">Selecionar</button>
+      <button onclick="selecionarEquipe('Williams')">SELECIONAR</button>
     </div>
     <div class="equipe">
       <img src="img/equipes/benetton.png" alt="Benetton" />
       <h2>Benetton</h2>
       <p>Ford</p>
-      <button onclick="selecionarEquipe('Benetton')">Selecionar</button>
+      <button onclick="selecionarEquipe('Benetton')">SELECIONAR</button>
     </div>
     <div class="equipe">
       <img src="img/equipes/ferrari.png" alt="Ferrari" />
       <h2>Ferrari</h2>
       <p>Ferrari</p>
-      <button onclick="selecionarEquipe('Ferrari')">Selecionar</button>
+      <button onclick="selecionarEquipe('Ferrari')">SELECIONAR</button>
     </div>
     <div class="equipe">
       <img src="img/equipes/mclaren.png" alt="McLaren" />
       <h2>McLaren</h2>
       <p>Peugeot</p>
-      <button onclick="selecionarEquipe('McLaren')">Selecionar</button>
+      <button onclick="selecionarEquipe('McLaren')">SELECIONAR</button>
     </div>
     <div class="equipe">
       <img src="img/equipes/jordan.png" alt="Jordan" />
       <h2>Jordan</h2>
       <p>Hart</p>
-      <button onclick="selecionarEquipe('Jordan')">Selecionar</button>
+      <button onclick="selecionarEquipe('Jordan')">SELECIONAR</button>
     </div>
     <div class="equipe">
       <img src="img/equipes/sauber.png" alt="Sauber" />
       <h2>Sauber</h2>
       <p>Mercedes</p>
-      <button onclick="selecionarEquipe('Sauber')">Selecionar</button>
+      <button onclick="selecionarEquipe('Sauber')">SELECIONAR</button>
     </div>
     <div class="equipe">
       <img src="img/equipes/ligier.png" alt="Ligier" />
       <h2>Ligier</h2>
       <p>Renault</p>
-      <button onclick="selecionarEquipe('Ligier')">Selecionar</button>
+      <button onclick="selecionarEquipe('Ligier')">SELECIONAR</button>
     </div>
     <div class="equipe">
       <img src="img/equipes/minardi.png" alt="Minardi" />
       <h2>Minardi</h2>
       <p>Ford</p>
-      <button onclick="selecionarEquipe('Minardi')">Selecionar</button>
+      <button onclick="selecionarEquipe('Minardi')">SELECIONAR</button>
     </div>
   </div>
 
   <div id="botoes" style="margin-top: 40px;">
-    <button onclick="window.location.href='index.html'">Voltar</button>
+    <button onclick="window.location.href='index.html'">VOLTAR</button>
   </div>
 </body>
 </html>
