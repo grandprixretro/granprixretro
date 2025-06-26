@@ -5,27 +5,6 @@
   <title>Menu Principal</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="saveManager.js"></script>
-  <script defer>
-    let jogo = {};
-
-    window.onload = () => {
-      jogo = loadGameData();
-      if (!jogo) {
-        alert("Jogo não carregado.");
-        location.href = "index.html";
-        return;
-      }
-      document.getElementById("status").innerHTML = `
-        <p><strong>Equipe:</strong> ${jogo.equipe} (${jogo.motor})</p>
-        <p><strong>Pilotos:</strong> ${jogo.pilotos.join(" e ")}</p>
-        <p><strong>Dinheiro:</strong> $${jogo.dinheiro.toLocaleString()}</p>
-      `;
-    };
-
-    function irPara(pagina) {
-      location.href = pagina;
-    }
-  </script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -36,62 +15,94 @@
       font-family: 'Press Start 2P', monospace;
       text-align: center;
       margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+      padding: 20px;
     }
 
     h1 {
       color: red;
-      font-size: 18px;
-      margin-top: 20px;
-      margin-bottom: 30px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    #logoEquipe {
+      width: 160px;
+      margin: 20px 0;
+    }
+
+    .botao {
+      background-color: black;
+      color: white;
+      border: 2px solid red;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      padding: 10px 20px;
+      margin: 8px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .botao:hover {
+      background-color: red;
+      color: black;
     }
 
     #status {
       font-size: 10px;
       margin-bottom: 20px;
     }
-
-    button {
-      background-color: black;
-      color: white;
-      border: 2px solid red;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 10px;
-      padding: 8px 14px;
-      margin: 6px;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: all 0.2s ease-in-out;
-    }
-
-    button:hover {
-      background-color: red;
-      color: black;
-    }
   </style>
-</head>
 
+  <script defer>
+    let jogo = {};
+
+    window.onload = () => {
+      jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        location.href = "index.html";
+        return;
+      }
+
+      // Mostra informações da equipe
+      document.getElementById("status").innerHTML = `
+        <p><strong>Equipe:</strong> ${jogo.equipe} (${jogo.motor})</p>
+        <p><strong>Pilotos:</strong> ${jogo.pilotos.join(" e ")}</p>
+        <p><strong>Dinheiro:</strong> $${jogo.dinheiro.toLocaleString()}</p>
+      `;
+
+      // Logo da equipe
+      const logo = document.getElementById("logoEquipe");
+      const nomeArquivo = jogo.equipe.toLowerCase().replace(/\s+/g, '').replace(/[^a-z]/g, '');
+      logo.src = `img/equipes/${nomeArquivo}.png`;
+    };
+
+    function irPara(pagina) {
+      location.href = pagina;
+    }
+  </script>
+</head>
 <body>
-  <h1>Menu Principal</h1>
+
+  <h1>Grand Prix Manager Retro</h1>
+
+  <img id="logoEquipe" src="" alt="Logo da equipe">
+
   <div id="status"></div>
 
-  <button onclick="irPara('paginas/fabrica.html')">Fábrica</button>
-  <button onclick="irPara('paginas/pilotos.html')">Pilotos</button>
-  <button onclick="irPara('paginas/staff.html')">Staff</button>
-  <button onclick="irPara('paginas/patrocinadores.html')">Patrocinadores</button>
-  <button onclick="irPara('paginas/jornal.html')">Jornal Retro</button>
-  <button onclick="irPara('paginas/corrida.html')">Corrida</button>
-  <button onclick="irPara('paginas/tabela.html')">Tabela</button>
-  <button onclick="irPara('paginas/equipes.html')">Equipes</button>
-  <button onclick="irPara('paginas/relatorio.html')">Relatório Financeiro</button>
-  <button onclick="irPara('paginas/financeiro.html')">Resumo Financeiro</button>
+  <button class="botao" onclick="irPara('paginas/fabrica.html')">Fábrica</button>
+  <button class="botao" onclick="irPara('paginas/pilotos.html')">Pilotos</button>
+  <button class="botao" onclick="irPara('paginas/staff.html')">Staff</button>
+  <button class="botao" onclick="irPara('paginas/patrocinadores.html')">Patrocinadores</button>
+  <button class="botao" onclick="irPara('paginas/jornal.html')">Jornal Retro</button>
+  <button class="botao" onclick="irPara('paginas/corrida.html')">Corrida</button>
+  <button class="botao" onclick="irPara('paginas/tabela.html')">Tabela</button>
+  <button class="botao" onclick="irPara('paginas/equipes.html')">Equipes</button>
+  <button class="botao" onclick="irPara('paginas/relatorio.html')">Relatório Financeiro</button>
+  <button class="botao" onclick="irPara('paginas/financeiro.html')">Resumo Financeiro</button>
 
   <br><br>
-  <button onclick="localStorage.clear(); alert('Jogo resetado.'); location.href='index.html';">Resetar</button>
+  <button class="botao" onclick="localStorage.clear(); alert('Jogo resetado.'); location.href='index.html';">Resetar Jogo</button>
+
 </body>
-</html>>
+</html>
