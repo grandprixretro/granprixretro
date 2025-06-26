@@ -42,7 +42,7 @@
 
       ["alto", "medio", "baixo"].forEach(nivel => {
         const titulo = document.createElement("h3");
-        titulo.textContent = Patrocinadores ${nivel.toUpperCase()};
+        titulo.textContent = `Patrocinadores ${nivel.toUpperCase()}`;
         container.appendChild(titulo);
 
         listaPatrocinadores[nivel].forEach(nome => {
@@ -54,10 +54,10 @@
 
           const botao = contratado
             ? "(Contratado)"
-            : <button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>;
+            : `<button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>`;
 
           const item = document.createElement("div");
-          item.innerHTML = <strong>${nome}</strong> - Valor: $${valores[nivel].toLocaleString()} ${botao};
+          item.innerHTML = `<strong>${nome}</strong> - Valor: $${valores[nivel].toLocaleString()} ${botao}`;
           container.appendChild(item);
         });
       });
@@ -93,7 +93,7 @@
       jogo.dinheiro += valor;
       jogo.novoPatrocinador = nome;
       saveGame(jogo);
-      alert(${nome} contratado por $${valor.toLocaleString()});
+      alert(`${nome} contratado por $${valor.toLocaleString()}`);
       renderizarPatrocinadores();
     }
   </script>
