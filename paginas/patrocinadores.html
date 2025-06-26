@@ -5,59 +5,6 @@
   <title>Patrocinadores</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-    body {
-      background-color: black;
-      color: white;
-      font-family: 'Press Start 2P', monospace;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1, h2, h3 {
-      color: red;
-    }
-
-    .patrocinador {
-      display: inline-block;
-      width: 160px;
-      margin: 10px;
-      padding: 8px;
-      background-color: #111;
-      border: 2px solid red;
-    }
-
-    .patrocinador img {
-      width: 100px;
-      height: auto;
-      display: block;
-      margin: 0 auto 10px auto;
-    }
-
-    .patrocinador button {
-      background-color: black;
-      color: white;
-      border: 1px solid red;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 8px;
-      padding: 4px 8px;
-      cursor: pointer;
-      margin-top: 4px;
-    }
-
-    .patrocinador button:hover {
-      background-color: red;
-      color: black;
-    }
-
-    .categoria {
-      margin-bottom: 30px;
-    }
-  </style>
-
   <script defer>
     let jogo = {};
 
@@ -93,45 +40,27 @@
       const container = document.getElementById("lista");
       container.innerHTML = "";
 
-      // Patrocinadores já contratados
-      const contratados = document.createElement("div");
-      contratados.innerHTML = `<h2>Patrocinadores Atuais</h2>`;
       ["alto", "medio", "baixo"].forEach(nivel => {
-        jogo.patrocinadores[nivel].forEach(nome => {
-          contratados.innerHTML += gerarCartaoPatrocinador(nome, nivel, true);
-        });
-      });
-      container.appendChild(contratados);
-
-      // Potenciais patrocinadores
-      ["alto", "medio", "baixo"].forEach(nivel => {
-        const secao = document.createElement("div");
-        secao.className = "categoria";
-        secao.innerHTML = `<h3>Patrocinadores ${nivel.toUpperCase()}</h3>`;
+        const titulo = document.createElement("h3");
+        titulo.textContent = Patrocinadores ${nivel.toUpperCase()};
+        container.appendChild(titulo);
 
         listaPatrocinadores[nivel].forEach(nome => {
           const contratado = jogo.patrocinadores[nivel].includes(nome);
-          if (!contratado) {
-            secao.innerHTML += gerarCartaoPatrocinador(nome, nivel, false);
-          }
+          const total =
+            jogo.patrocinadores.alto.length +
+            jogo.patrocinadores.medio.length +
+            jogo.patrocinadores.baixo.length;
+
+          const botao = contratado
+            ? "(Contratado)"
+            : <button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>;
+
+          const item = document.createElement("div");
+          item.innerHTML = <strong>${nome}</strong> - Valor: $${valores[nivel].toLocaleString()} ${botao};
+          container.appendChild(item);
         });
-
-        container.appendChild(secao);
       });
-    }
-
-    function gerarCartaoPatrocinador(nome, nivel, contratado) {
-      const nomeArquivo = nome.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '');
-      const valor = valores[nivel].toLocaleString();
-
-      return `
-        <div class="patrocinador">
-          <img src="../img/patrocinadores/${nomeArquivo}.png" alt="${nome}">
-          <div><strong>${nome}</strong></div>
-          <div>Valor: $${valor}</div>
-          ${contratado ? `<div>(Contratado)</div>` : `<button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>`}
-        </div>
-      `;
     }
 
     function assinar(nome, valor, nivel) {
@@ -164,7 +93,7 @@
       jogo.dinheiro += valor;
       jogo.novoPatrocinador = nome;
       saveGame(jogo);
-      alert(`${nome} contratado por $${valor.toLocaleString()}`);
+      alert(${nome} contratado por $${valor.toLocaleString()});
       renderizarPatrocinadores();
     }
   </script>
@@ -173,6 +102,6 @@
   <h1>Patrocinadores</h1>
   <div id="lista"></div>
   <br>
-  <button class="botao" onclick="window.location.href='../menu.html'">Voltar</button>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
