@@ -8,7 +8,7 @@ function loadGameData() {
 
   const jogo = JSON.parse(data);
 
-  // 🔁 Atualiza saves antigos que usavam array simples de patrocinadores
+  // Atualização da estrutura para patrocinadores separados
   if (Array.isArray(jogo.patrocinadores)) {
     jogo.patrocinadores = {
       alto: [],
@@ -23,23 +23,5 @@ function loadGameData() {
     };
   }
 
-  // ✅ Garante que existe o campo de contratos com duração
-  if (!jogo.contratosPatrocinadores || typeof jogo.contratosPatrocinadores !== "object") {
-    jogo.contratosPatrocinadores = {};
-  }
-
   return jogo;
-}
-
-function saveClassificacao(classificacao) {
-  localStorage.setItem("gpmretro_classificacao", JSON.stringify(classificacao));
-}
-
-function loadClassificacao() {
-  const data = localStorage.getItem("gpmretro_classificacao");
-  return data ? JSON.parse(data) : { pilotos: [], equipes: [] };
-}
-
-  const data = localStorage.getItem("gpmretro_classificacao");
-  return data ? JSON.parse(data) : { pilotos: [], equipes: [] };
 }
