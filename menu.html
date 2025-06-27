@@ -8,96 +8,24 @@
 
   <script defer>
     const dadosEquipes = {
-      "Williams": {
-        motor: "Renault",
-        pilotos: ["Ayrton Senna", "Damon Hill"],
-        contratosPatrocinadores: { "Rothmans": 3, "Canon": 2 }
-      },
-      "Benetton": {
-        motor: "Ford",
-        pilotos: ["Michael Schumacher", "Jos Verstappen"],
-        contratosPatrocinadores: { "Mild Seven": 3, "Elf": 2 }
-      },
-      "Ferrari": {
-        motor: "Ferrari",
-        pilotos: ["Jean Alesi", "Gerhard Berger"],
-        contratosPatrocinadores: { "Marlboro": 3, "Agip": 2 }
-      },
-      "McLaren": {
-        motor: "Peugeot",
-        pilotos: ["Mika Häkkinen", "Martin Brundle"],
-        contratosPatrocinadores: { "Marlboro": 3 }
-      },
-      "Jordan": {
-        motor: "Hart",
-        pilotos: ["Rubens Barrichello", "Eddie Irvine"],
-        contratosPatrocinadores: { "Sasol": 1 }
-      },
-      "Sauber": {
-        motor: "Mercedes",
-        pilotos: ["Heinz-Harald Frentzen", "Karl Wendlinger"],
-        contratosPatrocinadores: { "Petronas": 2 }
-      },
-      "Ligier": {
-        motor: "Renault",
-        pilotos: ["Éric Bernard", "Olivier Panis"],
-        contratosPatrocinadores: {}
-      },
-      "Minardi": {
-        motor: "Ford",
-        pilotos: ["Pierluigi Martini", "Michele Alboreto"],
-        contratosPatrocinadores: {}
-      },
-      "Tyrrell": {
-        motor: "Yamaha",
-        pilotos: ["Ukyo Katayama", "Mark Blundell"],
-        contratosPatrocinadores: {}
-      },
-      "Footwork": {
-        motor: "Ford",
-        pilotos: ["Christian Fittipaldi", "Gianni Morbidelli"],
-        contratosPatrocinadores: { "Adidas": 2 }
-      },
-      "Lotus": {
-        motor: "Mugen-Honda",
-        pilotos: ["Johnny Herbert", "Pedro Lamy"],
-        contratosPatrocinadores: { "Camel": 2 }
-      },
-      "Larrousse": {
-        motor: "Ford",
-        pilotos: ["Érik Comas", "Olivier Beretta"],
-        contratosPatrocinadores: {}
-      },
-      "Simtek": {
-        motor: "Ford",
-        pilotos: ["David Brabham", "Roland Ratzenberger"],
-        contratosPatrocinadores: { "Death Cigarettes": 1 }
-      },
-      "Pacific": {
-        motor: "Ilmor",
-        pilotos: ["Paul Belmondo", "Bertrand Gachot"],
-        contratosPatrocinadores: { "Death Cigarettes": 1 }
-      },
-      "Andrea Moda": {
-        motor: "Judd",
-        pilotos: ["Perry McCarthy", "Enrico Bertaggia"],
-        contratosPatrocinadores: {}
-      },
-      "AGS": {
-        motor: "Ford",
-        pilotos: ["Gabriele Tarquini", "Yannick Dalmas"],
-        contratosPatrocinadores: {}
-      },
-      "Coloni": {
-        motor: "Ford",
-        pilotos: ["Roberto Moreno", "Pedro Chaves"],
-        contratosPatrocinadores: {}
-      },
-      "Onyx": {
-        motor: "Ford",
-        pilotos: ["Stefan Johansson", "Bernd Schneider"],
-        contratosPatrocinadores: { "Moneytron": 1 }
-      }
+      "Williams": { motor: "Renault", pilotos: ["Ayrton Senna", "Damon Hill"], contratosPatrocinadores: { "Rothmans": 3, "Canon": 2 } },
+      "Benetton": { motor: "Ford", pilotos: ["Michael Schumacher", "Jos Verstappen"], contratosPatrocinadores: { "Mild Seven": 3, "Elf": 2 } },
+      "Ferrari": { motor: "Ferrari", pilotos: ["Jean Alesi", "Gerhard Berger"], contratosPatrocinadores: { "Marlboro": 3, "Agip": 2 } },
+      "McLaren": { motor: "Peugeot", pilotos: ["Mika Häkkinen", "Martin Brundle"], contratosPatrocinadores: { "Marlboro": 3 } },
+      "Jordan": { motor: "Hart", pilotos: ["Rubens Barrichello", "Eddie Irvine"], contratosPatrocinadores: { "Sasol": 1 } },
+      "Sauber": { motor: "Mercedes", pilotos: ["Heinz-Harald Frentzen", "Karl Wendlinger"], contratosPatrocinadores: { "Petronas": 2 } },
+      "Ligier": { motor: "Renault", pilotos: ["Éric Bernard", "Olivier Panis"], contratosPatrocinadores: {} },
+      "Minardi": { motor: "Ford", pilotos: ["Pierluigi Martini", "Michele Alboreto"], contratosPatrocinadores: {} },
+      "Tyrrell": { motor: "Yamaha", pilotos: ["Ukyo Katayama", "Mark Blundell"], contratosPatrocinadores: {} },
+      "Footwork": { motor: "Ford", pilotos: ["Christian Fittipaldi", "Gianni Morbidelli"], contratosPatrocinadores: { "Adidas": 2 } },
+      "Lotus": { motor: "Mugen-Honda", pilotos: ["Johnny Herbert", "Pedro Lamy"], contratosPatrocinadores: { "Camel": 2 } },
+      "Larrousse": { motor: "Ford", pilotos: ["Érik Comas", "Olivier Beretta"], contratosPatrocinadores: {} },
+      "Simtek": { motor: "Ford", pilotos: ["David Brabham", "Roland Ratzenberger"], contratosPatrocinadores: { "Death Cigarettes": 1 } },
+      "Pacific": { motor: "Ilmor", pilotos: ["Paul Belmondo", "Bertrand Gachot"], contratosPatrocinadores: { "Death Cigarettes": 1 } },
+      "Andrea Moda": { motor: "Judd", pilotos: ["Perry McCarthy", "Enrico Bertaggia"], contratosPatrocinadores: {} },
+      "AGS": { motor: "Ford", pilotos: ["Gabriele Tarquini", "Yannick Dalmas"], contratosPatrocinadores: {} },
+      "Coloni": { motor: "Ford", pilotos: ["Roberto Moreno", "Pedro Chaves"], contratosPatrocinadores: {} },
+      "Onyx": { motor: "Ford", pilotos: ["Stefan Johansson", "Bernd Schneider"], contratosPatrocinadores: { "Moneytron": 1 } }
     };
 
     function escolherEquipe(nome) {
@@ -148,12 +76,6 @@
       margin: 10px;
       padding: 10px;
       width: 160px;
-      cursor: pointer;
-    }
-
-    .equipe:hover {
-      background-color: red;
-      color: black;
     }
 
     .equipe img {
@@ -207,13 +129,21 @@
 </head>
 <body>
   <h1>Escolha sua Equipe</h1>
-  <div id="equipes" class="lista-equipes">
-    <!-- Só alguns exemplos; você pode expandir -->
-    <div class="equipe"><img src="img/equipes/williams.png" alt="Williams"><h2>Williams</h2><p>Renault</p><button onclick="escolherEquipe('Williams')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/benetton.png" alt="Benetton"><h2>Benetton</h2><p>Ford</p><button onclick="escolherEquipe('Benetton')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/ferrari.png" alt="Ferrari"><h2>Ferrari</h2><p>Ferrari</p><button onclick="escolherEquipe('Ferrari')">Selecionar</button></div>
-    <!-- Adicione as outras equipes como já tinha feito -->
+  <div class="lista-equipes">
+    <!-- Loop com todas as 18 equipes -->
+    ${Object.keys(dadosEquipes).map(nome => `
+      <div class="equipe">
+        <img src="img/equipes/${nome.toLowerCase().replace(/\s/g, '').replace(/[^a-z]/g, '')}.png" alt="${nome}">
+        <h2>${nome}</h2>
+        <p>${dadosEquipes[nome].motor}</p>
+        <button onclick="escolherEquipe('${nome}')">Selecionar</button>
+      </div>
+    `).join('')}
   </div>
+
+  <button class="botao-voltar" onclick="location.href='index.html'">Voltar</button>
+</body>
+</html>
 
   <button class="botao-voltar" onclick="location.href='index.html'">Voltar</button>
 </body>
