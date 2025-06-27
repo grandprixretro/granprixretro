@@ -51,6 +51,11 @@
       font-size: 10px;
       margin-bottom: 20px;
     }
+
+    #novoJogo {
+      display: none;
+      margin-top: 20px;
+    }
   </style>
 
   <script defer>
@@ -58,51 +63,11 @@
 
     window.onload = () => {
       jogo = loadGameData();
+
       if (!jogo) {
-        alert("Jogo não carregado.");
-        location.href = "index.html";
+        document.getElementById("status").innerHTML = "<p>Nenhum jogo salvo encontrado.</p>";
+        document.getElementById("novoJogo").style.display = "inline-block";
         return;
       }
 
-      // Mostra informações da equipe
-      document.getElementById("status").innerHTML = `
-        <p><strong>Equipe:</strong> ${jogo.equipe} (${jogo.motor})</p>
-        <p><strong>Pilotos:</strong> ${jogo.pilotos.join(" e ")}</p>
-        <p><strong>Dinheiro:</strong> $${jogo.dinheiro.toLocaleString()}</p>
-      `;
-
-      // Logo da equipe
-      const logo = document.getElementById("logoEquipe");
-      const nomeArquivo = jogo.equipe.toLowerCase().replace(/\s+/g, '').replace(/[^a-z]/g, '');
-      logo.src = `img/equipes/${nomeArquivo}.png`;
-    };
-
-    function irPara(pagina) {
-      location.href = pagina;
-    }
-  </script>
-</head>
-<body>
-
-  <h1>Grand Prix Manager Retro</h1>
-
-  <img id="logoEquipe" src="" alt="Logo da equipe">
-
-  <div id="status"></div>
-
-  <button class="botao" onclick="irPara('paginas/fabrica.html')">Fábrica</button>
-  <button class="botao" onclick="irPara('paginas/pilotos.html')">Pilotos</button>
-  <button class="botao" onclick="irPara('paginas/staff.html')">Staff</button>
-  <button class="botao" onclick="irPara('paginas/patrocinadores.html')">Patrocinadores</button>
-  <button class="botao" onclick="irPara('paginas/jornal.html')">Jornal Retro</button>
-  <button class="botao" onclick="irPara('paginas/corrida.html')">Corrida</button>
-  <button class="botao" onclick="irPara('paginas/tabela.html')">Tabela</button>
-  <button class="botao" onclick="irPara('paginas/equipes.html')">Equipes</button>
-  <button class="botao" onclick="irPara('paginas/relatorio.html')">Relatório Financeiro</button>
-  <button class="botao" onclick="irPara('paginas/financeiro.html')">Resumo Financeiro</button>
-
-  <br><br>
-  <button class="botao" onclick="localStorage.clear(); alert('Jogo resetado.'); location.href='index.html';">Resetar Jogo</button>
-
-</body>
-</html>
+      document.getElementById("status").innerHTML =
