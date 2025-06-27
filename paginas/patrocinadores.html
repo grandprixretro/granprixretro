@@ -5,7 +5,6 @@
   <title>Patrocinadores</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
-  <script defer src="../dados/patrocinadores.js"></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -80,7 +79,7 @@
     let listaPatrocinadores = { alto: [], medio: [], baixo: [] };
     const valores = { alto: 1500000, medio: 500000, baixo: 200000 };
 
-    window.onload = () => {
+    window.onload = async () => {
       jogo = loadGameData();
 
       if (!jogo) {
@@ -93,22 +92,29 @@
         jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
       }
 
-      // Popular lista de nomes por nível
-      patrocinadores.forEach(p => {
-        const nivel = p.nivel;
-        if (nivel && listaPatrocinadores[nivel]) {
-          listaPatrocinadores[nivel].push(p.nome);
-        }
-      });
+      try {
+        const resposta = await fetch("../dados/patrocinadores.json");
+        const todos = await resposta.json();
 
-      renderizarPatrocinadores();
+        // organizar por nível
+        todos.forEach(p => {
+          if (p.nivel && listaPatrocinadores[p.nivel]) {
+            listaPatrocinadores[p.nivel].push(p.nome);
+          }
+        });
+
+        renderizarPatrocinadores();
+      } catch (e) {
+        alert("Erro ao carregar patrocinadores.json");
+        console.error(e);
+      }
     };
 
     function renderizarPatrocinadores() {
       const container = document.getElementById("lista");
       container.innerHTML = "";
 
-      // Patrocinadores já contratados
+      // Patrocinadores contratados
       const contratados = document.createElement("div");
       contratados.innerHTML = `<h2>Patrocinadores Atuais</h2>`;
       ["alto", "medio", "baixo"].forEach(nivel => {
@@ -118,7 +124,7 @@
       });
       container.appendChild(contratados);
 
-      // Potenciais patrocinadores
+      // Patrocinadores disponíveis
       ["alto", "medio", "baixo"].forEach(nivel => {
         const secao = document.createElement("div");
         secao.className = "categoria";
