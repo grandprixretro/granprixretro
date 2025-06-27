@@ -1,3 +1,5 @@
+// saveManager.js
+
 function saveGame(dados) {
   localStorage.setItem("gpmretro_save", JSON.stringify(dados));
 }
@@ -8,7 +10,7 @@ function loadGameData() {
 
   const jogo = JSON.parse(data);
 
-  // Atualização da estrutura para patrocinadores separados
+  // Atualiza save antigo para nova estrutura de patrocinadores
   if (Array.isArray(jogo.patrocinadores)) {
     jogo.patrocinadores = {
       alto: [],
@@ -24,4 +26,13 @@ function loadGameData() {
   }
 
   return jogo;
+}
+
+function saveClassificacao(classificacao) {
+  localStorage.setItem("gpmretro_classificacao", JSON.stringify(classificacao));
+}
+
+function loadClassificacao() {
+  const data = localStorage.getItem("gpmretro_classificacao");
+  return data ? JSON.parse(data) : { pilotos: [], equipes: [] };
 }
