@@ -60,12 +60,13 @@
 
     .botao {
       background-color: black;
-      color: red;
-      border: 1px solid red;
-      padding: 6px 12px;
+      color: white;
+      border: 2px solid red;
+      padding: 10px 20px;
       font-family: 'Press Start 2P', monospace;
-      font-size: 10px;
+      font-size: 12px;
       cursor: pointer;
+      margin-top: 20px;
     }
 
     .botao:hover {
@@ -77,11 +78,7 @@
   <script defer>
     let jogo = {};
     let listaPatrocinadores = { alto: [], medio: [], baixo: [] };
-    const valores = {
-      alto: 1500000,
-      medio: 500000,
-      baixo: 200000
-    };
+    const valores = { alto: 1500000, medio: 500000, baixo: 200000 };
 
     window.onload = () => {
       jogo = loadGameData();
@@ -96,12 +93,12 @@
         jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
       }
 
-      // Filtra patrocinadores por nível para exibição
-      listaPatrocinadores = {
-        alto: patrocinadores.filter(p => p.nivel === "alto").map(p => p.nome),
-        medio: patrocinadores.filter(p => p.nivel === "medio").map(p => p.nome),
-        baixo: patrocinadores.filter(p => p.nivel === "baixo").map(p => p.nome)
-      };
+      // Preenche listaPatrocinadores com base no JS carregado
+      patrocinadores.forEach(p => {
+        if (p.nivel && listaPatrocinadores[p.nivel]) {
+          listaPatrocinadores[p.nivel].push(p.nome);
+        }
+      });
 
       renderizarPatrocinadores();
     };
@@ -120,7 +117,7 @@
       });
       container.appendChild(contratados);
 
-      // Potenciais patrocinadores
+      // Patrocinadores disponíveis
       ["alto", "medio", "baixo"].forEach(nivel => {
         const secao = document.createElement("div");
         secao.className = "categoria";
@@ -186,10 +183,11 @@
     }
   </script>
 </head>
+
 <body>
   <h1>Patrocinadores</h1>
   <div id="lista"></div>
   <br>
-  <button class="botao" onclick="window.location.href='../menu-principal.html'">VOLTAR</button>
+  <button class="botao" onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
