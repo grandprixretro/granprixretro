@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Grand Prix Manager Retro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Press+Start+2P&display=swap" rel="stylesheet">
   <script defer src="saveManager.js"></script>
   <script defer>
     function novoJogo() {
       localStorage.removeItem("gpmretro_save");
-      location.href = "menu.html"; // vai para seleção de equipe
+      location.href = "menu.html";
     }
 
     function carregarJogo() {
@@ -25,15 +25,13 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: black;
-      font-family: 'Press Start 2P', monospace;
+      background-color: #0e0e0e;
+      font-family: 'Orbitron', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       height: 100vh;
-      color: white;
-      text-align: center;
     }
 
     .logo {
@@ -41,9 +39,6 @@
       max-width: 420px;
       width: 90%;
       display: block;
-      border: 3px solid red;
-      padding: 10px;
-      background-color: #111;
     }
 
     .menu {
@@ -54,20 +49,22 @@
     }
 
     .menu button {
-      background-color: black;
-      color: white;
-      border: 2px solid red;
-      padding: 15px 30px;
-      font-size: 10px;
-      font-family: 'Press Start 2P', monospace;
+      background-color: #222;
+      color: #f1f1f1;
+      border: 2px solid #ff0000;
+      padding: 15px 40px;
+      font-size: 18px;
+      font-family: 'Orbitron', sans-serif;
+      border-radius: 6px;
       cursor: pointer;
       transition: all 0.3s ease;
       text-transform: uppercase;
     }
 
     .menu button:hover {
-      background-color: red;
-      color: black;
+      background-color: #440000;
+      border-color: #ff3333;
+      color: #fff;
     }
   </style>
 </head>
