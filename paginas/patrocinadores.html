@@ -93,10 +93,11 @@
         jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
       }
 
-      // Preenche listaPatrocinadores com base no JS carregado
+      // Popular lista de nomes por nível
       patrocinadores.forEach(p => {
-        if (p.nivel && listaPatrocinadores[p.nivel]) {
-          listaPatrocinadores[p.nivel].push(p.nome);
+        const nivel = p.nivel;
+        if (nivel && listaPatrocinadores[nivel]) {
+          listaPatrocinadores[nivel].push(p.nome);
         }
       });
 
@@ -117,7 +118,7 @@
       });
       container.appendChild(contratados);
 
-      // Patrocinadores disponíveis
+      // Potenciais patrocinadores
       ["alto", "medio", "baixo"].forEach(nivel => {
         const secao = document.createElement("div");
         secao.className = "categoria";
