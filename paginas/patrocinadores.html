@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Patrocinadores</title>
-  <link rel="stylesheet" href="../style.css">
-  <script defer src="../saveManager.js"></script>
-
+  <link rel="stylesheet" href="style.css">
+  <script defer src="saveManager.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -57,18 +56,18 @@
       margin-bottom: 30px;
     }
 
-    .botao {
+    .botao-voltar {
+      margin-top: 30px;
       background-color: black;
       color: white;
-      border: 2px solid red;
-      padding: 10px 20px;
+      border: 1px solid red;
       font-family: 'Press Start 2P', monospace;
-      font-size: 12px;
+      font-size: 10px;
+      padding: 8px 16px;
       cursor: pointer;
-      margin-top: 20px;
     }
 
-    .botao:hover {
+    .botao-voltar:hover {
       background-color: red;
       color: black;
     }
@@ -76,15 +75,19 @@
 
   <script defer>
     let jogo = {};
-    let listaPatrocinadores = { alto: [], medio: [], baixo: [] };
-    const valores = { alto: 1500000, medio: 500000, baixo: 200000 };
+    let listaPatrocinadores = [];
+    const valores = {
+      alto: 1500000,
+      medio: 500000,
+      baixo: 200000
+    };
 
     window.onload = async () => {
       jogo = loadGameData();
 
       if (!jogo) {
         alert("Jogo não carregado.");
-        location.href = "../index.html";
+        location.href = "index.html";
         return;
       }
 
@@ -93,16 +96,8 @@
       }
 
       try {
-        const resposta = await fetch("../dados/patrocinadores.json");
-        const todos = await resposta.json();
-
-        // organizar por nível
-        todos.forEach(p => {
-          if (p.nivel && listaPatrocinadores[p.nivel]) {
-            listaPatrocinadores[p.nivel].push(p.nome);
-          }
-        });
-
+        const resposta = await fetch("dados/patrocinadores.json");
+        listaPatrocinadores = await resposta.json();
         renderizarPatrocinadores();
       } catch (e) {
         alert("Erro ao carregar patrocinadores.json");
@@ -114,7 +109,6 @@
       const container = document.getElementById("lista");
       container.innerHTML = "";
 
-      // Patrocinadores contratados
       const contratados = document.createElement("div");
       contratados.innerHTML = `<h2>Patrocinadores Atuais</h2>`;
       ["alto", "medio", "baixo"].forEach(nivel => {
@@ -124,19 +118,18 @@
       });
       container.appendChild(contratados);
 
-      // Patrocinadores disponíveis
       ["alto", "medio", "baixo"].forEach(nivel => {
         const secao = document.createElement("div");
         secao.className = "categoria";
         secao.innerHTML = `<h3>Patrocinadores ${nivel.toUpperCase()}</h3>`;
-
-        listaPatrocinadores[nivel].forEach(nome => {
-          const contratado = jogo.patrocinadores[nivel].includes(nome);
-          if (!contratado) {
-            secao.innerHTML += gerarCartaoPatrocinador(nome, nivel, false);
-          }
-        });
-
+        listaPatrocinadores
+          .filter(p => p.nivel === nivel)
+          .forEach(p => {
+            const contratado = jogo.patrocinadores[nivel].includes(p.nome);
+            if (!contratado) {
+              secao.innerHTML += gerarCartaoPatrocinador(p.nome, nivel, false);
+            }
+          });
         container.appendChild(secao);
       });
     }
@@ -147,7 +140,7 @@
 
       return `
         <div class="patrocinador">
-          <img src="../img/patrocinadores/${nomeArquivo}.png" alt="${nome}">
+          <img src="img/patrocinadores/${nomeArquivo}.png" alt="${nome}">
           <div><strong>${nome}</strong></div>
           <div>Valor: $${valor}</div>
           ${contratado ? `<div>(Contratado)</div>` : `<button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>`}
@@ -190,11 +183,9 @@
     }
   </script>
 </head>
-
 <body>
   <h1>Patrocinadores</h1>
   <div id="lista"></div>
-  <br>
-  <button class="botao" onclick="window.location.href='../menu-principal.html'">Voltar</button>
+  <button class="botao-voltar" onclick="window.location.href='menu-principal.html'">VOLTAR</button>
 </body>
 </html>
