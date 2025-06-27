@@ -5,6 +5,7 @@
   <title>Patrocinadores</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
+  <script defer src="../dados/patrocinadores.js"></script>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
@@ -53,38 +54,36 @@
       color: black;
     }
 
+    .categoria {
+      margin-bottom: 30px;
+    }
+
     .botao {
       background-color: black;
-      color: white;
-      border: 2px solid red;
+      color: red;
+      border: 1px solid red;
+      padding: 6px 12px;
       font-family: 'Press Start 2P', monospace;
       font-size: 10px;
-      padding: 8px 20px;
-      margin-top: 30px;
       cursor: pointer;
-      text-transform: uppercase;
     }
 
     .botao:hover {
       background-color: red;
       color: black;
     }
-
-    .categoria {
-      margin-bottom: 30px;
-    }
   </style>
 
   <script defer>
     let jogo = {};
-    let listaPatrocinadores = {};
+    let listaPatrocinadores = { alto: [], medio: [], baixo: [] };
     const valores = {
       alto: 1500000,
       medio: 500000,
       baixo: 200000
     };
 
-    window.onload = async () => {
+    window.onload = () => {
       jogo = loadGameData();
 
       if (!jogo) {
@@ -97,14 +96,14 @@
         jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
       }
 
-      try {
-        const resposta = await fetch("../data/patrocinadores.json");
-        listaPatrocinadores = await resposta.json();
-        renderizarPatrocinadores();
-      } catch (e) {
-        alert("Erro ao carregar patrocinadores.json");
-        console.error(e);
-      }
+      // Filtra patrocinadores por nível para exibição
+      listaPatrocinadores = {
+        alto: patrocinadores.filter(p => p.nivel === "alto").map(p => p.nome),
+        medio: patrocinadores.filter(p => p.nivel === "medio").map(p => p.nome),
+        baixo: patrocinadores.filter(p => p.nivel === "baixo").map(p => p.nome)
+      };
+
+      renderizarPatrocinadores();
     };
 
     function renderizarPatrocinadores() {
@@ -127,8 +126,7 @@
         secao.className = "categoria";
         secao.innerHTML = `<h3>Patrocinadores ${nivel.toUpperCase()}</h3>`;
 
-        listaPatrocinadores[nivel].forEach(p => {
-          const nome = p.nome || p;
+        listaPatrocinadores[nivel].forEach(nome => {
           const contratado = jogo.patrocinadores[nivel].includes(nome);
           if (!contratado) {
             secao.innerHTML += gerarCartaoPatrocinador(nome, nivel, false);
@@ -191,6 +189,7 @@
 <body>
   <h1>Patrocinadores</h1>
   <div id="lista"></div>
-  <button class="botao" onclick="window.location.href='../menu-principal.html'">Voltar</button>
+  <br>
+  <button class="botao" onclick="window.location.href='../menu-principal.html'">VOLTAR</button>
 </body>
 </html>
