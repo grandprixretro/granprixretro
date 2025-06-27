@@ -5,48 +5,6 @@
   <title>Grand Prix Manager Retro - Escolha sua Equipe</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="saveManager.js"></script>
-
-  <script defer>
-    const dadosEquipes = {
-      "Williams": { motor: "Renault", pilotos: ["Ayrton Senna", "Damon Hill"], contratosPatrocinadores: { "Rothmans": 3, "Canon": 2 } },
-      "Benetton": { motor: "Ford", pilotos: ["Michael Schumacher", "Jos Verstappen"], contratosPatrocinadores: { "Mild Seven": 3, "Elf": 2 } },
-      "Ferrari": { motor: "Ferrari", pilotos: ["Jean Alesi", "Gerhard Berger"], contratosPatrocinadores: { "Marlboro": 3, "Agip": 2 } },
-      "McLaren": { motor: "Peugeot", pilotos: ["Mika Häkkinen", "Martin Brundle"], contratosPatrocinadores: { "Marlboro": 3 } },
-      "Jordan": { motor: "Hart", pilotos: ["Rubens Barrichello", "Eddie Irvine"], contratosPatrocinadores: { "Sasol": 1 } },
-      "Sauber": { motor: "Mercedes", pilotos: ["Heinz-Harald Frentzen", "Karl Wendlinger"], contratosPatrocinadores: { "Petronas": 2 } },
-      "Ligier": { motor: "Renault", pilotos: ["Éric Bernard", "Olivier Panis"], contratosPatrocinadores: {} },
-      "Minardi": { motor: "Ford", pilotos: ["Pierluigi Martini", "Michele Alboreto"], contratosPatrocinadores: {} },
-      "Tyrrell": { motor: "Yamaha", pilotos: ["Ukyo Katayama", "Mark Blundell"], contratosPatrocinadores: {} },
-      "Footwork": { motor: "Ford", pilotos: ["Christian Fittipaldi", "Gianni Morbidelli"], contratosPatrocinadores: { "Adidas": 2 } },
-      "Lotus": { motor: "Mugen-Honda", pilotos: ["Johnny Herbert", "Pedro Lamy"], contratosPatrocinadores: { "Camel": 2 } },
-      "Larrousse": { motor: "Ford", pilotos: ["Érik Comas", "Olivier Beretta"], contratosPatrocinadores: {} },
-      "Simtek": { motor: "Ford", pilotos: ["David Brabham", "Roland Ratzenberger"], contratosPatrocinadores: { "Death Cigarettes": 1 } },
-      "Pacific": { motor: "Ilmor", pilotos: ["Paul Belmondo", "Bertrand Gachot"], contratosPatrocinadores: { "Death Cigarettes": 1 } },
-      "Andrea Moda": { motor: "Judd", pilotos: ["Perry McCarthy", "Enrico Bertaggia"], contratosPatrocinadores: {} },
-      "AGS": { motor: "Ford", pilotos: ["Gabriele Tarquini", "Yannick Dalmas"], contratosPatrocinadores: {} },
-      "Coloni": { motor: "Ford", pilotos: ["Roberto Moreno", "Pedro Chaves"], contratosPatrocinadores: {} },
-      "Onyx": { motor: "Ford", pilotos: ["Stefan Johansson", "Bernd Schneider"], contratosPatrocinadores: { "Moneytron": 1 } }
-    };
-
-    function escolherEquipe(nome) {
-      const equipe = dadosEquipes[nome];
-      const jogo = {
-        equipe: nome,
-        motor: equipe.motor,
-        pilotos: equipe.pilotos,
-        dinheiro: 2000000,
-        patrocinadores: { alto: [], medio: [], baixo: [] },
-        contratosPatrocinadores: equipe.contratosPatrocinadores,
-        novoPatrocinador: null
-      };
-      saveGame(jogo);
-      alert(`Equipe ${nome} selecionada!`);
-      location.href = "menu-principal.html";
-    }
-
-    window.escolherEquipe = escolherEquipe;
-  </script>
-
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -76,6 +34,12 @@
       margin: 10px;
       padding: 10px;
       width: 160px;
+      cursor: pointer;
+    }
+
+    .equipe:hover {
+      background-color: red;
+      color: black;
     }
 
     .equipe img {
@@ -126,36 +90,68 @@
       color: black;
     }
   </style>
+  <script defer>
+    const dadosEquipes = {
+      "Williams": { motor: "Renault", pilotos: ["Ayrton Senna", "Damon Hill"], contratosPatrocinadores: { "Rothmans": 3, "Canon": 2 } },
+      "Benetton": { motor: "Ford", pilotos: ["Michael Schumacher", "Jos Verstappen"], contratosPatrocinadores: { "Mild Seven": 3, "Elf": 2 } },
+      "Ferrari": { motor: "Ferrari", pilotos: ["Jean Alesi", "Gerhard Berger"], contratosPatrocinadores: { "Marlboro": 3, "Agip": 2 } },
+      "McLaren": { motor: "Peugeot", pilotos: ["Mika Häkkinen", "Martin Brundle"], contratosPatrocinadores: { "Marlboro": 3 } },
+      "Jordan": { motor: "Hart", pilotos: ["Rubens Barrichello", "Eddie Irvine"], contratosPatrocinadores: { "Sasol": 1 } },
+      "Sauber": { motor: "Mercedes", pilotos: ["Heinz-Harald Frentzen", "Karl Wendlinger"], contratosPatrocinadores: { "Petronas": 2 } },
+      "Ligier": { motor: "Renault", pilotos: ["Éric Bernard", "Olivier Panis"], contratosPatrocinadores: {} },
+      "Minardi": { motor: "Ford", pilotos: ["Pierluigi Martini", "Michele Alboreto"], contratosPatrocinadores: {} },
+      "Tyrrell": { motor: "Yamaha", pilotos: ["Ukyo Katayama", "Mark Blundell"], contratosPatrocinadores: {} },
+      "Footwork": { motor: "Ford", pilotos: ["Christian Fittipaldi", "Gianni Morbidelli"], contratosPatrocinadores: { "Adidas": 2 } },
+      "Lotus": { motor: "Mugen-Honda", pilotos: ["Johnny Herbert", "Pedro Lamy"], contratosPatrocinadores: { "Camel": 2 } },
+      "Larrousse": { motor: "Ford", pilotos: ["Érik Comas", "Olivier Beretta"], contratosPatrocinadores: {} },
+      "Simtek": { motor: "Ford", pilotos: ["David Brabham", "Roland Ratzenberger"], contratosPatrocinadores: { "Death Cigarettes": 1 } },
+      "Pacific": { motor: "Ilmor", pilotos: ["Paul Belmondo", "Bertrand Gachot"], contratosPatrocinadores: { "Death Cigarettes": 1 } },
+      "Andrea Moda": { motor: "Judd", pilotos: ["Perry McCarthy", "Enrico Bertaggia"], contratosPatrocinadores: {} },
+      "AGS": { motor: "Ford", pilotos: ["Gabriele Tarquini", "Yannick Dalmas"], contratosPatrocinadores: {} },
+      "Coloni": { motor: "Ford", pilotos: ["Roberto Moreno", "Pedro Chaves"], contratosPatrocinadores: {} },
+      "Onyx": { motor: "Ford", pilotos: ["Stefan Johansson", "Bernd Schneider"], contratosPatrocinadores: { "Moneytron": 1 } }
+    };
+
+    function escolherEquipe(nome) {
+      const equipe = dadosEquipes[nome];
+      const jogo = {
+        equipe: nome,
+        motor: equipe.motor,
+        pilotos: equipe.pilotos,
+        dinheiro: 2000000,
+        patrocinadores: { alto: [], medio: [], baixo: [] },
+        contratosPatrocinadores: equipe.contratosPatrocinadores,
+        novoPatrocinador: null
+      };
+      saveGame(jogo);
+      alert(`Equipe ${nome} selecionada!`);
+      location.href = "menu-principal.html";
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("equipes");
+      for (const nome in dadosEquipes) {
+        const equipe = dadosEquipes[nome];
+        const div = document.createElement("div");
+        div.className = "equipe";
+        div.innerHTML = `
+          <img src="img/equipes/${nome.toLowerCase().replace(/\s+/g, '')}.png" alt="${nome}" />
+          <h2>${nome}</h2>
+          <p>${equipe.motor}</p>
+          <button onclick="escolherEquipe('${nome}')">Selecionar</button>
+        `;
+        container.appendChild(div);
+      }
+    });
+
+    window.escolherEquipe = escolherEquipe;
+  </script>
 </head>
 <body>
   <h1>Escolha sua Equipe</h1>
-  <div class="lista-equipes">
-    <!-- 🔁 Gerado manualmente -->
-    <div class="equipe"><img src="img/equipes/williams.png"><h2>Williams</h2><p>Renault</p><button onclick="escolherEquipe('Williams')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/benetton.png"><h2>Benetton</h2><p>Ford</p><button onclick="escolherEquipe('Benetton')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/ferrari.png"><h2>Ferrari</h2><p>Ferrari</p><button onclick="escolherEquipe('Ferrari')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/mclaren.png"><h2>McLaren</h2><p>Peugeot</p><button onclick="escolherEquipe('McLaren')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/jordan.png"><h2>Jordan</h2><p>Hart</p><button onclick="escolherEquipe('Jordan')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/sauber.png"><h2>Sauber</h2><p>Mercedes</p><button onclick="escolherEquipe('Sauber')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/ligier.png"><h2>Ligier</h2><p>Renault</p><button onclick="escolherEquipe('Ligier')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/minardi.png"><h2>Minardi</h2><p>Ford</p><button onclick="escolherEquipe('Minardi')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/tyrrell.png"><h2>Tyrrell</h2><p>Yamaha</p><button onclick="escolherEquipe('Tyrrell')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/footwork.png"><h2>Footwork</h2><p>Ford</p><button onclick="escolherEquipe('Footwork')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/lotus.png"><h2>Lotus</h2><p>Mugen-Honda</p><button onclick="escolherEquipe('Lotus')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/larrousse.png"><h2>Larrousse</h2><p>Ford</p><button onclick="escolherEquipe('Larrousse')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/simtek.png"><h2>Simtek</h2><p>Ford</p><button onclick="escolherEquipe('Simtek')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/pacific.png"><h2>Pacific</h2><p>Ilmor</p><button onclick="escolherEquipe('Pacific')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/andreamoda.png"><h2>Andrea Moda</h2><p>Judd</p><button onclick="escolherEquipe('Andrea Moda')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/ags.png"><h2>AGS</h2><p>Ford</p><button onclick="escolherEquipe('AGS')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/coloni.png"><h2>Coloni</h2><p>Ford</p><button onclick="escolherEquipe('Coloni')">Selecionar</button></div>
-    <div class="equipe"><img src="img/equipes/onyx.png"><h2>Onyx</h2><p>Ford</p><button onclick="escolherEquipe('Onyx')">Selecionar</button></div>
+  <div id="equipes" class="lista-equipes"></div>
+  <div style="margin-top: 30px;">
+    <button class="botao-voltar" onclick="location.href='index.html'">Voltar</button>
   </div>
-
-  <button class="botao-voltar" onclick="location.href='index.html'">Voltar</button>
-</body>
-</html>
-
-
-  <button class="botao-voltar" onclick="location.href='index.html'">Voltar</button>
 </body>
 </html>
