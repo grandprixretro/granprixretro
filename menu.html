@@ -130,20 +130,31 @@
 <body>
   <h1>Escolha sua Equipe</h1>
   <div class="lista-equipes">
-    <!-- Loop com todas as 18 equipes -->
-    ${Object.keys(dadosEquipes).map(nome => `
-      <div class="equipe">
-        <img src="img/equipes/${nome.toLowerCase().replace(/\s/g, '').replace(/[^a-z]/g, '')}.png" alt="${nome}">
-        <h2>${nome}</h2>
-        <p>${dadosEquipes[nome].motor}</p>
-        <button onclick="escolherEquipe('${nome}')">Selecionar</button>
-      </div>
-    `).join('')}
+    <!-- 🔁 Gerado manualmente -->
+    <div class="equipe"><img src="img/equipes/williams.png"><h2>Williams</h2><p>Renault</p><button onclick="escolherEquipe('Williams')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/benetton.png"><h2>Benetton</h2><p>Ford</p><button onclick="escolherEquipe('Benetton')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/ferrari.png"><h2>Ferrari</h2><p>Ferrari</p><button onclick="escolherEquipe('Ferrari')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/mclaren.png"><h2>McLaren</h2><p>Peugeot</p><button onclick="escolherEquipe('McLaren')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/jordan.png"><h2>Jordan</h2><p>Hart</p><button onclick="escolherEquipe('Jordan')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/sauber.png"><h2>Sauber</h2><p>Mercedes</p><button onclick="escolherEquipe('Sauber')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/ligier.png"><h2>Ligier</h2><p>Renault</p><button onclick="escolherEquipe('Ligier')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/minardi.png"><h2>Minardi</h2><p>Ford</p><button onclick="escolherEquipe('Minardi')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/tyrrell.png"><h2>Tyrrell</h2><p>Yamaha</p><button onclick="escolherEquipe('Tyrrell')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/footwork.png"><h2>Footwork</h2><p>Ford</p><button onclick="escolherEquipe('Footwork')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/lotus.png"><h2>Lotus</h2><p>Mugen-Honda</p><button onclick="escolherEquipe('Lotus')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/larrousse.png"><h2>Larrousse</h2><p>Ford</p><button onclick="escolherEquipe('Larrousse')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/simtek.png"><h2>Simtek</h2><p>Ford</p><button onclick="escolherEquipe('Simtek')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/pacific.png"><h2>Pacific</h2><p>Ilmor</p><button onclick="escolherEquipe('Pacific')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/andreamoda.png"><h2>Andrea Moda</h2><p>Judd</p><button onclick="escolherEquipe('Andrea Moda')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/ags.png"><h2>AGS</h2><p>Ford</p><button onclick="escolherEquipe('AGS')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/coloni.png"><h2>Coloni</h2><p>Ford</p><button onclick="escolherEquipe('Coloni')">Selecionar</button></div>
+    <div class="equipe"><img src="img/equipes/onyx.png"><h2>Onyx</h2><p>Ford</p><button onclick="escolherEquipe('Onyx')">Selecionar</button></div>
   </div>
 
   <button class="botao-voltar" onclick="location.href='index.html'">Voltar</button>
 </body>
 </html>
+
 
   <button class="botao-voltar" onclick="location.href='index.html'">Voltar</button>
 </body>
