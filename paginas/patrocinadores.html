@@ -86,9 +86,11 @@
       jogo = loadGameData();
 
       if (!jogo) {
-        alert("Jogo não carregado.");
-        location.href = "index.html";
-        return;
+        alert("Nenhum save encontrado. Criando dados temporários para teste.");
+        jogo = {
+          patrocinadores: { alto: [], medio: [], baixo: [] },
+          dinheiro: 0
+        };
       }
 
       if (!jogo.patrocinadores || typeof jogo.patrocinadores !== "object") {
