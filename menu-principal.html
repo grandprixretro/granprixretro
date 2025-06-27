@@ -70,4 +70,65 @@
         return;
       }
 
-      document.getElementById("status").innerHTML =
+      document.getElementById("status").innerHTML = `
+        <p><strong>Equipe:</strong> ${jogo.equipe} (${jogo.motor})</p>
+        <p><strong>Pilotos:</strong> ${jogo.pilotos.join(" e ")}</p>
+        <p><strong>Dinheiro:</strong> $${jogo.dinheiro.toLocaleString()}</p>
+      `;
+
+      const logo = document.getElementById("logoEquipe");
+      const nomeArquivo = jogo.equipe.toLowerCase().replace(/\s+/g, '').replace(/[^a-z]/g, '');
+      logo.src = `img/equipes/${nomeArquivo}.png`;
+    };
+
+    function irPara(pagina) {
+      location.href = `paginas/${pagina}`;
+    }
+
+    function iniciarNovoJogo() {
+      const dadosIniciais = {
+        equipe: "Williams",
+        motor: "Renault",
+        pilotos: ["Ayrton Senna", "Damon Hill"],
+        dinheiro: 3000000,
+        patrocinadores: { alto: [], medio: [], baixo: [] },
+        contratosPatrocinadores: {
+          "Rothmans": 3,
+          "Canon": 2
+        },
+        novoPatrocinador: null
+      };
+      saveGame(dadosIniciais);
+      alert("Novo jogo criado com sucesso!");
+      location.reload();
+    }
+  </script>
+</head>
+<body>
+
+  <h1>Grand Prix Manager Retro</h1>
+
+  <img id="logoEquipe" src="" alt="Logo da equipe">
+
+  <div id="status"></div>
+
+  <div id="botoesJogo">
+    <button class="botao" onclick="irPara('fabrica.html')">Fábrica</button>
+    <button class="botao" onclick="irPara('pilotos.html')">Pilotos</button>
+    <button class="botao" onclick="irPara('staff.html')">Staff</button>
+    <button class="botao" onclick="irPara('patrocinadores.html')">Patrocinadores</button>
+    <button class="botao" onclick="irPara('jornal.html')">Jornal Retro</button>
+    <button class="botao" onclick="irPara('corrida.html')">Corrida</button>
+    <button class="botao" onclick="irPara('tabela.html')">Tabela</button>
+    <button class="botao" onclick="irPara('equipes.html')">Equipes</button>
+    <button class="botao" onclick="irPara('relatorio.html')">Relatório Financeiro</button>
+    <button class="botao" onclick="irPara('financeiro.html')">Resumo Financeiro</button>
+  </div>
+
+  <br>
+  <button class="botao" id="novoJogo" onclick="iniciarNovoJogo()">Novo Jogo</button>
+  <br><br>
+  <button class="botao" onclick="localStorage.clear(); alert('Jogo resetado.'); location.href='index.html';">Resetar Jogo</button>
+
+</body>
+</html>
