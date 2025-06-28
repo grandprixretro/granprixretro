@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script type="module" defer>
-    import { listaPatrocinadores } from "../dados/patrocinadores.js";
+    import { patrocinadores as listaPatrocinadores } from "../dados/patrocinadores.js";
 
     let jogo = {};
     const valores = {
@@ -32,7 +32,6 @@
         jogo.contratosPatrocinadores = {};
       }
 
-      // Adiciona patrocinadores com contrato já ativo no save
       Object.keys(jogo.contratosPatrocinadores).forEach(nome => {
         const patrocinador = listaPatrocinadores.find(p => p.nome === nome);
         if (patrocinador) {
