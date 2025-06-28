@@ -98,7 +98,8 @@
 
       patrocinadores.forEach(p => {
         if (
-          p.condicao.toLowerCase().includes(jogo.equipeSelecionada.toLowerCase()) &&
+          const nomeEquipe = (jogo.equipeSelecionada || jogo.equipe || '').toLowerCase();
+        if (p.condicao.toLowerCase().includes(nomeEquipe) &&
           !jogo.patrocinadores[p.nivel].includes(p.nome)
         ) {
           jogo.patrocinadores[p.nivel].push(p.nome);
