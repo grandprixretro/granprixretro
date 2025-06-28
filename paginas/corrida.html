@@ -2,246 +2,91 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Patrocinadores</title>
+  <title>Relatório Financeiro</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
-  <script defer src="../dados/patrocinadores.js"></script>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-    body {
-      background-color: black;
-      color: white;
-      font-family: 'Press Start 2P', monospace;
-      text-align: center;
-      padding: 20px;
-    }
-
-    h1, h2, h3 {
-      color: red;
-    }
-
-    .patrocinador {
-      display: inline-block;
-      width: 160px;
-      margin: 10px;
-      padding: 8px;
-      background-color: #111;
-      border: 2px solid red;
-    }
-
-    .patrocinador img {
-      width: 100px;
-      height: auto;
-      display: block;
-      margin: 0 auto 10px auto;
-    }
-
-    .patrocinador button {
-      background-color: black;
-      color: white;
-      border: 1px solid red;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 8px;
-      padding: 4px 8px;
-      cursor: pointer;
-      margin-top: 4px;
-    }
-
-    .patrocinador button:hover {
-      background-color: red;
-      color: black;
-    }
-
-    .categoria {
-      margin-bottom: 30px;
-    }
-
-    .botao {
-      background-color: black;
-      color: white;
-      border: 2px solid red;
-      padding: 10px 20px;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 12px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .botao:hover {
-      background-color: red;
-      color: black;
-    }
-  </style>
-
-  <script defer>
+  <script defer type="module">
+    import { patrocinadores } from "../dados/patrocinadores.js";
     let jogo = {};
-    let listaPatrocinadores = { alto: [], medio: [], baixo: [] };
-    const valores = { alto: 1500000, medio: 500000, baixo: 200000 };
-
     window.onload = () => {
       jogo = loadGameData();
-
       if (!jogo) {
         alert("Jogo não carregado.");
         location.href = "../index.html";
         return;
       }
 
-      if (!jogo.patrocinadores || typeof jogo.patrocinadores !== "object") {
-        jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
+      const div = document.getElementById("relatorio");
+      const historico = jogo.historicoFinanceiro || [];
+
+      if (historico.length === 0) {
+        div.innerHTML = "<p>Sem dados financeiros disponíveis ainda.</p>";
+        return;
       }
 
-      // Preenche listaPatrocinadores com base no JS carregado
-      patrocinadores.forEach(p => {
-        if (p.nivel && listaPatrocinadores[p.nivel]) {
-          listaPatrocinadores[p.nivel].push(p.nome);
-        }
-      });
+      const ultima = historico[historico.length - 1];
+      div.innerHTML = \`
+        <h2>Corrida \${ultima.corrida}</h2>
+        <p><strong>Patrocínios recebidos:</strong> $\${ultima.entradas.toLocaleString()}</p>
+        <p><strong>Despesas totais:</strong> -$\${ultima.saidas.toLocaleString()}</p>
+        <p><strong>Saldo da corrida:</strong> <span style="color:\${ultima.saldo >= 0 ? 'green' : 'red'}">$\${ultima.saldo.toLocaleString()}</span></p>
+        <hr>
+        <h3>Saldo atual em caixa: $\${jogo.dinheiro.toLocaleString()}</h3>
+        <h3>Total de corridas: \${historico.length}</h3>
+      \`;
 
-      renderizarPatrocinadores();
+      const ul = document.createElement("ul");
+      ul.innerHTML = "<h4>Resumo financeiro da temporada:</h4>";
+      historico.forEach(r => {
+        const li = document.createElement("li");
+        li.textContent = \`Corrida \${r.corrida}: +$\${r.entradas.toLocaleString()} / -$\${r.saidas.toLocaleString()} → $\${r.saldo.toLocaleString()}\`;
+        ul.appendChild(li);
+      });
+      div.appendChild(ul);
+
+      const divPatrocinadores = document.createElement("div");
+      divPatrocinadores.innerHTML = "<h3>📢 Patrocinadores Ativos</h3>";
+
+      if (jogo.contratosPatrocinadores && Object.keys(jogo.contratosPatrocinadores).length > 0) {
+        const tabela = document.createElement("table");
+        tabela.style.width = "100%";
+        tabela.style.marginTop = "10px";
+        tabela.innerHTML = \`
+          <tr style="color: red;">
+            <th>Nome</th>
+            <th>Valor por Corrida</th>
+            <th>Tempo Restante</th>
+          </tr>
+        \`;
+
+        Object.entries(jogo.contratosPatrocinadores).forEach(([nome, contrato]) => {
+          const dados = patrocinadores.find(p => p.nome === nome);
+          const valor = dados?.valorPorCorrida?.toLocaleString() || "N/A";
+          const duracao = contrato?.duracao ?? "N/A";
+
+          tabela.innerHTML += \`
+            <tr>
+              <td>\${nome}</td>
+              <td>$\${valor}</td>
+              <td>\${duracao} corrida\${duracao === 1 ? '' : 's'}</td>
+            </tr>
+          \`;
+        });
+
+        divPatrocinadores.appendChild(tabela);
+      } else {
+        divPatrocinadores.innerHTML += "<p>Nenhum contrato ativo no momento.</p>";
+      }
+
+      div.appendChild(document.createElement("hr"));
+      div.appendChild(divPatrocinadores);
     };
-
-    function renderizarPatrocinadores() {
-      const container = document.getElementById("lista");
-      container.innerHTML = "";
-
-      const contratados = document.createElement("div");
-      contratados.innerHTML = `<h2>Patrocinadores Atuais</h2>`;
-      ["alto", "medio", "baixo"].forEach(nivel => {
-        jogo.patrocinadores[nivel].forEach(nome => {
-          contratados.innerHTML += gerarCartaoPatrocinador(nome, nivel, true);
-        });
-      });
-      container.appendChild(contratados);
-
-      ["alto", "medio", "baixo"].forEach(nivel => {
-        const secao = document.createElement("div");
-        secao.className = "categoria";
-        secao.innerHTML = `<h3>Patrocinadores ${nivel.toUpperCase()}</h3>`;
-
-        listaPatrocinadores[nivel].forEach(nome => {
-          const contratado = jogo.patrocinadores[nivel].includes(nome);
-          if (!contratado) {
-            secao.innerHTML += gerarCartaoPatrocinador(nome, nivel, false);
-          }
-        });
-
-        container.appendChild(secao);
-      });
-    }
-
-    function gerarCartaoPatrocinador(nome, nivel, contratado) {
-      const nomeArquivo = nome.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '');
-      const valor = valores[nivel].toLocaleString();
-
-      return `
-        <div class="patrocinador">
-          <img src="../img/patrocinadores/${nomeArquivo}.png" alt="${nome}">
-          <div><strong>${nome}</strong></div>
-          <div>Valor: $${valor}</div>
-          ${contratado ? `<div>(Contratado)</div>` : `<button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>`}
-        </div>
-      `;
-    }
-
-    function assinar(nome, valor, nivel) {
-      const total =
-        jogo.patrocinadores.alto.length +
-        jogo.patrocinadores.medio.length +
-        jogo.patrocinadores.baixo.length;
-
-      if (total >= 16) {
-        alert("Você já atingiu o limite de 16 patrocinadores.");
-        return;
-      }
-
-      if (nivel === "alto" && jogo.patrocinadores.alto.length >= 1) {
-        alert("Você já tem um patrocinador master.");
-        return;
-      }
-
-      if (nivel === "medio" && jogo.patrocinadores.medio.length >= 4) {
-        alert("Você já atingiu o limite de patrocinadores médios.");
-        return;
-      }
-
-      if (jogo.patrocinadores[nivel].includes(nome)) {
-        alert("Esse patrocinador já foi contratado.");
-        return;
-      }
-
-      jogo.patrocinadores[nivel].push(nome);
-      jogo.dinheiro += valor;
-      jogo.novoPatrocinador = nome;
-      jogo.contratosPatrocinadores[nome] = { duracao: 3, performanceRuimSeguidas: 0 };
-      saveGame(jogo);
-      alert(`${nome} contratado por $${valor.toLocaleString()}`);
-      renderizarPatrocinadores();
-    }
   </script>
 </head>
 <body>
-  <h1>Patrocinadores</h1>
-  <div id="lista"></div>
+  <h1>📊 Relatório Financeiro</h1>
+  <div id="relatorio"></div>
   <br>
-  <button class="botao" onclick="window.location.href='../menu-principal.html'">Voltar</button>
-
-  <script type="module">
-    import { patrocinadores as listaPatrocinadores } from "../dados/patrocinadores.js";
-
-    let jogo = loadGameData();
-
-    const posicaoFinal = jogo.resultadoUltimaCorrida || 12;
-    const equipe = jogo.equipeSelecionada;
-
-    if (!jogo.contratosPatrocinadores) jogo.contratosPatrocinadores = {};
-    if (!jogo.patrocinadores) jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
-
-    Object.keys(jogo.contratosPatrocinadores).forEach(nome => {
-      const contrato = jogo.contratosPatrocinadores[nome];
-      const dados = listaPatrocinadores.find(p => p.nome === nome);
-      if (!dados) return;
-
-      jogo.dinheiro += dados.valorPorCorrida || 0;
-      contrato.duracao = (contrato.duracao || 1) - 1;
-
-      const ruim = posicaoFinal > 8;
-      contrato.performanceRuimSeguidas = contrato.performanceRuimSeguidas || 0;
-      if (ruim) contrato.performanceRuimSeguidas++;
-      else contrato.performanceRuimSeguidas = 0;
-
-      if (
-        contrato.performanceRuimSeguidas >= (dados.tolerancia || 2) &&
-        Math.random() < ((dados.riscoRompimento || 10) / 100)
-      ) {
-        ["alto", "medio", "baixo"].forEach(nivel => {
-          const i = jogo.patrocinadores[nivel].indexOf(nome);
-          if (i !== -1) jogo.patrocinadores[nivel].splice(i, 1);
-        });
-        delete jogo.contratosPatrocinadores[nome];
-        jogo.rompidoPatrocinador = nome;
-      }
-
-      const interesse = dados.interessePorEquipe?.[equipe] ?? dados.interesseBase ?? 50;
-      if (contrato.duracao <= 0 && posicaoFinal <= 4 && interesse >= 80) {
-        contrato.duracao = 3;
-        contrato.performanceRuimSeguidas = 0;
-        jogo.renovadoPatrocinador = nome;
-      }
-
-      if (contrato.duracao <= 0 && !jogo.renovadoPatrocinador) {
-        ["alto", "medio", "baixo"].forEach(nivel => {
-          const i = jogo.patrocinadores[nivel].indexOf(nome);
-          if (i !== -1) jogo.patrocinadores[nivel].splice(i, 1);
-        });
-        delete jogo.contratosPatrocinadores[nome];
-        jogo.expiradoPatrocinador = nome;
-      }
-    });
-
-    saveGame(jogo);
-  </script>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
