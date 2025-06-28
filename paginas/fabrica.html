@@ -74,7 +74,9 @@
       }
 
       jogo.dinheiro -= valor;
-      const ganho = valor / 100000000;
+
+      // Aumenta o nível da fábrica proporcional ao valor investido
+      const ganho = valor / 100000000; // 1% a cada 1M
       jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
 
       if (!jogo.fabrica.investimentoTotal) {
