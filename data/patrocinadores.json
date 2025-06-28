@@ -1,0 +1,28 @@
+[
+  {
+    "nome": "Rothmans",
+    "bonus": 3000000,
+    "condicao": "Patrocina Williams",
+    "maxEquipes": 2,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 80,
+    "interessePorEquipe": { "Williams": 95, "Ferrari": 60 },
+    "valorPorCorrida": 300000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Marlboro",
+    "bonus": 3200000,
+    "condicao": "Patrocina Ferrari/McLaren",
+    "maxEquipes": 2,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 85,
+    "interessePorEquipe": { "Ferrari": 90, "McLaren": 85 },
+    "valorPorCorrida": 310000,
+    "riscoRompimento": 4,
+    "tolerancia": 3
+  }
+]
