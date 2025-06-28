@@ -5,6 +5,74 @@
   <title>Fábrica</title>
   <link rel="stylesheet" href="../style.css">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script type="module">
+    import { saveGameData, loadGameData } from "../saveManager.js";
+
+    let jogo = {};
+
+    function atualizarInterface() {
+      document.getElementById("equipe").textContent = jogo.equipe;
+      document.getElementById("motor").textContent = jogo.motor;
+      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
+      document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
+      document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
+      document.getElementById("status-manutencao").textContent = jogo.fabrica.manutencaoAtiva ? "Ativa" : "Inativa";
+
+      // Desativa botões se fábrica estiver no máximo
+      const maximo = jogo.fabrica.nivel >= 1;
+      document.getElementById("btn1").disabled = maximo;
+      document.getElementById("btn2").disabled = maximo;
+      document.getElementById("btn5").disabled = maximo;
+    }
+
+    function investir(valor) {
+      if (jogo.fabrica.nivel >= 1) {
+        alert("A fábrica já está no nível máximo.");
+        return;
+      }
+      if (jogo.dinheiro < valor) {
+        alert("Dinheiro insuficiente.");
+        return;
+      }
+
+      jogo.dinheiro -= valor;
+      const ganho = valor / 100000000;
+      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
+      jogo.fabrica.investimentoTotal = (jogo.fabrica.investimentoTotal || 0) + valor;
+
+      console.log("💾 Salvando jogo após investimento:", jogo);
+      saveGameData(jogo);
+      atualizarInterface();
+    }
+
+    function alternarManutencao() {
+      jogo.fabrica.manutencaoAtiva = !jogo.fabrica.manutencaoAtiva;
+      saveGameData(jogo);
+      atualizarInterface();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      jogo = loadGameData();
+
+      if (!jogo || !jogo.fabrica) {
+        alert("Jogo não carregado ou dados de fábrica ausentes.");
+        location.href = "../index.html";
+        return;
+      }
+
+      if (jogo.fabrica.manutencaoAtiva === undefined) {
+        jogo.fabrica.manutencaoAtiva = false; // padrão
+      }
+
+      atualizarInterface();
+
+      // Adiciona eventos aos botões
+      document.getElementById("btn1").onclick = () => investir(1000000);
+      document.getElementById("btn2").onclick = () => investir(2000000);
+      document.getElementById("btn5").onclick = () => investir(5000000);
+      document.getElementById("btnManutencao").onclick = alternarManutencao;
+    });
+  </script>
   <style>
     body {
       background-color: black;
@@ -46,6 +114,13 @@
       background-color: red;
       color: black;
     }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: #222;
+      border-color: gray;
+    }
   </style>
 </head>
 <body>
@@ -56,78 +131,16 @@
   <p><strong>Nível da Fábrica:</strong> <span id="nivel"></span></p>
   <p><strong>Dinheiro disponível:</strong> <span id="dinheiro"></span></p>
   <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
+  <p><strong>Manutenção:</strong> <span id="status-manutencao">Inativa</span></p>
 
   <h2>Investir na Fábrica</h2>
-  <button onclick="investir(1000000)">Investir $1M</button>
-  <button onclick="investir(2000000)">Investir $2M</button>
-  <button onclick="investir(5000000)">Investir $5M</button>
+  <button id="btn1">Investir $1M</button>
+  <button id="btn2">Investir $2M</button>
+  <button id="btn5">Investir $5M</button>
 
   <br>
-  <button id="botaoManutencao" onclick="alternarManutencao()">Manutenção: Inativa</button>
+  <button id="btnManutencao">Alternar Manutenção</button>
   <br><br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
-
-  <script type="module">
-    import { saveGame, loadGameData } from "../saveManager.js";
-
-    let jogo = {};
-
-    function atualizarInterface() {
-      document.getElementById("equipe").textContent = jogo.equipe;
-      document.getElementById("motor").textContent = jogo.motor;
-      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
-      document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
-      document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
-      document.getElementById("botaoManutencao").textContent = `Manutenção: ${jogo.fabrica.manutencaoAutomatica ? "Ativa" : "Inativa"}`;
-    }
-
-    function investir(valor) {
-      if (jogo.dinheiro < valor) {
-        alert("Dinheiro insuficiente.");
-        return;
-      }
-
-      if (jogo.fabrica.nivel >= 1) {
-        alert("Sua fábrica já está no nível máximo (100%).");
-        return;
-      }
-
-      jogo.dinheiro -= valor;
-      const ganho = valor / 100000000;
-      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
-
-      if (!jogo.fabrica.investimentoTotal) jogo.fabrica.investimentoTotal = 0;
-      jogo.fabrica.investimentoTotal += valor;
-
-      console.log("Salvando jogo após investimento:", jogo);
-      saveGame(jogo);
-      atualizarInterface();
-    }
-
-    function alternarManutencao() {
-      jogo.fabrica.manutencaoAutomatica = !jogo.fabrica.manutencaoAutomatica;
-      saveGame(jogo);
-      atualizarInterface();
-    }
-
-    window.investir = investir;
-    window.alternarManutencao = alternarManutencao;
-
-    window.onload = () => {
-      jogo = loadGameData();
-
-      if (!jogo || !jogo.fabrica) {
-        alert("Jogo não carregado ou dados de fábrica ausentes.");
-        location.href = "../index.html";
-        return;
-      }
-
-      if (typeof jogo.fabrica.manutencaoAutomatica === 'undefined') {
-        jogo.fabrica.manutencaoAutomatica = false;
-      }
-
-      atualizarInterface();
-    };
-  </script>
 </body>
 </html>
