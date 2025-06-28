@@ -78,14 +78,26 @@
     }
 
     function investir(valor) {
+      if (jogo.fabrica.nivel >= 1) {
+        alert("A fábrica já está no nível máximo (100%).");
+        return;
+      }
+
       if (jogo.dinheiro < valor) {
         alert("Dinheiro insuficiente.");
         return;
       }
 
-      jogo.dinheiro -= valor;
       const ganho = valor / 100000000;
-      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
+      let novoNivel = jogo.fabrica.nivel + ganho;
+
+      if (novoNivel > 1) {
+        valor = (1 - jogo.fabrica.nivel) * 100000000; // ajusta o valor necessário para chegar exatamente a 100%
+        novoNivel = 1;
+      }
+
+      jogo.dinheiro -= valor;
+      jogo.fabrica.nivel = novoNivel;
 
       if (!jogo.fabrica.investimentoTotal) {
         jogo.fabrica.investimentoTotal = 0;
@@ -93,7 +105,7 @@
       jogo.fabrica.investimentoTotal += valor;
 
       saveGame(jogo);
-      atualizarInterface(); // atualiza na tela sem recarregar
+      atualizarInterface();
     }
 
     window.onload = () => {
