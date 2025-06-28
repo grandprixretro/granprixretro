@@ -112,6 +112,10 @@
       "Onyx": { motor: "Ford", pilotos: ["Stefan Johansson", "Bernd Schneider"], contratosPatrocinadores: { "Moneytron": 1 } }
     };
 
+    function saveGame(data) {
+      localStorage.setItem("savegame", JSON.stringify(data));
+    }
+
     function escolherEquipe(nome) {
       const equipe = dadosEquipes[nome];
       const jogo = {
@@ -135,7 +139,7 @@
         const div = document.createElement("div");
         div.className = "equipe";
         div.innerHTML = `
-          <img src="img/equipes/${nome.toLowerCase().replace(/\s+/g, '')}.png" alt="${nome}" />
+          <img src="img/equipes/${nome.toLowerCase().replace(/\\s+/g, '')}.png" alt="${nome}" />
           <h2>${nome}</h2>
           <p>${equipe.motor}</p>
           <button onclick="escolherEquipe('${nome}')">Selecionar</button>
@@ -144,6 +148,7 @@
       }
     });
 
+    window.saveGame = saveGame;
     window.escolherEquipe = escolherEquipe;
   </script>
 </head>
