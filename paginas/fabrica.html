@@ -48,46 +48,6 @@
       color: black;
     }
   </style>
-  <script defer>
-    let jogo = {};
-
-    window.onload = () => {
-      jogo = loadGameData();
-
-      if (!jogo || !jogo.fabrica) {
-        alert("Jogo não carregado ou dados de fábrica ausentes.");
-        location.href = "../index.html";
-        return;
-      }
-
-      document.getElementById("equipe").textContent = jogo.equipe;
-      document.getElementById("motor").textContent = jogo.motor;
-      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
-      document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
-      document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
-    };
-
-    function investir(valor) {
-      if (jogo.dinheiro < valor) {
-        alert("Dinheiro insuficiente.");
-        return;
-      }
-
-      jogo.dinheiro -= valor;
-
-      // Aumenta o nível da fábrica proporcional ao valor investido
-      const ganho = valor / 100000000; // 1% a cada 1M
-      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
-
-      if (!jogo.fabrica.investimentoTotal) {
-        jogo.fabrica.investimentoTotal = 0;
-      }
-      jogo.fabrica.investimentoTotal += valor;
-
-      saveGame(jogo);
-      location.reload();
-    }
-  </script>
 </head>
 <body>
   <h1>Fábrica da Equipe</h1>
@@ -105,5 +65,48 @@
 
   <br><br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+
+  <script>
+    let jogo = {};
+
+    function atualizarInterface() {
+      document.getElementById("equipe").textContent = jogo.equipe;
+      document.getElementById("motor").textContent = jogo.motor;
+      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
+      document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
+      document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
+    }
+
+    function investir(valor) {
+      if (jogo.dinheiro < valor) {
+        alert("Dinheiro insuficiente.");
+        return;
+      }
+
+      jogo.dinheiro -= valor;
+      const ganho = valor / 100000000;
+      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
+
+      if (!jogo.fabrica.investimentoTotal) {
+        jogo.fabrica.investimentoTotal = 0;
+      }
+      jogo.fabrica.investimentoTotal += valor;
+
+      saveGame(jogo);
+      atualizarInterface(); // atualiza na tela sem recarregar
+    }
+
+    window.onload = () => {
+      jogo = loadGameData();
+
+      if (!jogo || !jogo.fabrica) {
+        alert("Jogo não carregado ou dados de fábrica ausentes.");
+        location.href = "../index.html";
+        return;
+      }
+
+      atualizarInterface();
+    };
+  </script>
 </body>
 </html>
