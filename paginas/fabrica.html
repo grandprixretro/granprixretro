@@ -7,17 +7,21 @@
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
+
     window.onload = () => {
       jogo = loadGameData();
-      if (!jogo) {
-        alert("Jogo não carregado.");
+
+      if (!jogo || !jogo.fabrica) {
+        alert("Jogo não carregado ou dados de fábrica ausentes.");
         location.href = "../index.html";
         return;
       }
+
       document.getElementById("equipe").textContent = jogo.equipe;
       document.getElementById("motor").textContent = jogo.motor;
-      document.getElementById("nota").textContent = jogo.fabrica.nota.toFixed(1);
-      document.getElementById("dinheiro").textContent = jogo.dinheiro.toLocaleString();
+      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
+      document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
+      document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
     };
 
     function investir(valor) {
@@ -25,8 +29,18 @@
         alert("Dinheiro insuficiente.");
         return;
       }
+
       jogo.dinheiro -= valor;
-      jogo.fabrica.nota += valor / 1000000;
+
+      // Ganha ~0.01 de nível por 1 milhão investido
+      const ganho = valor / 100000000;
+      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
+
+      if (!jogo.fabrica.investimentoTotal) {
+        jogo.fabrica.investimentoTotal = 0;
+      }
+      jogo.fabrica.investimentoTotal += valor;
+
       saveGame(jogo);
       location.reload();
     }
@@ -36,13 +50,5 @@
   <h1>Fábrica da Equipe</h1>
   <p><strong>Equipe:</strong> <span id="equipe"></span></p>
   <p><strong>Motor:</strong> <span id="motor"></span></p>
-  <p><strong>Nota da Fábrica:</strong> <span id="nota"></span></p>
-  <p><strong>Dinheiro disponível:</strong> $<span id="dinheiro"></span></p>
-
-  <h3>Investir na Fábrica</h3>
-  <button onclick="investir(1000000)">Investir $1M</button>
-  <button onclick="investir(2000000)">Investir $2M</button>
-  <br><br>
-  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
-</body>
-</html>
+  <p><strong>Nível da Fábrica:</strong> <span id="nivel"></span></p>
+  <p><strong>Dinheiro disponível:</strong> <span id=
