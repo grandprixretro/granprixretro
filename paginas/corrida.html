@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -7,11 +6,53 @@
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer src="../dados/patrocinadores.js"></script>
+  <script defer src="../dados/pilotos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: red;
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 10px;
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      border: 2px solid red;
+      padding: 8px 12px;
+      margin-top: 20px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: red;
+      color: black;
+    }
+
+    canvas {
+      margin-top: 30px;
+      background-color: white;
+    }
+  </style>
   <script defer>
     let jogo = {};
+
     window.onload = () => {
       jogo = loadGameData();
-      if (!jogo) {
+      if (!jogo || !jogo.fabrica) {
         alert("Jogo não carregado.");
         location.href = "../index.html";
         return;
@@ -27,9 +68,10 @@
       });
 
       jogo.resultadoUltimaCorrida = Math.floor(Math.random() * 20) + 1;
-      const equipe = jogo.equipeSelecionada;
+      const equipe = jogo.equipe;
       let entradas = 0;
       let saidas = 0;
+      let custoSalarios = 0;
 
       if (!jogo.contratosPatrocinadores) jogo.contratosPatrocinadores = {};
       if (!jogo.historicoFinanceiro) jogo.historicoFinanceiro = [];
@@ -80,7 +122,23 @@
         }
       });
 
-      jogo.dinheiro += entradas;
+      // Custo com salários dos pilotos
+      if (jogo.pilotos) {
+        jogo.pilotos.forEach(nome => {
+          const piloto = pilotos.find(p => p.nome === nome);
+          if (piloto) {
+            custoSalarios += piloto.salarioMinimo || 0;
+          }
+        });
+      }
+
+      // Custo de manutenção da fábrica (pior fábrica = mais caro)
+      const custoManutencao = Math.round((1 - jogo.fabrica.nivel) * 1000000);
+      saidas = custoSalarios + custoManutencao;
+
+      jogo.dinheiro += entradas - saidas;
+
+      if (!jogo.historicoFinanceiro) jogo.historicoFinanceiro = [];
       jogo.historicoFinanceiro.push({
         corrida: jogo.historicoFinanceiro.length + 1,
         entradas: entradas,
@@ -94,9 +152,34 @@
       if (rompidos.length) avisos.push("❌ Patrocinadores rompidos: " + rompidos.join(", "));
       if (expirados.length) avisos.push("⚠️ Contratos expirados: " + expirados.join(", "));
       if (renovados.length) avisos.push("✅ Patrocinadores renovados: " + renovados.join(", "));
-      if (avisos.length > 0) {
-        alert(avisos.join("\n"));
-      }
+      if (avisos.length > 0) alert(avisos.join("\n"));
+
+      // Gráfico de evolução do caixa
+      const labels = jogo.historicoFinanceiro.map(f => `Corrida ${f.corrida}`);
+      const saldos = jogo.historicoFinanceiro.map(f => f.saldo);
+      new Chart(document.getElementById("graficoCaixa"), {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "Evolução do Caixa ($)",
+            data: saldos,
+            borderColor: "red",
+            backgroundColor: "rgba(255, 0, 0, 0.2)",
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { labels: { color: "white", font: { size: 10 } } }
+          },
+          scales: {
+            x: { ticks: { color: "white", font: { size: 8 } } },
+            y: { ticks: { color: "white", font: { size: 8 } } }
+          }
+        }
+      });
     };
 
     function simularCorrida() {
@@ -107,6 +190,7 @@
 <body>
   <h1>Corrida</h1>
   <div id="resultado"></div>
+  <canvas id="graficoCaixa" width="600" height="300"></canvas>
   <br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
