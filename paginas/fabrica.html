@@ -9,24 +9,32 @@
   <style>
     body {
       background-color: black;
-      color: red;
+      color: white;
       font-family: 'Press Start 2P', monospace;
       padding: 20px;
     }
 
     h1 {
+      color: red;
       font-size: 14px;
       margin-bottom: 20px;
+    }
+
+    h2 {
+      color: red;
+      font-size: 12px;
+      margin-top: 30px;
     }
 
     p {
       font-size: 10px;
       margin: 6px 0;
+      color: white;
     }
 
     button {
       background-color: black;
-      color: red;
+      color: white;
       border: 2px solid red;
       padding: 10px 15px;
       margin: 6px;
@@ -66,7 +74,6 @@
       }
 
       jogo.dinheiro -= valor;
-
       const ganho = valor / 100000000;
       jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
 
@@ -89,7 +96,7 @@
   <p><strong>Dinheiro disponível:</strong> <span id="dinheiro"></span></p>
   <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
 
-  <h1 style="margin-top: 30px;">Investir na Fábrica</h1>
+  <h2>Investir na Fábrica</h2>
   <button onclick="investir(1000000)">Investir $1M</button>
   <button onclick="investir(2000000)">Investir $2M</button>
   <button onclick="investir(5000000)">Investir $5M</button>
