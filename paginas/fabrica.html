@@ -5,7 +5,6 @@
   <title>Fábrica</title>
   <link rel="stylesheet" href="../style.css">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <script defer src="../saveManager.js"></script>
   <style>
     body {
       background-color: black;
@@ -68,6 +67,7 @@
   <br><br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 
+  <script src="../saveManager.js"></script>
   <script>
     let jogo = {};
 
@@ -102,7 +102,6 @@
       jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
       jogo.fabrica.investimentoTotal = (jogo.fabrica.investimentoTotal || 0) + valor;
 
-      console.log("Salvando jogo após investimento:", jogo);
       saveGame(jogo);
       atualizarInterface();
     }
@@ -125,7 +124,6 @@
       if (typeof jogo.fabrica.investimentoTotal === "undefined") jogo.fabrica.investimentoTotal = 0;
       if (typeof jogo.fabrica.manutencaoAutomatica === "undefined") jogo.fabrica.manutencaoAutomatica = false;
 
-      console.log("Jogo carregado na fábrica:", jogo);
       atualizarInterface();
     };
   </script>
