@@ -28,6 +28,7 @@
     p {
       font-size: 10px;
       margin: 6px 0;
+      color: white;
     }
 
     button {
@@ -45,6 +46,10 @@
       background-color: red;
       color: black;
     }
+
+    #botaoManutencao {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -57,13 +62,12 @@
   <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
 
   <h2>Investir na Fábrica</h2>
-  <button id="investir1">Investir $1M</button>
-  <button id="investir2">Investir $2M</button>
-  <button id="investir5">Investir $5M</button>
+  <button onclick="investir(1000000)">Investir $1M</button>
+  <button onclick="investir(2000000)">Investir $2M</button>
+  <button onclick="investir(5000000)">Investir $5M</button>
 
-  <h2>Manutenção</h2>
-  <button id="btnManutencao">Manutenção: Inativa</button>
-
+  <br>
+  <button id="botaoManutencao" onclick="alternarManutencao()">Manutenção: Inativa</button>
   <br><br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 
@@ -73,64 +77,56 @@
     let jogo = {};
 
     function atualizarInterface() {
-      document.getElementById("equipe").textContent = jogo.equipe || "??";
-      document.getElementById("motor").textContent = jogo.motor || "??";
-      document.getElementById("nivel").textContent = (jogo.fabrica?.nivel * 100).toFixed(1) + "%";
+      document.getElementById("equipe").textContent = jogo.equipe;
+      document.getElementById("motor").textContent = jogo.motor;
+      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
       document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
       document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
-      document.getElementById("btnManutencao").textContent =
-        "Manutenção: " + (jogo.fabrica.manutencaoAutomatica ? "Ativa" : "Inativa");
+      document.getElementById("botaoManutencao").textContent = `Manutenção: ${jogo.fabrica.manutencaoAutomatica ? "Ativa" : "Inativa"}`;
     }
 
-    function investir(valor) {
-      if (!jogo.fabrica || typeof jogo.fabrica.nivel === "undefined") {
-        alert("Dados da fábrica não carregados corretamente.");
+    window.investir = function(valor) {
+      if (jogo.dinheiro < valor) {
+        alert("Dinheiro insuficiente.");
         return;
       }
 
       if (jogo.fabrica.nivel >= 1) {
-        alert("A fábrica já está no nível máximo.");
-        return;
-      }
-
-      if (jogo.dinheiro < valor) {
-        alert("Dinheiro insuficiente.");
+        alert("Sua fábrica já está no nível máximo (100%).");
         return;
       }
 
       jogo.dinheiro -= valor;
       const ganho = valor / 100000000;
       jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
-      jogo.fabrica.investimentoTotal = (jogo.fabrica.investimentoTotal || 0) + valor;
+
+      if (!jogo.fabrica.investimentoTotal) jogo.fabrica.investimentoTotal = 0;
+      jogo.fabrica.investimentoTotal += valor;
 
       saveGame(jogo);
       atualizarInterface();
-    }
+    };
 
-    function alternarManutencao() {
+    window.alternarManutencao = function() {
       jogo.fabrica.manutencaoAutomatica = !jogo.fabrica.manutencaoAutomatica;
       saveGame(jogo);
       atualizarInterface();
-    }
+    };
 
     window.onload = () => {
       jogo = loadGameData();
+
       if (!jogo || !jogo.fabrica) {
         alert("Jogo não carregado ou dados de fábrica ausentes.");
         location.href = "../index.html";
         return;
       }
 
-      if (typeof jogo.fabrica.nivel === "undefined") jogo.fabrica.nivel = 0.7;
-      if (typeof jogo.fabrica.investimentoTotal === "undefined") jogo.fabrica.investimentoTotal = 0;
-      if (typeof jogo.fabrica.manutencaoAutomatica === "undefined") jogo.fabrica.manutencaoAutomatica = false;
+      if (typeof jogo.fabrica.manutencaoAutomatica === 'undefined') {
+        jogo.fabrica.manutencaoAutomatica = false;
+      }
 
       atualizarInterface();
-
-      document.getElementById("investir1").onclick = () => investir(1000000);
-      document.getElementById("investir2").onclick = () => investir(2000000);
-      document.getElementById("investir5").onclick = () => investir(5000000);
-      document.getElementById("btnManutencao").onclick = alternarManutencao;
     };
   </script>
 </body>
