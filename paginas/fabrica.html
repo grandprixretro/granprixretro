@@ -57,18 +57,19 @@
   <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
 
   <h2>Investir na Fábrica</h2>
-  <button onclick="investir(1000000)">Investir $1M</button>
-  <button onclick="investir(2000000)">Investir $2M</button>
-  <button onclick="investir(5000000)">Investir $5M</button>
+  <button id="investir1">Investir $1M</button>
+  <button id="investir2">Investir $2M</button>
+  <button id="investir5">Investir $5M</button>
 
   <h2>Manutenção</h2>
-  <button onclick="alternarManutencao()" id="btnManutencao">Manutenção: Inativa</button>
+  <button id="btnManutencao">Manutenção: Inativa</button>
 
   <br><br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 
-  <script src="../saveManager.js"></script>
-  <script>
+  <script type="module">
+    import { saveGame, loadGameData } from "../saveManager.js";
+
     let jogo = {};
 
     function atualizarInterface() {
@@ -125,6 +126,11 @@
       if (typeof jogo.fabrica.manutencaoAutomatica === "undefined") jogo.fabrica.manutencaoAutomatica = false;
 
       atualizarInterface();
+
+      document.getElementById("investir1").onclick = () => investir(1000000);
+      document.getElementById("investir2").onclick = () => investir(2000000);
+      document.getElementById("investir5").onclick = () => investir(5000000);
+      document.getElementById("btnManutencao").onclick = alternarManutencao;
     };
   </script>
 </body>
