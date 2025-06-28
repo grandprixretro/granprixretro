@@ -2,11 +2,7 @@
   import { patrocinadores as listaPatrocinadores } from "../dados/patrocinadores.js";
 
   let jogo = {};
-  const valores = {
-    alto: 1500000,
-    medio: 500000,
-    baixo: 200000
-  };
+  const valores = { alto: 1500000, medio: 500000, baixo: 200000 };
 
   window.onload = () => {
     jogo = loadGameData();
@@ -17,22 +13,20 @@
       return;
     }
 
-    if (!jogo.patrocinadores || typeof jogo.patrocinadores !== "object") {
-      jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
-    }
+    if (!jogo.patrocinadores) jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
+    if (!jogo.contratosPatrocinadores) jogo.contratosPatrocinadores = {};
 
-    if (!jogo.contratosPatrocinadores || typeof jogo.contratosPatrocinadores !== "object") {
-      jogo.contratosPatrocinadores = {};
-    }
-
-    // Adiciona automaticamente os patrocinadores ativos baseados na equipe escolhida
+    // Vincular patrocinadores históricos automaticamente (apenas se ainda não estão)
     listaPatrocinadores.forEach(p => {
-      if (p.condicao.toLowerCase().includes(jogo.equipeSelecionada.toLowerCase())) {
-        const nivel = p.nivel;
-        if (!jogo.patrocinadores[nivel].includes(p.nome)) {
-          jogo.patrocinadores[nivel].push(p.nome);
-          jogo.contratosPatrocinadores[p.nome] = 3;
-        }
+      if (
+        p.condicao.toLowerCase().includes(jogo.equipeSelecionada.toLowerCase()) &&
+        !jogo.patrocinadores[p.nivel].includes(p.nome)
+      ) {
+        jogo.patrocinadores[p.nivel].push(p.nome);
+        jogo.contratosPatrocinadores[p.nome] = {
+          duracao: 3,
+          performanceRuimSeguidas: 0
+        };
       }
     });
 
@@ -75,7 +69,7 @@
   function gerarCartaoPatrocinador(nome, nivel, contratado) {
     const nomeArquivo = nome.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '');
     const valor = valores[nivel].toLocaleString();
-    const duracao = jogo.contratosPatrocinadores[nome] || null;
+    const contrato = jogo.contratosPatrocinadores[nome];
 
     let html = `
       <div class="patrocinador">
@@ -84,8 +78,8 @@
         <div>Valor: $${valor}</div>
     `;
 
-    if (contratado && duracao !== null) {
-      html += `<div>(Contrato ativo - ${duracao} temporada${duracao > 1 ? 's' : ''})</div>`;
+    if (contratado && contrato) {
+      html += `<div>(Contrato ativo - ${contrato.duracao} corrida${contrato.duracao > 1 ? 's' : ''})</div>`;
     } else if (contratado) {
       html += `<div>(Contratado)</div>`;
     } else {
@@ -136,13 +130,9 @@
     jogo.patrocinadores[nivel].push(nome);
     jogo.dinheiro += valor;
     jogo.novoPatrocinador = nome;
-    jogo.contratosPatrocinadores[nome] = 3;
+    jogo.contratosPatrocinadores[nome] = { duracao: 3, performanceRuimSeguidas: 0 };
     saveGame(jogo);
     alert(`${nome} contratado por $${valor.toLocaleString()}`);
     renderizarPatrocinadores();
   };
 </script>
-
-  <button class="botao-voltar" onclick="window.location.href='../menu-principal.html'">VOLTAR</button>
-</body>
-</html>
