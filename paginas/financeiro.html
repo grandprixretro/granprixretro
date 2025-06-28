@@ -1,11 +1,64 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <title>Relatório Financeiro</title>
   <link rel="stylesheet" href="../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <script defer src="../saveManager.js"></script>
+  <script defer src="../dados/patrocinadores.js"></script>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    h2, h3, h4 {
+      color: red;
+      font-size: 12px;
+      margin-top: 15px;
+    }
+
+    p, li {
+      font-size: 10px;
+      margin: 5px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      border: 2px solid red;
+      padding: 10px 15px;
+      margin-top: 30px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: red;
+      color: black;
+    }
+
+    hr {
+      margin: 15px 0;
+      border-color: red;
+    }
+  </style>
   <script defer>
     let jogo = {};
     window.onload = () => {
@@ -29,12 +82,13 @@
         <h2>Corrida ${ultima.corrida}</h2>
         <p><strong>Patrocínios recebidos:</strong> $${ultima.entradas.toLocaleString()}</p>
         <p><strong>Despesas totais:</strong> -$${ultima.saidas.toLocaleString()}</p>
-        <p><strong>Saldo da corrida:</strong> <span style="color:${ultima.saldo >= 0 ? 'green' : 'red'}">$${ultima.saldo.toLocaleString()}</span></p>
+        <p><strong>Saldo da corrida:</strong> <span style="color:${ultima.saldo >= 0 ? 'lime' : 'red'}">$${ultima.saldo.toLocaleString()}</span></p>
         <hr>
         <h3>Saldo atual em caixa: $${jogo.dinheiro.toLocaleString()}</h3>
         <h3>Total de corridas: ${historico.length}</h3>
       `;
 
+      // Resumo financeiro por corrida
       const ul = document.createElement("ul");
       ul.innerHTML = "<h4>Resumo financeiro da temporada:</h4>";
       historico.forEach(r => {
@@ -43,13 +97,41 @@
         ul.appendChild(li);
       });
       div.appendChild(ul);
+
+      // Contratos de patrocinadores ativos
+      const patDiv = document.createElement("div");
+      patDiv.innerHTML = "<h3>📢 Patrocinadores Ativos</h3>";
+      const lista = document.createElement("ul");
+
+      const contratos = jogo.contratosPatrocinadores || {};
+      const equipe = jogo.equipe;
+
+      for (const nome in contratos) {
+        const dados = patrocinadores.find(p => p.nome === nome);
+        if (!dados) continue;
+
+        const duracao = contratos[nome].duracao ?? 0;
+        const valor = dados.valorPorCorrida || 0;
+
+        const li = document.createElement("li");
+        li.textContent = `${nome}: $${valor.toLocaleString()} por corrida (${duracao} restantes)`;
+        lista.appendChild(li);
+      }
+
+      if (lista.children.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "Nenhum contrato ativo no momento.";
+        lista.appendChild(li);
+      }
+
+      patDiv.appendChild(lista);
+      div.appendChild(patDiv);
     };
   </script>
 </head>
 <body>
   <h1>📊 Relatório Financeiro</h1>
   <div id="relatorio"></div>
-  <br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
