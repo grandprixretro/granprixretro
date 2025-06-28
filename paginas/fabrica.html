@@ -4,7 +4,42 @@
   <meta charset="UTF-8">
   <title>Fábrica</title>
   <link rel="stylesheet" href="../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <script defer src="../saveManager.js"></script>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      font-family: 'Press Start 2P', monospace;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 10px;
+      margin: 6px 0;
+    }
+
+    button {
+      background-color: black;
+      color: red;
+      border: 2px solid red;
+      padding: 10px 15px;
+      margin: 6px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: red;
+      color: black;
+    }
+  </style>
   <script defer>
     let jogo = {};
 
@@ -32,7 +67,6 @@
 
       jogo.dinheiro -= valor;
 
-      // Ganha ~0.01 de nível por 1 milhão investido
       const ganho = valor / 100000000;
       jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
 
@@ -48,7 +82,19 @@
 </head>
 <body>
   <h1>Fábrica da Equipe</h1>
+
   <p><strong>Equipe:</strong> <span id="equipe"></span></p>
   <p><strong>Motor:</strong> <span id="motor"></span></p>
   <p><strong>Nível da Fábrica:</strong> <span id="nivel"></span></p>
-  <p><strong>Dinheiro disponível:</strong> <span id=
+  <p><strong>Dinheiro disponível:</strong> <span id="dinheiro"></span></p>
+  <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
+
+  <h1 style="margin-top: 30px;">Investir na Fábrica</h1>
+  <button onclick="investir(1000000)">Investir $1M</button>
+  <button onclick="investir(2000000)">Investir $2M</button>
+  <button onclick="investir(5000000)">Investir $5M</button>
+
+  <br><br>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+</body>
+</html>
