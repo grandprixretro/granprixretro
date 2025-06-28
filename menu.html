@@ -136,10 +136,13 @@
       const container = document.getElementById("equipes");
       for (const nome in dadosEquipes) {
         const equipe = dadosEquipes[nome];
+        const nomeImagem = nome === 'Andrea Moda'
+          ? 'andreamoda'
+          : nome.toLowerCase().replace(/\s+/g, '');
         const div = document.createElement("div");
         div.className = "equipe";
         div.innerHTML = `
-          <img src="img/equipes/${nome.toLowerCase().replace(/\\s+/g, '')}.png" alt="${nome}" />
+          <img src="img/equipes/${nomeImagem}.png" alt="${nome}" />
           <h2>${nome}</h2>
           <p>${equipe.motor}</p>
           <button onclick="escolherEquipe('${nome}')">Selecionar</button>
