@@ -6,8 +6,10 @@
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer src="../dados/patrocinadores.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
     body {
       background-color: black;
       color: white;
@@ -15,9 +17,11 @@
       text-align: center;
       padding: 20px;
     }
+
     h1, h2, h3 {
       color: red;
     }
+
     .patrocinador {
       display: inline-block;
       width: 160px;
@@ -26,12 +30,14 @@
       background-color: #111;
       border: 2px solid red;
     }
+
     .patrocinador img {
       width: 100px;
       height: auto;
       display: block;
       margin: 0 auto 10px auto;
     }
+
     .patrocinador button {
       background-color: black;
       color: white;
@@ -42,13 +48,16 @@
       cursor: pointer;
       margin-top: 4px;
     }
+
     .patrocinador button:hover {
       background-color: red;
       color: black;
     }
+
     .categoria {
       margin-bottom: 30px;
     }
+
     .botao-voltar {
       margin-top: 30px;
       background-color: black;
@@ -59,13 +68,14 @@
       padding: 8px 16px;
       cursor: pointer;
     }
+
     .botao-voltar:hover {
       background-color: red;
       color: black;
     }
   </style>
 
-  <script type="module" defer>
+  <script type="module">
     import { patrocinadores as listaPatrocinadores } from "../dados/patrocinadores.js";
 
     let jogo = {};
@@ -80,19 +90,25 @@
         return;
       }
 
-      if (!jogo.patrocinadores) jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
-      if (!jogo.contratosPatrocinadores) jogo.contratosPatrocinadores = {};
+      if (!jogo.patrocinadores || typeof jogo.patrocinadores !== "object") {
+        jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
+      }
 
+      if (!jogo.contratosPatrocinadores || typeof jogo.contratosPatrocinadores !== "object") {
+        jogo.contratosPatrocinadores = {};
+      }
+
+      // Preenche os patrocinadores iniciais baseados na equipe
       listaPatrocinadores.forEach(p => {
-        if (
-          p.condicao.toLowerCase().includes(jogo.equipeSelecionada.toLowerCase()) &&
-          !jogo.patrocinadores[p.nivel].includes(p.nome)
-        ) {
-          jogo.patrocinadores[p.nivel].push(p.nome);
-          jogo.contratosPatrocinadores[p.nome] = {
-            duracao: 3,
-            performanceRuimSeguidas: 0
-          };
+        if (p.condicao.toLowerCase().includes(jogo.equipeSelecionada.toLowerCase())) {
+          const nivel = p.nivel;
+          if (!jogo.patrocinadores[nivel].includes(p.nome)) {
+            jogo.patrocinadores[nivel].push(p.nome);
+            jogo.contratosPatrocinadores[p.nome] = {
+              duracao: 3,
+              performanceRuimSeguidas: 0
+            };
+          }
         }
       });
 
@@ -103,15 +119,17 @@
       const container = document.getElementById("lista");
       container.innerHTML = "";
 
-      const contratados = document.createElement("div");
-      contratados.innerHTML = `<h2>Patrocinadores Atuais</h2>`;
+      // Patrocinadores Ativos
+      const ativos = document.createElement("div");
+      ativos.innerHTML = `<h2>Patrocinadores Ativos</h2>`;
       ["alto", "medio", "baixo"].forEach(nivel => {
         jogo.patrocinadores[nivel].forEach(nome => {
-          contratados.innerHTML += gerarCartaoPatrocinador(nome, nivel, true);
+          ativos.innerHTML += gerarCartaoPatrocinador(nome, nivel, true);
         });
       });
-      container.appendChild(contratados);
+      container.appendChild(ativos);
 
+      // Banco de Patrocinadores Disponíveis
       const banco = document.createElement("div");
       banco.innerHTML = `<h2>Banco de Patrocinadores</h2>`;
       ["alto", "medio", "baixo"].forEach(nivel => {
@@ -149,13 +167,14 @@
       } else if (contratado) {
         html += `<div>(Contratado)</div>`;
       } else {
-        if ((nivel === "alto" && jogo.patrocinadores.alto.length > 0) ||
-            (nivel === "medio" && jogo.patrocinadores.medio.length >= 4) ||
-            (nivel === "baixo" && jogo.patrocinadores.baixo.length >= 11)) {
-          html += `<div style="font-size:8px; color:gray;">(Limite atingido)</div>`;
-        } else {
-          html += `<button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>`;
-        }
+        const limiteAtingido =
+          (nivel === "alto" && jogo.patrocinadores.alto.length >= 1) ||
+          (nivel === "medio" && jogo.patrocinadores.medio.length >= 4) ||
+          (nivel === "baixo" && jogo.patrocinadores.baixo.length >= 11);
+
+        html += limiteAtingido
+          ? `<div style="font-size:8px; color:gray;">(Limite atingido)</div>`
+          : `<button onclick="assinar('${nome}', ${valores[nivel]}, '${nivel}')">Assinar</button>`;
       }
 
       html += `</div>`;
@@ -203,7 +222,6 @@
     };
   </script>
 </head>
-
 <body>
   <h1>Patrocinadores</h1>
   <div id="lista"></div>
