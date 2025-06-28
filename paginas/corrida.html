@@ -107,7 +107,6 @@
       const container = document.getElementById("lista");
       container.innerHTML = "";
 
-      // Patrocinadores já contratados
       const contratados = document.createElement("div");
       contratados.innerHTML = `<h2>Patrocinadores Atuais</h2>`;
       ["alto", "medio", "baixo"].forEach(nivel => {
@@ -117,7 +116,6 @@
       });
       container.appendChild(contratados);
 
-      // Patrocinadores disponíveis
       ["alto", "medio", "baixo"].forEach(nivel => {
         const secao = document.createElement("div");
         secao.className = "categoria";
@@ -177,17 +175,73 @@
       jogo.patrocinadores[nivel].push(nome);
       jogo.dinheiro += valor;
       jogo.novoPatrocinador = nome;
+      jogo.contratosPatrocinadores[nome] = { duracao: 3, performanceRuimSeguidas: 0 };
       saveGame(jogo);
       alert(`${nome} contratado por $${valor.toLocaleString()}`);
       renderizarPatrocinadores();
     }
   </script>
 </head>
-
 <body>
   <h1>Patrocinadores</h1>
   <div id="lista"></div>
   <br>
   <button class="botao" onclick="window.location.href='../menu-principal.html'">Voltar</button>
+
+  <script type="module">
+    import { patrocinadores as listaPatrocinadores } from "../dados/patrocinadores.js";
+
+    let jogo = loadGameData();
+
+    const posicaoFinal = jogo.resultadoUltimaCorrida || 12;
+    const equipe = jogo.equipeSelecionada;
+
+    if (!jogo.contratosPatrocinadores) jogo.contratosPatrocinadores = {};
+    if (!jogo.patrocinadores) jogo.patrocinadores = { alto: [], medio: [], baixo: [] };
+
+    Object.keys(jogo.contratosPatrocinadores).forEach(nome => {
+      const contrato = jogo.contratosPatrocinadores[nome];
+      const dados = listaPatrocinadores.find(p => p.nome === nome);
+      if (!dados) return;
+
+      jogo.dinheiro += dados.valorPorCorrida || 0;
+      contrato.duracao = (contrato.duracao || 1) - 1;
+
+      const ruim = posicaoFinal > 8;
+      contrato.performanceRuimSeguidas = contrato.performanceRuimSeguidas || 0;
+      if (ruim) contrato.performanceRuimSeguidas++;
+      else contrato.performanceRuimSeguidas = 0;
+
+      if (
+        contrato.performanceRuimSeguidas >= (dados.tolerancia || 2) &&
+        Math.random() < ((dados.riscoRompimento || 10) / 100)
+      ) {
+        ["alto", "medio", "baixo"].forEach(nivel => {
+          const i = jogo.patrocinadores[nivel].indexOf(nome);
+          if (i !== -1) jogo.patrocinadores[nivel].splice(i, 1);
+        });
+        delete jogo.contratosPatrocinadores[nome];
+        jogo.rompidoPatrocinador = nome;
+      }
+
+      const interesse = dados.interessePorEquipe?.[equipe] ?? dados.interesseBase ?? 50;
+      if (contrato.duracao <= 0 && posicaoFinal <= 4 && interesse >= 80) {
+        contrato.duracao = 3;
+        contrato.performanceRuimSeguidas = 0;
+        jogo.renovadoPatrocinador = nome;
+      }
+
+      if (contrato.duracao <= 0 && !jogo.renovadoPatrocinador) {
+        ["alto", "medio", "baixo"].forEach(nivel => {
+          const i = jogo.patrocinadores[nivel].indexOf(nome);
+          if (i !== -1) jogo.patrocinadores[nivel].splice(i, 1);
+        });
+        delete jogo.contratosPatrocinadores[nome];
+        jogo.expiradoPatrocinador = nome;
+      }
+    });
+
+    saveGame(jogo);
+  </script>
 </body>
 </html>
