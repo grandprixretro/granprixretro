@@ -46,10 +46,6 @@
       background-color: red;
       color: black;
     }
-
-    #botaoManutencao {
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
@@ -85,7 +81,7 @@
       document.getElementById("botaoManutencao").textContent = `Manutenção: ${jogo.fabrica.manutencaoAutomatica ? "Ativa" : "Inativa"}`;
     }
 
-    window.investir = function(valor) {
+    function investir(valor) {
       if (jogo.dinheiro < valor) {
         alert("Dinheiro insuficiente.");
         return;
@@ -103,15 +99,19 @@
       if (!jogo.fabrica.investimentoTotal) jogo.fabrica.investimentoTotal = 0;
       jogo.fabrica.investimentoTotal += valor;
 
+      console.log("Salvando jogo após investimento:", jogo);
       saveGame(jogo);
       atualizarInterface();
-    };
+    }
 
-    window.alternarManutencao = function() {
+    function alternarManutencao() {
       jogo.fabrica.manutencaoAutomatica = !jogo.fabrica.manutencaoAutomatica;
       saveGame(jogo);
       atualizarInterface();
-    };
+    }
+
+    window.investir = investir;
+    window.alternarManutencao = alternarManutencao;
 
     window.onload = () => {
       jogo = loadGameData();
