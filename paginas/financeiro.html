@@ -5,7 +5,8 @@
   <title>Relatório Financeiro</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
-  <script defer>
+  <script defer type="module">
+    import { patrocinadores } from "../dados/patrocinadores.js";
     let jogo = {};
     window.onload = () => {
       jogo = loadGameData();
@@ -24,24 +25,61 @@
       }
 
       const ultima = historico[historico.length - 1];
-      div.innerHTML = `
-        <h2>Corrida ${ultima.corrida}</h2>
-        <p><strong>Patrocínios recebidos:</strong> $${ultima.entradas.toLocaleString()}</p>
-        <p><strong>Despesas totais:</strong> -$${ultima.saidas.toLocaleString()}</p>
-        <p><strong>Saldo da corrida:</strong> <span style="color:${ultima.saldo >= 0 ? 'green' : 'red'}">$${ultima.saldo.toLocaleString()}</span></p>
+      div.innerHTML = \`
+        <h2>Corrida \${ultima.corrida}</h2>
+        <p><strong>Patrocínios recebidos:</strong> $\${ultima.entradas.toLocaleString()}</p>
+        <p><strong>Despesas totais:</strong> -$\${ultima.saidas.toLocaleString()}</p>
+        <p><strong>Saldo da corrida:</strong> <span style="color:\${ultima.saldo >= 0 ? 'green' : 'red'}">$\${ultima.saldo.toLocaleString()}</span></p>
         <hr>
-        <h3>Saldo atual em caixa: $${jogo.dinheiro.toLocaleString()}</h3>
-        <h3>Total de corridas: ${historico.length}</h3>
-      `;
+        <h3>Saldo atual em caixa: $\${jogo.dinheiro.toLocaleString()}</h3>
+        <h3>Total de corridas: \${historico.length}</h3>
+      \`;
 
       const ul = document.createElement("ul");
       ul.innerHTML = "<h4>Resumo financeiro da temporada:</h4>";
       historico.forEach(r => {
         const li = document.createElement("li");
-        li.textContent = `Corrida ${r.corrida}: +$${r.entradas.toLocaleString()} / -$${r.saidas.toLocaleString()} → $${r.saldo.toLocaleString()}`;
+        li.textContent = \`Corrida \${r.corrida}: +$\${r.entradas.toLocaleString()} / -$\${r.saidas.toLocaleString()} → $\${r.saldo.toLocaleString()}\`;
         ul.appendChild(li);
       });
       div.appendChild(ul);
+
+      const divPatrocinadores = document.createElement("div");
+      divPatrocinadores.innerHTML = "<h3>📢 Patrocinadores Ativos</h3>";
+
+      if (jogo.contratosPatrocinadores && Object.keys(jogo.contratosPatrocinadores).length > 0) {
+        const tabela = document.createElement("table");
+        tabela.style.width = "100%";
+        tabela.style.marginTop = "10px";
+        tabela.innerHTML = \`
+          <tr style="color: red;">
+            <th>Nome</th>
+            <th>Valor por Corrida</th>
+            <th>Tempo Restante</th>
+          </tr>
+        \`;
+
+        Object.entries(jogo.contratosPatrocinadores).forEach(([nome, contrato]) => {
+          const dados = patrocinadores.find(p => p.nome === nome);
+          const valor = dados?.valorPorCorrida?.toLocaleString() || "N/A";
+          const duracao = contrato?.duracao ?? "N/A";
+
+          tabela.innerHTML += \`
+            <tr>
+              <td>\${nome}</td>
+              <td>$\${valor}</td>
+              <td>\${duracao} corrida\${duracao === 1 ? '' : 's'}</td>
+            </tr>
+          \`;
+        });
+
+        divPatrocinadores.appendChild(tabela);
+      } else {
+        divPatrocinadores.innerHTML += "<p>Nenhum contrato ativo no momento.</p>";
+      }
+
+      div.appendChild(document.createElement("hr"));
+      div.appendChild(divPatrocinadores);
     };
   </script>
 </head>
