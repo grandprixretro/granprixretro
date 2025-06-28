@@ -2,49 +2,130 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Equipes e Pilotos</title>
+  <title>Fábrica</title>
   <link rel="stylesheet" href="../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <script defer src="../saveManager.js"></script>
-  <script defer>
-    let equipes = [];
-    let pilotos = [];
-
-    async function carregarDados() {
-      const eq = await fetch("../data/equipes.json").then(r => r.json());
-      const pil = await fetch("../data/pilotos.json").then(r => r.json());
-
-      equipes = eq;
-      pilotos = pil;
-      renderizar();
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      padding: 20px;
     }
 
-    function renderizar() {
-      const container = document.getElementById("tabelaEquipes");
-      container.innerHTML = "";
-
-      equipes
-        .filter(e => e.ativa)
-        .forEach(eq => {
-          const pilotosEquipe = pilotos.filter(p => p.equipe === eq.nome);
-          const bloco = document.createElement("div");
-          bloco.innerHTML = `
-            <h3>${eq.nome} (${eq.motor})</h3>
-            <ul>
-              ${pilotosEquipe.map(p => `<li>${p.nome} (${p.pais}) - Talento: ${p.talento}</li>`).join("")}
-            </ul>
-            <hr>
-          `;
-          container.appendChild(bloco);
-        });
+    h1 {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 20px;
     }
 
-    window.onload = carregarDados;
-  </script>
+    h2 {
+      color: red;
+      font-size: 12px;
+      margin-top: 30px;
+    }
+
+    p {
+      font-size: 10px;
+      margin: 6px 0;
+      color: white;
+    }
+
+    button {
+      background-color: black;
+      color: white;
+      border: 2px solid red;
+      padding: 10px 15px;
+      margin: 6px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: red;
+      color: black;
+    }
+  </style>
 </head>
 <body>
-  <h1>Formação das Equipes</h1>
-  <div id="tabelaEquipes"></div>
-  <br>
+  <h1>Fábrica da Equipe</h1>
+
+  <p><strong>Equipe:</strong> <span id="equipe"></span></p>
+  <p><strong>Motor:</strong> <span id="motor"></span></p>
+  <p><strong>Nível da Fábrica:</strong> <span id="nivel"></span></p>
+  <p><strong>Dinheiro disponível:</strong> <span id="dinheiro"></span></p>
+  <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
+
+  <h2>Investir na Fábrica</h2>
+  <button onclick="investir(1000000)">Investir $1M</button>
+  <button onclick="investir(2000000)">Investir $2M</button>
+  <button onclick="investir(5000000)">Investir $5M</button>
+
+  <br><br>
+  <button id="botaoManutencao" onclick="alternarManutencao()">Manutenção: Inativa</button>
+  <br><br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
+
+  <script>
+    let jogo = {};
+
+    function atualizarInterface() {
+      document.getElementById("equipe").textContent = jogo.equipe;
+      document.getElementById("motor").textContent = jogo.motor;
+      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
+      document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
+      document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
+      document.getElementById("botaoManutencao").textContent = `Manutenção: ${jogo.fabrica.manutencaoAutomatica ? "Ativa" : "Inativa"}`;
+    }
+
+    function investir(valor) {
+      if (jogo.fabrica.nivel >= 1) {
+        alert("A fábrica já está no nível máximo.");
+        return;
+      }
+
+      if (jogo.dinheiro < valor) {
+        alert("Dinheiro insuficiente.");
+        return;
+      }
+
+      jogo.dinheiro -= valor;
+
+      const ganho = valor / 100000000;
+      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
+
+      if (!jogo.fabrica.investimentoTotal) {
+        jogo.fabrica.investimentoTotal = 0;
+      }
+      jogo.fabrica.investimentoTotal += valor;
+
+      saveGame(jogo);
+      atualizarInterface();
+    }
+
+    function alternarManutencao() {
+      jogo.fabrica.manutencaoAutomatica = !jogo.fabrica.manutencaoAutomatica;
+      saveGame(jogo);
+      atualizarInterface();
+    }
+
+    window.onload = () => {
+      jogo = loadGameData();
+
+      if (!jogo || !jogo.fabrica) {
+        alert("Jogo não carregado ou dados de fábrica ausentes.");
+        location.href = "../index.html";
+        return;
+      }
+
+      if (typeof jogo.fabrica.manutencaoAutomatica === "undefined") {
+        jogo.fabrica.manutencaoAutomatica = false;
+      }
+
+      atualizarInterface();
+    };
+  </script>
 </body>
 </html>
