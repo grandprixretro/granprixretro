@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Patrocinadores</title>
+  <link rel="stylesheet" href="../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script defer src="/granprixretro/scripts/saveManager.js"></script>
+  <script type="module" defer>
+    import { loadGameData } from "/granprixretro/scripts/saveManager.js";
+
+    let jogo = {};
+
+    window.onload = async () => {
+      jogo = loadGameData();
+      if (!jogo) {
+        alert("Nenhum jogo salvo. Voltando ao menu.");
+        location.href = "/granprixretro/menu-principal.html";
+        return;
+      }
+
+      const container = document.getElementById("lista-patrocinadores");
+
+      try {
+        const response = await fetch("/granprixretro/dados/patrocinadores.json");
+        const patrocinadores = await response.json();
+
+        patrocinadores.forEach(p => {
+          if (p.condicao.includes(jogo.equipeSelecionada)) {
+            const div = document.createElement("div");
+            div.className = "patro-item";
+            div.innerText = p.nome + " - " + p.nivel.toUpperCase();
+            container.appendChild(div);
+          }
+        });
+      } catch (error) {
+        console.error("Erro ao carregar patrocinadores:", error);
+        container.innerText = "Erro ao carregar dados de patrocinadores.";
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: black;
+      color: red;
+      font-family: 'Press Start 2P', monospace;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .patro-item {
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: black;
+      color: red;
+      border: 2px solid red;
+      padding: 10px 20px;
+      font-family: 'Press Start 2P', monospace;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: red;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <h1>Patrocinadores Disponíveis</h1>
+  <div id="lista-patrocinadores"></div>
+  <button onclick="window.location.href='/granprixretro/menu-principal.html'">Voltar</button>
+</body>
+</html>
