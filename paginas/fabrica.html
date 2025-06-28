@@ -63,9 +63,7 @@
   <button onclick="investir(5000000)">Investir $5M</button>
 
   <h2>Manutenção</h2>
-  <button onclick="alternarManutencao()">
-    <span id="statusManutencao">Manutenção: Inativa</span>
-  </button>
+  <button onclick="alternarManutencao()" id="btnManutencao">Manutenção: Inativa</button>
 
   <br><br>
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
@@ -74,16 +72,21 @@
     let jogo = {};
 
     function atualizarInterface() {
-      document.getElementById("equipe").textContent = jogo.equipe;
-      document.getElementById("motor").textContent = jogo.motor;
-      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
+      document.getElementById("equipe").textContent = jogo.equipe || "??";
+      document.getElementById("motor").textContent = jogo.motor || "??";
+      document.getElementById("nivel").textContent = (jogo.fabrica?.nivel * 100).toFixed(1) + "%";
       document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
       document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
-      document.getElementById("statusManutencao").textContent =
+      document.getElementById("btnManutencao").textContent =
         "Manutenção: " + (jogo.fabrica.manutencaoAutomatica ? "Ativa" : "Inativa");
     }
 
     function investir(valor) {
+      if (!jogo.fabrica || typeof jogo.fabrica.nivel === "undefined") {
+        alert("Dados da fábrica não carregados corretamente.");
+        return;
+      }
+
       if (jogo.fabrica.nivel >= 1) {
         alert("A fábrica já está no nível máximo.");
         return;
@@ -97,10 +100,9 @@
       jogo.dinheiro -= valor;
       const ganho = valor / 100000000;
       jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
+      jogo.fabrica.investimentoTotal = (jogo.fabrica.investimentoTotal || 0) + valor;
 
-      if (!jogo.fabrica.investimentoTotal) jogo.fabrica.investimentoTotal = 0;
-      jogo.fabrica.investimentoTotal += valor;
-
+      console.log("Salvando jogo após investimento:", jogo);
       saveGame(jogo);
       atualizarInterface();
     }
@@ -119,10 +121,11 @@
         return;
       }
 
-      if (typeof jogo.fabrica.manutencaoAutomatica === "undefined") {
-        jogo.fabrica.manutencaoAutomatica = false;
-      }
+      if (typeof jogo.fabrica.nivel === "undefined") jogo.fabrica.nivel = 0.7;
+      if (typeof jogo.fabrica.investimentoTotal === "undefined") jogo.fabrica.investimentoTotal = 0;
+      if (typeof jogo.fabrica.manutencaoAutomatica === "undefined") jogo.fabrica.manutencaoAutomatica = false;
 
+      console.log("Jogo carregado na fábrica:", jogo);
       atualizarInterface();
     };
   </script>
