@@ -1,0 +1,601 @@
+  {
+    "nome": "Adrian Newey",
+    "cargo": "Diretor Técnico",
+    "habilidade": 60,
+    "equipeInicial": "Williams"
+  },
+  {
+    "nome": "Ross Brawn",
+    "cargo": "Diretor Técnico",
+    "habilidade": 70,
+    "equipeInicial": "Benetton"
+  },
+  {
+    "nome": "Gustav Brunner",
+    "cargo": "Diretor Técnico",
+    "habilidade": 80,
+    "equipeInicial": "Ferrari"
+  },
+  {
+    "nome": "Frank Dernie",
+    "cargo": "Diretor Técnico",
+    "habilidade": 90,
+    "equipeInicial": "McLaren"
+  },
+  {
+    "nome": "Gary Anderson",
+    "cargo": "Diretor Técnico",
+    "habilidade": 100,
+    "equipeInicial": "Jordan"
+  },
+  {
+    "nome": "John Barnard",
+    "cargo": "Diretor Técnico",
+    "habilidade": 60,
+    "equipeInicial": "Sauber"
+  },
+  {
+    "nome": "Steve Nichols",
+    "cargo": "Diretor Técnico",
+    "habilidade": 70,
+    "equipeInicial": "Ligier"
+  },
+  {
+    "nome": "Nicholas Tombazis",
+    "cargo": "Diretor Técnico",
+    "habilidade": 80,
+    "equipeInicial": "Minardi"
+  },
+  {
+    "nome": "Tim Densham",
+    "cargo": "Diretor Técnico",
+    "habilidade": 90,
+    "equipeInicial": "Tyrrell"
+  },
+  {
+    "nome": "Mike Gascoyne",
+    "cargo": "Diretor Técnico",
+    "habilidade": 100,
+    "equipeInicial": "Footwork"
+  },
+  {
+    "nome": "Enrico Scalabroni",
+    "cargo": "Diretor Técnico",
+    "habilidade": 60,
+    "equipeInicial": "Lotus"
+  },
+  {
+    "nome": "Jörg Zander",
+    "cargo": "Diretor Técnico",
+    "habilidade": 70,
+    "equipeInicial": "Larrousse"
+  },
+  {
+    "nome": "Rory Byrne",
+    "cargo": "Diretor Técnico",
+    "habilidade": 80,
+    "equipeInicial": "Simtek"
+  },
+  {
+    "nome": "Geoff Willis",
+    "cargo": "Diretor Técnico",
+    "habilidade": 90,
+    "equipeInicial": "Pacific"
+  },
+  {
+    "nome": "Pat Symonds",
+    "cargo": "Diretor Técnico",
+    "habilidade": 100,
+    "equipeInicial": "Andrea Moda"
+  },
+  {
+    "nome": "Mark Smith",
+    "cargo": "Diretor Técnico",
+    "habilidade": 60,
+    "equipeInicial": "AGS"
+  },
+  {
+    "nome": "James Allison",
+    "cargo": "Diretor Técnico",
+    "habilidade": 70,
+    "equipeInicial": "Coloni"
+  },
+  {
+    "nome": "Nick Wirth",
+    "cargo": "Diretor Técnico",
+    "habilidade": 80,
+    "equipeInicial": "Onyx"
+  },
+  {
+    "nome": "Antônio Cuquerella",
+    "cargo": "Diretor Técnico",
+    "habilidade": 90,
+    "equipeInicial": "Forti"
+  },
+  {
+    "nome": "Gabriele Tredozi",
+    "cargo": "Diretor Técnico",
+    "habilidade": 100,
+    "equipeInicial": "DAMS"
+  },
+  {
+    "nome": "Pierre Waché",
+    "cargo": "Chefe de R&D",
+    "habilidade": 60,
+    "equipeInicial": "Williams"
+  },
+  {
+    "nome": "Dino Toso",
+    "cargo": "Chefe de R&D",
+    "habilidade": 70,
+    "equipeInicial": "Benetton"
+  },
+  {
+    "nome": "Loïc Bigois",
+    "cargo": "Chefe de R&D",
+    "habilidade": 80,
+    "equipeInicial": "Ferrari"
+  },
+  {
+    "nome": "Luca Baldisserri",
+    "cargo": "Chefe de R&D",
+    "habilidade": 90,
+    "equipeInicial": "McLaren"
+  },
+  {
+    "nome": "James Key",
+    "cargo": "Chefe de R&D",
+    "habilidade": 100,
+    "equipeInicial": "Jordan"
+  },
+  {
+    "nome": "Rob Smedley",
+    "cargo": "Chefe de R&D",
+    "habilidade": 60,
+    "equipeInicial": "Sauber"
+  },
+  {
+    "nome": "Giampaolo Dallara",
+    "cargo": "Chefe de R&D",
+    "habilidade": 70,
+    "equipeInicial": "Ligier"
+  },
+  {
+    "nome": "Ben Agathangelou",
+    "cargo": "Chefe de R&D",
+    "habilidade": 80,
+    "equipeInicial": "Minardi"
+  },
+  {
+    "nome": "Tony Purnell",
+    "cargo": "Chefe de R&D",
+    "habilidade": 90,
+    "equipeInicial": "Tyrrell"
+  },
+  {
+    "nome": "Chris Dyer",
+    "cargo": "Chefe de R&D",
+    "habilidade": 100,
+    "equipeInicial": "Footwork"
+  },
+  {
+    "nome": "Peter Prodromou",
+    "cargo": "Chefe de R&D",
+    "habilidade": 60,
+    "equipeInicial": "Lotus"
+  },
+  {
+    "nome": "Tom McCullough",
+    "cargo": "Chefe de R&D",
+    "habilidade": 70,
+    "equipeInicial": "Larrousse"
+  },
+  {
+    "nome": "Matt Morris",
+    "cargo": "Chefe de R&D",
+    "habilidade": 80,
+    "equipeInicial": "Simtek"
+  },
+  {
+    "nome": "Eric Blandin",
+    "cargo": "Chefe de R&D",
+    "habilidade": 90,
+    "equipeInicial": "Pacific"
+  },
+  {
+    "nome": "Ben Bowlby",
+    "cargo": "Chefe de R&D",
+    "habilidade": 100,
+    "equipeInicial": "Andrea Moda"
+  },
+  {
+    "nome": "Xavier Pujolar",
+    "cargo": "Chefe de R&D",
+    "habilidade": 60,
+    "equipeInicial": "AGS"
+  },
+  {
+    "nome": "John Iley",
+    "cargo": "Chefe de R&D",
+    "habilidade": 70,
+    "equipeInicial": "Coloni"
+  },
+  {
+    "nome": "Craig Wilson",
+    "cargo": "Chefe de R&D",
+    "habilidade": 80,
+    "equipeInicial": "Onyx"
+  },
+  {
+    "nome": "Tim Goss",
+    "cargo": "Chefe de R&D",
+    "habilidade": 90,
+    "equipeInicial": "Forti"
+  },
+  {
+    "nome": "Luciano Martin",
+    "cargo": "Chefe de R&D",
+    "habilidade": 100,
+    "equipeInicial": "DAMS"
+  },
+  {
+    "nome": "Frank Williams",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 60,
+    "equipeInicial": "Williams"
+  },
+  {
+    "nome": "Flavio Briatore",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 70,
+    "equipeInicial": "Benetton"
+  },
+  {
+    "nome": "Ron Dennis",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 80,
+    "equipeInicial": "Ferrari"
+  },
+  {
+    "nome": "Jean Todt",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 90,
+    "equipeInicial": "McLaren"
+  },
+  {
+    "nome": "Peter Sauber",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 100,
+    "equipeInicial": "Jordan"
+  },
+  {
+    "nome": "Eddie Jordan",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 60,
+    "equipeInicial": "Sauber"
+  },
+  {
+    "nome": "Cyril de Rouvre",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 70,
+    "equipeInicial": "Ligier"
+  },
+  {
+    "nome": "Ken Tyrrell",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 80,
+    "equipeInicial": "Minardi"
+  },
+  {
+    "nome": "Giancarlo Minardi",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 90,
+    "equipeInicial": "Tyrrell"
+  },
+  {
+    "nome": "Guy Ligier",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 100,
+    "equipeInicial": "Footwork"
+  },
+  {
+    "nome": "Jackie Oliver",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 60,
+    "equipeInicial": "Lotus"
+  },
+  {
+    "nome": "Keith Wiggins",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 70,
+    "equipeInicial": "Larrousse"
+  },
+  {
+    "nome": "Andrea Sassetti",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 80,
+    "equipeInicial": "Simtek"
+  },
+  {
+    "nome": "Jean-Pierre van Rossem",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 90,
+    "equipeInicial": "Pacific"
+  },
+  {
+    "nome": "José Ramon Carabantes",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 100,
+    "equipeInicial": "Andrea Moda"
+  },
+  {
+    "nome": "Paul Stoddart",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 60,
+    "equipeInicial": "AGS"
+  },
+  {
+    "nome": "Gunther Steiner",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 70,
+    "equipeInicial": "Coloni"
+  },
+  {
+    "nome": "Federico Bruzzone",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 80,
+    "equipeInicial": "Onyx"
+  },
+  {
+    "nome": "Peter Windsor",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 90,
+    "equipeInicial": "Forti"
+  },
+  {
+    "nome": "Cesar Ramos",
+    "cargo": "Chefe de Equipe",
+    "habilidade": 100,
+    "equipeInicial": "DAMS"
+  },
+  {
+    "nome": "Jo Ramirez",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 60,
+    "equipeInicial": "Williams"
+  },
+  {
+    "nome": "Nigel Stepney",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 70,
+    "equipeInicial": "Benetton"
+  },
+  {
+    "nome": "Joan Villadelprat",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 80,
+    "equipeInicial": "Ferrari"
+  },
+  {
+    "nome": "Cesare Fiorio",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 90,
+    "equipeInicial": "McLaren"
+  },
+  {
+    "nome": "Tony Jardine",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 100,
+    "equipeInicial": "Jordan"
+  },
+  {
+    "nome": "Trevor Foster",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 60,
+    "equipeInicial": "Sauber"
+  },
+  {
+    "nome": "Rob White",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 70,
+    "equipeInicial": "Ligier"
+  },
+  {
+    "nome": "Steve Hallam",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 80,
+    "equipeInicial": "Minardi"
+  },
+  {
+    "nome": "John Walton",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 90,
+    "equipeInicial": "Tyrrell"
+  },
+  {
+    "nome": "Pat Fry",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 100,
+    "equipeInicial": "Footwork"
+  },
+  {
+    "nome": "Tim Wright",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 60,
+    "equipeInicial": "Lotus"
+  },
+  {
+    "nome": "Giorgio Ascanelli",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 70,
+    "equipeInicial": "Larrousse"
+  },
+  {
+    "nome": "Dave Ryan",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 80,
+    "equipeInicial": "Simtek"
+  },
+  {
+    "nome": "Mark Slade",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 90,
+    "equipeInicial": "Pacific"
+  },
+  {
+    "nome": "Alan Permane",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 100,
+    "equipeInicial": "Andrea Moda"
+  },
+  {
+    "nome": "Ricardo Divila",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 60,
+    "equipeInicial": "AGS"
+  },
+  {
+    "nome": "Paul Monaghan",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 70,
+    "equipeInicial": "Coloni"
+  },
+  {
+    "nome": "Andy Stevenson",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 80,
+    "equipeInicial": "Onyx"
+  },
+  {
+    "nome": "Ron Meadows",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 90,
+    "equipeInicial": "Forti"
+  },
+  {
+    "nome": "Andrea Stella",
+    "cargo": "Chefe de Corrida",
+    "habilidade": 100,
+    "equipeInicial": "DAMS"
+  },
+  {
+    "nome": "Zak Brown",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 60,
+    "equipeInicial": "Williams"
+  },
+  {
+    "nome": "Marco Piccinini",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 70,
+    "equipeInicial": "Benetton"
+  },
+  {
+    "nome": "Toto Wolff",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 80,
+    "equipeInicial": "Ferrari"
+  },
+  {
+    "nome": "Richard Cregan",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 90,
+    "equipeInicial": "McLaren"
+  },
+  {
+    "nome": "Ian Phillips",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 100,
+    "equipeInicial": "Jordan"
+  },
+  {
+    "nome": "Sabine Kehm",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 60,
+    "equipeInicial": "Sauber"
+  },
+  {
+    "nome": "Chris Gent",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 70,
+    "equipeInicial": "Ligier"
+  },
+  {
+    "nome": "Peter Collins",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 80,
+    "equipeInicial": "Minardi"
+  },
+  {
+    "nome": "Luigi Macaluso",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 90,
+    "equipeInicial": "Tyrrell"
+  },
+  {
+    "nome": "David Richards",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 100,
+    "equipeInicial": "Footwork"
+  },
+  {
+    "nome": "Tim Malyon",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 60,
+    "equipeInicial": "Lotus"
+  },
+  {
+    "nome": "Jonathan Neale",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 70,
+    "equipeInicial": "Larrousse"
+  },
+  {
+    "nome": "Alan Gow",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 80,
+    "equipeInicial": "Simtek"
+  },
+  {
+    "nome": "Jean-Marc Gounon",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 90,
+    "equipeInicial": "Pacific"
+  },
+  {
+    "nome": "Tom Clarkson",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 100,
+    "equipeInicial": "Andrea Moda"
+  },
+  {
+    "nome": "James Barclay",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 60,
+    "equipeInicial": "AGS"
+  },
+  {
+    "nome": "Roger Benoit",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 70,
+    "equipeInicial": "Coloni"
+  },
+  {
+    "nome": "Neil Martin",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 80,
+    "equipeInicial": "Onyx"
+  },
+  {
+    "nome": "Massimo Rivola",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 90,
+    "equipeInicial": "Forti"
+  },
+  {
+    "nome": "Matteo Bonciani",
+    "cargo": "Diretor de Marketing",
+    "habilidade": 100,
+    "equipeInicial": "DAMS"
+  }
+]
