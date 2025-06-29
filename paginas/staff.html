@@ -2,84 +2,110 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Mercado de Staff</title>
+  <title>Staff da Equipe</title>
   <link rel="stylesheet" href="../style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <script defer src="../saveManager.js"></script>
-  <script defer>
-    let jogo = {};
-
-    const staffBase = [
-      { nome: "Ross Brawn", funcao: "chefeEquipe", qualidade: 9.0, equipe: "" },
-      { nome: "Adrian Newey", funcao: "chefeDesign", qualidade: 9.5, equipe: "" },
-      { nome: "Pat Symonds", funcao: "engenheiro", qualidade: 8.8, equipe: "" },
-      { nome: "Jo Ramírez", funcao: "chefeEquipe", qualidade: 8.2, equipe: "" },
-      { nome: "Gustav Brunner", funcao: "chefeDesign", qualidade: 7.8, equipe: "" },
-      { nome: "Loïc Bigois", funcao: "engenheiro", qualidade: 7.5, equipe: "" }
-    ];
-
-    function renderizar() {
-      const lista = document.getElementById("lista");
-      lista.innerHTML = "";
-
-      staffBase
-        .filter(membro => !membro.equipe || membro.equipe === jogo.equipe || Object.values(jogo.staff).includes(membro.nome))
-        .forEach(p => {
-          const contratado = Object.values(jogo.staff).includes(p.nome);
-          let botao;
-
-          if (contratado) {
-            botao = `<button onclick="demitir('${p.funcao}')">Demitir</button>`;
-          } else {
-            botao = `<button onclick="contratar('${p.funcao}', '${p.nome}')">Contratar</button>`;
-          }
-
-          const item = document.createElement("div");
-          item.innerHTML = `<strong>${p.nome}</strong> (${p.funcao}) - Qualidade: ${p.qualidade} ${botao}`;
-          lista.appendChild(item);
-        });
+  <script defer src="../dados/staff.js"></script> <!-- ou ../dados/staff.json via fetch -->
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      padding: 20px;
     }
-
-    function contratar(funcao, nome) {
-      jogo.staff = jogo.staff || {};
-      jogo.staff[funcao] = nome;
-
-      jogo.ultimasNoticias = jogo.ultimasNoticias || [];
-      jogo.ultimasNoticias.push(`🧠 ${nome} foi contratado como ${funcao} pela equipe ${jogo.equipe}.`);
-      if (jogo.ultimasNoticias.length > 20) jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
-
-      saveGame(jogo);
-      alert(`${nome} contratado como ${funcao}.`);
-      renderizar();
+    h1 {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 20px;
     }
-
-    function demitir(funcao) {
-      if (!confirm("Deseja realmente demitir este membro?")) return;
-      delete jogo.staff[funcao];
-
-      jogo.ultimasNoticias = jogo.ultimasNoticias || [];
-      jogo.ultimasNoticias.push(`⚠️ ${funcao} foi demitido da equipe ${jogo.equipe}.`);
-      if (jogo.ultimasNoticias.length > 20) jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
-
-      saveGame(jogo);
-      alert(`Membro demitido de ${funcao}.`);
-      renderizar();
+    .departamento {
+      border: 2px solid red;
+      padding: 10px;
+      margin-bottom: 10px;
     }
+    .departamento h2 {
+      font-size: 12px;
+      color: red;
+    }
+    .departamento p {
+      font-size: 10px;
+      margin: 4px 0;
+    }
+    .voltar {
+      margin-top: 20px;
+      background-color: black;
+      color: white;
+      border: 2px solid red;
+      font-family: 'Press Start 2P', monospace;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    .voltar:hover {
+      background-color: red;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <h1>📋 Staff da Equipe</h1>
+  <div id="staff"></div>
+  <button class="voltar" onclick="window.location.href='../menu-principal.html'">Voltar</button>
 
-    window.onload = () => {
-      jogo = loadGameData();
-      if (!jogo) {
+  <script>
+    const pesos = {
+      "Diretor Técnico": 0.20,
+      "Chefe de R&D": 0.30,
+      "Chefe de Equipe": 0.20,
+      "Chefe de Corrida": 0.20,
+      "Diretor de Marketing": 0.10
+    };
+
+    const nomesDepartamentos = {
+      "Diretor Técnico": "Departamento Técnico",
+      "Chefe de R&D": "Departamento de R&D",
+      "Chefe de Equipe": "Departamento Estratégico de Corrida",
+      "Chefe de Corrida": "Departamento de Pit-Stop",
+      "Diretor de Marketing": "Departamento de Marketing"
+    };
+
+    window.onload = async () => {
+      const jogo = loadGameData();
+      if (!jogo || !jogo.equipe) {
         alert("Jogo não carregado.");
         location.href = "../index.html";
         return;
       }
-      renderizar();
+
+      const res = await fetch("../dados/staff.json");
+      const staff = await res.json();
+
+      const equipeStaff = staff.filter(p => p.equipeInicial === jogo.equipe);
+      let totalFabrica = 0;
+
+      const container = document.getElementById("staff");
+      equipeStaff.forEach(pessoa => {
+        const nivelDepartamento = pessoa.habilidade;
+        const peso = pesos[pessoa.cargo];
+        const contribuicao = (nivelDepartamento * peso).toFixed(2);
+        totalFabrica += nivelDepartamento * peso;
+
+        const div = document.createElement("div");
+        div.className = "departamento";
+        div.innerHTML = `
+          <h2>${nomesDepartamentos[pessoa.cargo]}</h2>
+          <p><strong>Responsável:</strong> ${pessoa.nome}</p>
+          <p><strong>Habilidade:</strong> ${nivelDepartamento}%</p>
+          <p><strong>Contribuição para a Fábrica:</strong> ${(contribuicao * 100 / peso).toFixed(1)}% de ${peso * 100}%</p>
+        `;
+        container.appendChild(div);
+      });
+
+      const totalDiv = document.createElement("div");
+      totalDiv.style.marginTop = "20px";
+      totalDiv.innerHTML = `<h2 style="color:yellow">Nível total da Fábrica (via Staff): ${totalFabrica.toFixed(1)}%</h2>`;
+      container.appendChild(totalDiv);
     };
   </script>
-</head>
-<body>
-  <h1>Mercado de Staff</h1>
-  <div id="lista"></div>
-  <br>
-  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>
