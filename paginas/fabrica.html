@@ -5,6 +5,7 @@
   <title>Fábrica</title>
   <link rel="stylesheet" href="../style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <script type="module" src="../saveManager.js"></script>
   <style>
     body {
       background-color: black;
@@ -12,18 +13,15 @@
       font-family: 'Press Start 2P', monospace;
       padding: 20px;
     }
-
     h1, h2 {
       color: red;
       font-size: 14px;
       margin-bottom: 20px;
     }
-
     p {
       font-size: 10px;
       margin: 6px 0;
     }
-
     button {
       background-color: black;
       color: white;
@@ -34,12 +32,10 @@
       font-size: 10px;
       cursor: pointer;
     }
-
     button:hover {
       background-color: red;
       color: black;
     }
-
     button:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -51,16 +47,21 @@
   <h1>Fábrica da Equipe</h1>
   <p><strong>Equipe:</strong> <span id="equipe"></span></p>
   <p><strong>Motor:</strong> <span id="motor"></span></p>
-  <p><strong>Nível da Fábrica:</strong> <span id="nivel"></span></p>
   <p><strong>Dinheiro disponível:</strong> <span id="dinheiro"></span></p>
   <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
   <p><strong>Manutenção:</strong> <span id="status-manutencao">Inativa</span></p>
+  <h2>Departamentos</h2>
+  <p><strong>Técnico:</strong> <span id="tecnico"></span>%</p>
+  <p><strong>R&D:</strong> <span id="rd"></span>%</p>
+  <p><strong>Estrat. Corrida:</strong> <span id="estrategia"></span>%</p>
+  <p><strong>Pit-Stop:</strong> <span id="pitstop"></span>%</p>
+  <p><strong>Marketing:</strong> <span id="marketing"></span>%</p>
+  <p><strong>Nível da Fábrica:</strong> <span id="nivel"></span>%</p>
 
   <h2>Investir na Fábrica</h2>
   <button id="btn1">Investir $1M</button>
   <button id="btn2">Investir $2M</button>
   <button id="btn5">Investir $5M</button>
-
   <br />
   <button id="btnManutencao">Alternar Manutenção</button>
   <br /><br />
@@ -74,33 +75,42 @@
     function atualizarInterface() {
       document.getElementById("equipe").textContent = jogo.equipe;
       document.getElementById("motor").textContent = jogo.motor;
-      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
       document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
       document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
       document.getElementById("status-manutencao").textContent = jogo.fabrica.manutencaoAtiva ? "Ativa" : "Inativa";
 
-      const fabricaMax = jogo.fabrica.nivel >= 1;
+      const staff = jogo.staff || [];
+      const get = cargo => staff.find(p => p.cargo === cargo)?.habilidade || 0;
+
+      const tecnico = get("Diretor Técnico") * 0.20;
+      const rd = get("Chefe de R&D") * 0.30;
+      const estrategia = get("Chefe de Equipe") * 0.20;
+      const pitstop = get("Chefe de Corrida") * 0.20;
+      const marketing = get("Diretor de Marketing") * 0.10;
+
+      const nivelTotal = (tecnico + rd + estrategia + pitstop + marketing).toFixed(1);
+
+      document.getElementById("tecnico").textContent = (get("Diretor Técnico")).toFixed(1);
+      document.getElementById("rd").textContent = (get("Chefe de R&D")).toFixed(1);
+      document.getElementById("estrategia").textContent = (get("Chefe de Equipe")).toFixed(1);
+      document.getElementById("pitstop").textContent = (get("Chefe de Corrida")).toFixed(1);
+      document.getElementById("marketing").textContent = (get("Diretor de Marketing")).toFixed(1);
+      document.getElementById("nivel").textContent = nivelTotal;
+
+      const fabricaMax = nivelTotal >= 100;
       document.getElementById("btn1").disabled = fabricaMax;
       document.getElementById("btn2").disabled = fabricaMax;
       document.getElementById("btn5").disabled = fabricaMax;
     }
 
     function investir(valor) {
-      if (jogo.fabrica.nivel >= 1) {
-        alert("A fábrica já está no nível máximo.");
-        return;
-      }
-
       if (jogo.dinheiro < valor) {
         alert("Dinheiro insuficiente.");
         return;
       }
 
       jogo.dinheiro -= valor;
-      const ganho = valor / 100000000;
-      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
       jogo.fabrica.investimentoTotal = (jogo.fabrica.investimentoTotal || 0) + valor;
-
       saveGameData(jogo);
       atualizarInterface();
     }
@@ -114,8 +124,8 @@
     window.addEventListener("DOMContentLoaded", () => {
       jogo = loadGameData();
 
-      if (!jogo || !jogo.fabrica) {
-        alert("Jogo não carregado ou dados de fábrica ausentes.");
+      if (!jogo || !jogo.fabrica || !jogo.staff) {
+        alert("Jogo não carregado corretamente.");
         window.location.href = "../index.html";
         return;
       }
@@ -124,7 +134,6 @@
         jogo.fabrica.manutencaoAtiva = false;
       }
 
-      // Associa botões
       document.getElementById("btn1").onclick = () => investir(1000000);
       document.getElementById("btn2").onclick = () => investir(2000000);
       document.getElementById("btn5").onclick = () => investir(5000000);
