@@ -1,9 +1,12 @@
-// saveManager.js
-export function loadGameData() {
+function loadGameData() {
   const data = localStorage.getItem("savegame");
   return data ? JSON.parse(data) : null;
 }
 
-export function saveGameData(data) {
+function saveGameData(data) {
   localStorage.setItem("savegame", JSON.stringify(data));
 }
+
+// Torna as funções acessíveis globalmente
+window.loadGameData = loadGameData;
+window.saveGameData = saveGameData;
