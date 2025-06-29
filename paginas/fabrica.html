@@ -50,6 +50,7 @@
   <p><strong>Dinheiro disponível:</strong> <span id="dinheiro"></span></p>
   <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
   <p><strong>Manutenção:</strong> <span id="status-manutencao">Inativa</span></p>
+
   <h2>Departamentos</h2>
   <p><strong>Técnico:</strong> <span id="tecnico"></span>%</p>
   <p><strong>R&D:</strong> <span id="rd"></span>%</p>
@@ -88,11 +89,11 @@
 
       const nivelTotal = (tecnico + rd + estrategia + pitstop + marketing).toFixed(1);
 
-      document.getElementById("tecnico").textContent = get("Diretor Técnico").toFixed(1);
-      document.getElementById("rd").textContent = get("Chefe de R&D").toFixed(1);
-      document.getElementById("estrategia").textContent = get("Chefe de Equipe").toFixed(1);
-      document.getElementById("pitstop").textContent = get("Chefe de Corrida").toFixed(1);
-      document.getElementById("marketing").textContent = get("Diretor de Marketing").toFixed(1);
+      document.getElementById("tecnico").textContent = (get("Diretor Técnico")).toFixed(1);
+      document.getElementById("rd").textContent = (get("Chefe de R&D")).toFixed(1);
+      document.getElementById("estrategia").textContent = (get("Chefe de Equipe")).toFixed(1);
+      document.getElementById("pitstop").textContent = (get("Chefe de Corrida")).toFixed(1);
+      document.getElementById("marketing").textContent = (get("Diretor de Marketing")).toFixed(1);
       document.getElementById("nivel").textContent = nivelTotal;
 
       const fabricaMax = nivelTotal >= 100;
