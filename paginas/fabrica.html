@@ -5,7 +5,7 @@
   <title>Fábrica</title>
   <link rel="stylesheet" href="../style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
-  <script type="module" src="../saveManager.js"></script>
+  <script src="../saveManager.js"></script>
   <style>
     body {
       background-color: black;
@@ -67,9 +67,7 @@
   <br /><br />
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 
-  <script type="module">
-    import { saveGameData, loadGameData } from "../saveManager.js";
-
+  <script>
     let jogo = {};
 
     function atualizarInterface() {
@@ -90,11 +88,11 @@
 
       const nivelTotal = (tecnico + rd + estrategia + pitstop + marketing).toFixed(1);
 
-      document.getElementById("tecnico").textContent = (get("Diretor Técnico")).toFixed(1);
-      document.getElementById("rd").textContent = (get("Chefe de R&D")).toFixed(1);
-      document.getElementById("estrategia").textContent = (get("Chefe de Equipe")).toFixed(1);
-      document.getElementById("pitstop").textContent = (get("Chefe de Corrida")).toFixed(1);
-      document.getElementById("marketing").textContent = (get("Diretor de Marketing")).toFixed(1);
+      document.getElementById("tecnico").textContent = get("Diretor Técnico").toFixed(1);
+      document.getElementById("rd").textContent = get("Chefe de R&D").toFixed(1);
+      document.getElementById("estrategia").textContent = get("Chefe de Equipe").toFixed(1);
+      document.getElementById("pitstop").textContent = get("Chefe de Corrida").toFixed(1);
+      document.getElementById("marketing").textContent = get("Diretor de Marketing").toFixed(1);
       document.getElementById("nivel").textContent = nivelTotal;
 
       const fabricaMax = nivelTotal >= 100;
