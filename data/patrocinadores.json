@@ -1,0 +1,1702 @@
+[
+  {
+    "nome": "Patrocinador1",
+    "bonus": 1010000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador2",
+    "bonus": 1020000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador3",
+    "bonus": 1030000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador4",
+    "bonus": 1040000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador5",
+    "bonus": 1050000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 78,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 10,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador6",
+    "bonus": 1060000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 80,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 5,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador7",
+    "bonus": 1070000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 79,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 6,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador8",
+    "bonus": 1080000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 78,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 7,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador9",
+    "bonus": 1090000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 80,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 8,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador10",
+    "bonus": 1100000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 79,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 9,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador11",
+    "bonus": 1110000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 78,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 10,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador12",
+    "bonus": 1120000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 80,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador13",
+    "bonus": 1130000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador14",
+    "bonus": 1140000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador15",
+    "bonus": 1150000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador16",
+    "bonus": 1160000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador17",
+    "bonus": 1170000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 78,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 10,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador18",
+    "bonus": 1180000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 80,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 5,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador19",
+    "bonus": 1190000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 79,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 6,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador20",
+    "bonus": 1200000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 78,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 7,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador21",
+    "bonus": 1210000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 80,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 8,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador22",
+    "bonus": 1220000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 79,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 9,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador23",
+    "bonus": 1230000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 78,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 10,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador24",
+    "bonus": 1240000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 80,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador25",
+    "bonus": 1250000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador26",
+    "bonus": 1260000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador27",
+    "bonus": 1270000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador28",
+    "bonus": 1280000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador29",
+    "bonus": 1290000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 78,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 10,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador30",
+    "bonus": 1300000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 1,
+    "principal": true,
+    "nivel": "alto",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 80,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 400000,
+    "riscoRompimento": 5,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador31",
+    "bonus": 1310000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 79,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 6,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador32",
+    "bonus": 1320000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 78,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 7,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador33",
+    "bonus": 1330000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 80,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 8,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador34",
+    "bonus": 1340000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 79,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 9,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador35",
+    "bonus": 1350000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 78,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 10,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador36",
+    "bonus": 1360000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 80,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador37",
+    "bonus": 1370000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador38",
+    "bonus": 1380000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador39",
+    "bonus": 1390000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador40",
+    "bonus": 1400000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador41",
+    "bonus": 1410000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 78,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 10,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador42",
+    "bonus": 1420000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 80,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 5,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador43",
+    "bonus": 1430000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 79,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 6,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador44",
+    "bonus": 1440000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 78,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 7,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador45",
+    "bonus": 1450000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 80,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 8,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador46",
+    "bonus": 1460000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 79,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 9,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador47",
+    "bonus": 1470000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 78,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 10,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador48",
+    "bonus": 1480000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 80,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador49",
+    "bonus": 1490000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador50",
+    "bonus": 1500000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador51",
+    "bonus": 1510000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador52",
+    "bonus": 1520000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador53",
+    "bonus": 1530000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 78,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 10,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador54",
+    "bonus": 1540000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 80,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 5,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador55",
+    "bonus": 1550000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 79,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 6,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador56",
+    "bonus": 1560000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 78,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 7,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador57",
+    "bonus": 1570000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 80,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 8,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador58",
+    "bonus": 1580000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 79,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 9,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador59",
+    "bonus": 1590000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 78,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 10,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador60",
+    "bonus": 1600000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 80,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador61",
+    "bonus": 1610000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador62",
+    "bonus": 1620000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador63",
+    "bonus": 1630000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador64",
+    "bonus": 1640000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador65",
+    "bonus": 1650000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 78,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 10,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador66",
+    "bonus": 1660000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 80,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 5,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador67",
+    "bonus": 1670000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 79,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 6,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador68",
+    "bonus": 1680000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 78,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 7,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador69",
+    "bonus": 1690000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 80,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 8,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador70",
+    "bonus": 1700000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 2,
+    "principal": false,
+    "nivel": "medio",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 79,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 250000,
+    "riscoRompimento": 9,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador71",
+    "bonus": 1710000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 78,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 10,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador72",
+    "bonus": 1720000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 80,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador73",
+    "bonus": 1730000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador74",
+    "bonus": 1740000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador75",
+    "bonus": 1750000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador76",
+    "bonus": 1760000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador77",
+    "bonus": 1770000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 78,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 10,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador78",
+    "bonus": 1780000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 80,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 5,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador79",
+    "bonus": 1790000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 79,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 6,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador80",
+    "bonus": 1800000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 78,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 7,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador81",
+    "bonus": 1810000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 80,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 8,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador82",
+    "bonus": 1820000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 79,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 9,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador83",
+    "bonus": 1830000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 78,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 10,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador84",
+    "bonus": 1840000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 80,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador85",
+    "bonus": 1850000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador86",
+    "bonus": 1860000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador87",
+    "bonus": 1870000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador88",
+    "bonus": 1880000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador89",
+    "bonus": 1890000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 78,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 10,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador90",
+    "bonus": 1900000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 80,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 5,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador91",
+    "bonus": 1910000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 89,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 79,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 6,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador92",
+    "bonus": 1920000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 88,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 78,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 7,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador93",
+    "bonus": 1930000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 87,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 80,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 8,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador94",
+    "bonus": 1940000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 86,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 79,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 9,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador95",
+    "bonus": 1950000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 85,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 78,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 10,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador96",
+    "bonus": 1960000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 84,
+    "interessePorEquipe": {
+      "Williams": 84,
+      "Ferrari": 80,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 5,
+    "tolerancia": 2
+  },
+  {
+    "nome": "Patrocinador97",
+    "bonus": 1970000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 83,
+    "interessePorEquipe": {
+      "Williams": 83,
+      "Ferrari": 79,
+      "McLaren": 74
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 6,
+    "tolerancia": 3
+  },
+  {
+    "nome": "Patrocinador98",
+    "bonus": 1980000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 82,
+    "interessePorEquipe": {
+      "Williams": 82,
+      "Ferrari": 78,
+      "McLaren": 73
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 7,
+    "tolerancia": 4
+  },
+  {
+    "nome": "Patrocinador99",
+    "bonus": 1990000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 81,
+    "interessePorEquipe": {
+      "Williams": 81,
+      "Ferrari": 80,
+      "McLaren": 72
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 8,
+    "tolerancia": 5
+  },
+  {
+    "nome": "Patrocinador100",
+    "bonus": 2000000,
+    "condicao": "Disponível para contrato",
+    "maxEquipes": 3,
+    "principal": false,
+    "nivel": "baixo",
+    "interesseBase": 90,
+    "interessePorEquipe": {
+      "Williams": 85,
+      "Ferrari": 79,
+      "McLaren": 75
+    },
+    "valorPorCorrida": 120000,
+    "riscoRompimento": 9,
+    "tolerancia": 2
+  }
+]
