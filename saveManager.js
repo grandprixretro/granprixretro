@@ -1,12 +1,12 @@
+// saveManager.js - versão corrigida
 function loadGameData() {
-  const data = localStorage.getItem("savegame");
+  const data = localStorage.getItem("gpmretro_save");
   return data ? JSON.parse(data) : null;
 }
 
 function saveGameData(data) {
-  localStorage.setItem("savegame", JSON.stringify(data));
+  localStorage.setItem("gpmretro_save", JSON.stringify(data));
 }
 
-// Torna as funções acessíveis globalmente
 window.loadGameData = loadGameData;
 window.saveGameData = saveGameData;
