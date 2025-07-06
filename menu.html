@@ -7,7 +7,6 @@
   <script defer src="saveManager.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
     body {
       background-color: black;
       color: white;
@@ -15,19 +14,16 @@
       text-align: center;
       padding: 20px;
     }
-
     h1 {
       color: red;
       font-size: 14px;
       margin-bottom: 20px;
     }
-
     .lista-equipes {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .equipe {
       background-color: #111;
       border: 2px solid red;
@@ -36,28 +32,23 @@
       width: 160px;
       cursor: pointer;
     }
-
     .equipe:hover {
       background-color: red;
       color: black;
     }
-
     .equipe img {
       width: 100px;
       height: auto;
       margin-bottom: 8px;
     }
-
     .equipe h2 {
       font-size: 10px;
       margin: 5px 0;
     }
-
     .equipe p {
       font-size: 8px;
       margin: 0;
     }
-
     .equipe button {
       margin-top: 8px;
       background-color: black;
@@ -68,12 +59,10 @@
       padding: 4px 8px;
       cursor: pointer;
     }
-
     .equipe button:hover {
       background-color: red;
       color: black;
     }
-
     .botao-voltar {
       margin-top: 30px;
       background-color: black;
@@ -84,7 +73,6 @@
       padding: 8px 16px;
       cursor: pointer;
     }
-
     .botao-voltar:hover {
       background-color: red;
       color: black;
@@ -92,24 +80,13 @@
   </style>
   <script defer>
     const dadosEquipes = {
-      "Williams": { motor: "Renault", pilotos: ["Ayrton Senna", "Damon Hill"], contratosPatrocinadores: { "Rothmans": 3, "Canon": 2 }, fabrica: 0.95, dinheiro: 12000000 },
-      "Benetton": { motor: "Ford", pilotos: ["Michael Schumacher", "Jos Verstappen"], contratosPatrocinadores: { "Mild Seven": 3, "Elf": 2 }, fabrica: 0.90, dinheiro: 10000000 },
-      "Ferrari": { motor: "Ferrari", pilotos: ["Jean Alesi", "Gerhard Berger"], contratosPatrocinadores: { "Marlboro": 3, "Agip": 2 }, fabrica: 0.88, dinheiro: 9500000 },
-      "McLaren": { motor: "Peugeot", pilotos: ["Mika Häkkinen", "Martin Brundle"], contratosPatrocinadores: { "Marlboro": 3 }, fabrica: 0.85, dinheiro: 9000000 },
-      "Jordan": { motor: "Hart", pilotos: ["Rubens Barrichello", "Eddie Irvine"], contratosPatrocinadores: { "Sasol": 1 }, fabrica: 0.75, dinheiro: 6000000 },
-      "Sauber": { motor: "Mercedes", pilotos: ["Heinz-Harald Frentzen", "Karl Wendlinger"], contratosPatrocinadores: { "Petronas": 2 }, fabrica: 0.70, dinheiro: 5500000 },
-      "Ligier": { motor: "Renault", pilotos: ["Éric Bernard", "Olivier Panis"], contratosPatrocinadores: {}, fabrica: 0.68, dinheiro: 5000000 },
-      "Minardi": { motor: "Ford", pilotos: ["Pierluigi Martini", "Michele Alboreto"], contratosPatrocinadores: {}, fabrica: 0.50, dinheiro: 2500000 },
-      "Tyrrell": { motor: "Yamaha", pilotos: ["Ukyo Katayama", "Mark Blundell"], contratosPatrocinadores: {}, fabrica: 0.58, dinheiro: 3500000 },
-      "Footwork": { motor: "Ford", pilotos: ["Christian Fittipaldi", "Gianni Morbidelli"], contratosPatrocinadores: { "Adidas": 2 }, fabrica: 0.60, dinheiro: 4000000 },
-      "Lotus": { motor: "Mugen-Honda", pilotos: ["Johnny Herbert", "Pedro Lamy"], contratosPatrocinadores: { "Camel": 2 }, fabrica: 0.55, dinheiro: 3000000 },
-      "Larrousse": { motor: "Ford", pilotos: ["Érik Comas", "Olivier Beretta"], contratosPatrocinadores: {}, fabrica: 0.45, dinheiro: 2200000 },
-      "Simtek": { motor: "Ford", pilotos: ["David Brabham", "Roland Ratzenberger"], contratosPatrocinadores: { "Death Cigarettes": 1 }, fabrica: 0.40, dinheiro: 1800000 },
-      "Pacific": { motor: "Ilmor", pilotos: ["Paul Belmondo", "Bertrand Gachot"], contratosPatrocinadores: { "Death Cigarettes": 1 }, fabrica: 0.35, dinheiro: 1500000 },
-      "Andrea Moda": { motor: "Judd", pilotos: ["Perry McCarthy", "Enrico Bertaggia"], contratosPatrocinadores: {}, fabrica: 0.30, dinheiro: 1200000 },
-      "AGS": { motor: "Ford", pilotos: ["Gabriele Tarquini", "Yannick Dalmas"], contratosPatrocinadores: {}, fabrica: 0.30, dinheiro: 1000000 },
-      "Coloni": { motor: "Ford", pilotos: ["Roberto Moreno", "Pedro Chaves"], contratosPatrocinadores: {}, fabrica: 0.25, dinheiro: 800000 },
-      "Onyx": { motor: "Ford", pilotos: ["Stefan Johansson", "Bernd Schneider"], contratosPatrocinadores: { "Moneytron": 1 }, fabrica: 0.25, dinheiro: 800000 }
+      "Williams": {
+        motor: "Renault",
+        pilotos: ["Ayrton Senna", "Damon Hill"],
+        contratosPatrocinadores: {},
+        fabrica: 0.95,
+        dinheiro: 12000000
+      }
     };
 
     function saveGame(data) {
@@ -128,8 +105,16 @@
         novoPatrocinador: null,
         fabrica: {
           nivel: equipe.fabrica,
-          investimentoTotal: 0
-        }
+          investimentoTotal: 0,
+          manutencaoAtiva: false
+        },
+        staff: [
+          { nome: "Adrian Newey", cargo: "Diretor Técnico", habilidade: 98 },
+          { nome: "Frank Dernie", cargo: "Chefe de R&D", habilidade: 92 },
+          { nome: "Frank Williams", cargo: "Chefe de Equipe", habilidade: 95 },
+          { nome: "Tony Dowe", cargo: "Chefe de Corrida", habilidade: 88 },
+          { nome: "Ian Harrison", cargo: "Diretor de Marketing", habilidade: 84 }
+        ]
       };
       saveGame(jogo);
       alert(`Equipe ${nome} selecionada!`);
@@ -140,11 +125,10 @@
       const container = document.getElementById("equipes");
       for (const nome in dadosEquipes) {
         const equipe = dadosEquipes[nome];
-        const nomeImagem = nome === 'Andrea Moda' ? 'andreamoda' : nome.toLowerCase().replace(/\\s+/g, '');
         const div = document.createElement("div");
         div.className = "equipe";
         div.innerHTML = `
-          <img src="img/equipes/${nomeImagem}.png" alt="${nome}" />
+          <img src="img/equipes/williams.png" alt="${nome}" />
           <h2>${nome}</h2>
           <p>${equipe.motor}</p>
           <button onclick="escolherEquipe('${nome}')">Selecionar</button>
@@ -152,9 +136,6 @@
         container.appendChild(div);
       }
     });
-
-    window.saveGame = saveGame;
-    window.escolherEquipe = escolherEquipe;
   </script>
 </head>
 <body>
