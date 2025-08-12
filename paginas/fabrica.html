@@ -47,6 +47,7 @@
   <h1>Fábrica da Equipe</h1>
   <p><strong>Equipe:</strong> <span id="equipe"></span></p>
   <p><strong>Motor:</strong> <span id="motor"></span></p>
+  <p><strong>Confiabilidade do Motor:</strong> <span id="confiabilidade"></span>%</p>
   <p><strong>Dinheiro disponível:</strong> <span id="dinheiro"></span></p>
   <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
   <p><strong>Manutenção:</strong> <span id="status-manutencao">Inativa</span></p>
@@ -64,6 +65,8 @@
   <button id="btn2">Investir $2M</button>
   <button id="btn5">Investir $5M</button>
   <br />
+  <button id="btnMelhorarMotor">Melhorar motor ($1M)</button>
+  <br />
   <button id="btnManutencao">Alternar Manutenção</button>
   <br /><br />
   <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
@@ -74,6 +77,9 @@
     function atualizarInterface() {
       document.getElementById("equipe").textContent = jogo.equipe;
       document.getElementById("motor").textContent = jogo.motor;
+      // Atualiza a confiabilidade do motor. Se não existir, assume 70%.
+      const confiab = typeof jogo.motorConfiabilidade === 'number' ? jogo.motorConfiabilidade : 70;
+      document.getElementById("confiabilidade").textContent = confiab.toFixed(1);
       document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
       document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
       document.getElementById("status-manutencao").textContent = jogo.fabrica.manutencaoAtiva ? "Ativa" : "Inativa";
@@ -87,19 +93,29 @@
       const pitstop = get("Chefe de Corrida") * 0.20;
       const marketing = get("Diretor de Marketing") * 0.10;
 
-      const nivelTotal = (tecnico + rd + estrategia + pitstop + marketing).toFixed(1);
+      const nivelTotal = tecnico + rd + estrategia + pitstop + marketing;
+      const nivelPorcento = nivelTotal.toFixed(1);
 
       document.getElementById("tecnico").textContent = (get("Diretor Técnico")).toFixed(1);
       document.getElementById("rd").textContent = (get("Chefe de R&D")).toFixed(1);
       document.getElementById("estrategia").textContent = (get("Chefe de Equipe")).toFixed(1);
       document.getElementById("pitstop").textContent = (get("Chefe de Corrida")).toFixed(1);
       document.getElementById("marketing").textContent = (get("Diretor de Marketing")).toFixed(1);
-      document.getElementById("nivel").textContent = nivelTotal;
+      document.getElementById("nivel").textContent = nivelPorcento;
 
-      const fabricaMax = nivelTotal >= 100;
+      // Atualiza as notas no objeto de jogo: nivel (0-1) e nota (0-100)
+      jogo.fabrica.nivel = nivelTotal / 100;
+      jogo.fabrica.nota = nivelTotal;
+      saveGameData(jogo);
+
+      const fabricaMax = nivelPorcento >= 100;
       document.getElementById("btn1").disabled = fabricaMax;
       document.getElementById("btn2").disabled = fabricaMax;
       document.getElementById("btn5").disabled = fabricaMax;
+
+      // Desabilita melhoria de motor quando atingir 100%
+      const motorMax = confiab >= 100;
+      document.getElementById("btnMelhorarMotor").disabled = motorMax;
     }
 
     function investir(valor) {
@@ -120,13 +136,36 @@
       atualizarInterface();
     }
 
+    // Aumenta a confiabilidade do motor investindo dinheiro.
+    function melhorarMotor() {
+      const custo = 1000000; // 1M por melhoria
+      const incremento = 5;  // cada melhoria aumenta 5%
+      const confiab = typeof jogo.motorConfiabilidade === 'number' ? jogo.motorConfiabilidade : 70;
+      if (confiab >= 100) {
+        alert("Confiabilidade máxima já alcançada.");
+        return;
+      }
+      if (jogo.dinheiro < custo) {
+        alert("Dinheiro insuficiente.");
+        return;
+      }
+      jogo.dinheiro -= custo;
+      jogo.motorConfiabilidade = Math.min(confiab + incremento, 100);
+      saveGameData(jogo);
+      atualizarInterface();
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
       jogo = loadGameData();
 
-      if (!jogo || !jogo.fabrica || !jogo.staff) {
+      if (!jogo || !jogo.fabrica) {
         alert("Jogo não carregado corretamente.");
         window.location.href = "../index.html";
         return;
+      }
+      // Se staff não estiver definido (por exemplo, no início do jogo), inicia como lista vazia
+      if (!jogo.staff) {
+        jogo.staff = [];
       }
 
       if (jogo.fabrica.manutencaoAtiva === undefined) {
@@ -136,6 +175,7 @@
       document.getElementById("btn1").onclick = () => investir(1000000);
       document.getElementById("btn2").onclick = () => investir(2000000);
       document.getElementById("btn5").onclick = () => investir(5000000);
+      document.getElementById("btnMelhorarMotor").onclick = melhorarMotor;
       document.getElementById("btnManutencao").onclick = alternarManutencao;
 
       atualizarInterface();

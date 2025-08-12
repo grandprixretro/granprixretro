@@ -83,6 +83,60 @@ const PILOTOS_DATA = [
   { nome: "Sebastian Vettel", pais: "Alemanha", talento: 8.5, equipe: "", salarioMinimo: 350000, interesseBase: 0.8, anoNascimento: 1987 }
 ];
 
+/**
+ * Staff inicial para equipes específicas.  Esse objeto mapeia o nome da
+ * equipe aos membros de staff que ela terá no início do jogo.  Cada
+ * membro possui nome, cargo e habilidade (0–100).  Se uma equipe
+ * não estiver presente aqui, começará sem staff e terá que
+ * contratar.  Expandir conforme necessário para outras equipes.
+ */
+const STAFF_BY_TEAM = {
+  "Lotus": [
+    { nome: "Enrico Scalabroni", cargo: "Diretor Técnico", habilidade: 60 },
+    { nome: "Peter Prodromou", cargo: "Chefe de R&D", habilidade: 60 },
+    { nome: "Peter Collins", cargo: "Chefe de Equipe", habilidade: 65 },
+    { nome: "Don Simione", cargo: "Chefe de Corrida", habilidade: 60 },
+    { nome: "Hiroyuki Hatori", cargo: "Diretor de Marketing", habilidade: 50 }
+  ],
+  // Exemplo para Williams (pode ser expandido). Mantivemos habilidades
+  // menores como referência; ajuste conforme equilíbrio desejado.
+  "Williams": [
+    { nome: "Adrian Newey", cargo: "Diretor Técnico", habilidade: 60 },
+    { nome: "Pierre Waché", cargo: "Chefe de R&D", habilidade: 60 },
+    { nome: "Frank Williams", cargo: "Chefe de Equipe", habilidade: 95 },
+    { nome: "Tom Walkinshaw", cargo: "Chefe de Corrida", habilidade: 85 },
+    { nome: "Ian Phillips", cargo: "Diretor de Marketing", habilidade: 70 }
+  ],
+  "Benetton": [
+    { nome: "Ross Brawn", cargo: "Diretor Técnico", habilidade: 70 },
+    { nome: "Dino Toso", cargo: "Chefe de R&D", habilidade: 70 },
+    { nome: "Flavio Briatore", cargo: "Chefe de Equipe", habilidade: 92 },
+    { nome: "Tom Walkinshaw", cargo: "Chefe de Corrida", habilidade: 85 },
+    { nome: "Bernie Ecclestone", cargo: "Diretor de Marketing", habilidade: 95 }
+  ],
+  "Ferrari": [
+    { nome: "Gustav Brunner", cargo: "Diretor Técnico", habilidade: 80 },
+    { nome: "Loïc Bigois", cargo: "Chefe de R&D", habilidade: 80 },
+    { nome: "Jean Todt", cargo: "Chefe de Equipe", habilidade: 95 },
+    { nome: "Nigel Stepney", cargo: "Chefe de Corrida", habilidade: 80 },
+    { nome: "Peter Sauber", cargo: "Diretor de Marketing", habilidade: 80 }
+  ],
+  "McLaren": [
+    { nome: "Frank Dernie", cargo: "Diretor Técnico", habilidade: 90 },
+    { nome: "Luca Baldisserri", cargo: "Chefe de R&D", habilidade: 90 },
+    { nome: "Ron Dennis", cargo: "Chefe de Equipe", habilidade: 95 },
+    { nome: "Jo Ramirez", cargo: "Chefe de Corrida", habilidade: 88 },
+    { nome: "Bernie Ecclestone", cargo: "Diretor de Marketing", habilidade: 95 }
+  ],
+  "Jordan": [
+    { nome: "Gary Anderson", cargo: "Diretor Técnico", habilidade: 100 },
+    { nome: "James Key", cargo: "Chefe de R&D", habilidade: 100 },
+    { nome: "Frank Williams", cargo: "Chefe de Equipe", habilidade: 95 },
+    { nome: "Tom Walkinshaw", cargo: "Chefe de Corrida", habilidade: 85 },
+    { nome: "Ian Phillips", cargo: "Diretor de Marketing", habilidade: 70 }
+  ]
+};
+
 // Salva os dados e redireciona ao menu principal
 function escolherEquipe(nomeEquipe) {
   // Utiliza os arrays incorporados quando fetch não está disponível
@@ -106,6 +160,30 @@ function escolherEquipe(nomeEquipe) {
   const logoFile = nomeEquipe.toLowerCase().replace(/\s+/g, '').replace(/[^a-z]/g, '') + '.png';
   const logoPath = `img/equipes/${logoFile}`;
 
+  // Define a confiabilidade inicial do motor com base no fabricante.  Se
+  // desconhecido, utiliza um valor padrão de 70 (em %) – valores mais
+  // altos indicam melhor confiabilidade.  Esses números são aproximados
+  // às características dos motores usados na temporada de 1994.
+  const confiabilidadePorMotor = {
+    'Renault': 85,
+    'Ford': 75,
+    'Ferrari': 80,
+    'Peugeot': 70,
+    'Hart': 65,
+    'Mercedes': 70,
+    'Renault': 85,
+    'Yamaha': 60,
+    'Ilmor': 60,
+    'Mugen-Honda': 70,
+    'Judd': 55
+  };
+  const motorConfiabilidade = confiabilidadePorMotor[equipe.motor] ?? 70;
+
+  // Inicializa dados de fábrica com nível (0–1), nota (0–100),
+  // total investido e manutenção desativada por padrão.  Também
+  // atribuímos a confiabilidade inicial do motor ao objeto de jogo
+  // (intervalo 0–100). Essas propriedades serão atualizadas
+  // conforme o jogador investir ou contratar staff.
   jogo = {
     dinheiro: dinheiroInicial,
     equipe: equipe.nome,
@@ -114,11 +192,22 @@ function escolherEquipe(nomeEquipe) {
     pilotos: titulares.map(p => p.nome),
     patrocinadores: patrocinadoresIniciais,
     patrocinadoresGlobais: patrocinadoresIniciais,
-    fabrica: { nivel: 0.5, investimento: 0 },
+    fabrica: {
+      nivel: 0.5,
+      nota: 50,
+      investimentoTotal: 0,
+      manutencaoAtiva: false
+    },
+    motorConfiabilidade: motorConfiabilidade,
     reputacao: 50,
     temporada: 1994,
     progresso: { corridaAtual: 1 }
   };
+
+  // Define o staff inicial com base na equipe selecionada. Se não houver
+  // staff definido para a equipe, permanece um array vazio, e o
+  // jogador precisará contratar manualmente na tela de staff.
+  jogo.staff = STAFF_BY_TEAM[nomeEquipe] ? JSON.parse(JSON.stringify(STAFF_BY_TEAM[nomeEquipe])) : [];
 
   saveGame(jogo);
   alert(`Você agora está no comando da ${nomeEquipe}!`);

@@ -54,7 +54,11 @@
         <p><strong>Equipe:</strong> ${jogo.equipe} (${jogo.motor})</p>
         <p><strong>Pilotos:</strong> ${jogo.pilotos.join(" e ")}</p>
         <p><strong>Dinheiro:</strong> $${jogo.dinheiro.toLocaleString()}</p>
-        <p><strong>Nota da Fábrica:</strong> ${jogo.fabrica.nota.toFixed(1)}</p>
+        <p><strong>Nota da Fábrica:</strong> ${
+          jogo.fabrica && (jogo.fabrica.nota !== undefined)
+            ? jogo.fabrica.nota.toFixed(1)
+            : ((jogo.fabrica.nivel || 0) * 100).toFixed(1)
+        }</p>
       `;
 
       renderClassificacao();

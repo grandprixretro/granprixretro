@@ -75,26 +75,37 @@
      * ../data/staff.json; em caso de falha, usaremos este fallback.
      */
     const STAFF_DATA_FALLBACK = [
+      // Diretores Técnicos de equipes principais
       { nome: "Adrian Newey", cargo: "Diretor Técnico", habilidade: 60, equipeInicial: "Williams" },
       { nome: "Ross Brawn", cargo: "Diretor Técnico", habilidade: 70, equipeInicial: "Benetton" },
       { nome: "Gustav Brunner", cargo: "Diretor Técnico", habilidade: 80, equipeInicial: "Ferrari" },
       { nome: "Frank Dernie", cargo: "Diretor Técnico", habilidade: 90, equipeInicial: "McLaren" },
       { nome: "Gary Anderson", cargo: "Diretor Técnico", habilidade: 100, equipeInicial: "Jordan" },
+      // Chefes de R&D
       { nome: "Pierre Waché", cargo: "Chefe de R&D", habilidade: 60, equipeInicial: "Williams" },
       { nome: "Dino Toso", cargo: "Chefe de R&D", habilidade: 70, equipeInicial: "Benetton" },
       { nome: "Loïc Bigois", cargo: "Chefe de R&D", habilidade: 80, equipeInicial: "Ferrari" },
       { nome: "Luca Baldisserri", cargo: "Chefe de R&D", habilidade: 90, equipeInicial: "McLaren" },
       { nome: "James Key", cargo: "Chefe de R&D", habilidade: 100, equipeInicial: "Jordan" },
+      // Chefes de Equipe
       { nome: "Ron Dennis", cargo: "Chefe de Equipe", habilidade: 95, equipeInicial: "McLaren" },
       { nome: "Jean Todt", cargo: "Chefe de Equipe", habilidade: 95, equipeInicial: "Ferrari" },
       { nome: "Frank Williams", cargo: "Chefe de Equipe", habilidade: 95, equipeInicial: "Williams" },
       { nome: "Flavio Briatore", cargo: "Chefe de Equipe", habilidade: 92, equipeInicial: "Benetton" },
+      // Chefes de Corrida
       { nome: "Tom Walkinshaw", cargo: "Chefe de Corrida", habilidade: 85, equipeInicial: "Benetton" },
       { nome: "Nigel Stepney", cargo: "Chefe de Corrida", habilidade: 80, equipeInicial: "Ferrari" },
       { nome: "Jo Ramirez", cargo: "Chefe de Corrida", habilidade: 88, equipeInicial: "McLaren" },
+      // Diretores de Marketing
       { nome: "Ian Phillips", cargo: "Diretor de Marketing", habilidade: 70, equipeInicial: "Jordan" },
       { nome: "Bernie Ecclestone", cargo: "Diretor de Marketing", habilidade: 95, equipeInicial: "Benetton" },
-      { nome: "Peter Sauber", cargo: "Diretor de Marketing", habilidade: 80, equipeInicial: "Sauber" }
+      { nome: "Peter Sauber", cargo: "Diretor de Marketing", habilidade: 80, equipeInicial: "Sauber" },
+      // Lotus – adicionamos staff para a equipe para que a fábrica funcione corretamente
+      { nome: "Enrico Scalabroni", cargo: "Diretor Técnico", habilidade: 60, equipeInicial: "Lotus" },
+      { nome: "Peter Prodromou", cargo: "Chefe de R&D", habilidade: 60, equipeInicial: "Lotus" },
+      { nome: "Peter Collins", cargo: "Chefe de Equipe", habilidade: 65, equipeInicial: "Lotus" },
+      { nome: "Don Simione", cargo: "Chefe de Corrida", habilidade: 60, equipeInicial: "Lotus" },
+      { nome: "Hiroyuki Hatori", cargo: "Diretor de Marketing", habilidade: 50, equipeInicial: "Lotus" }
     ];
 
     window.onload = async () => {
@@ -122,8 +133,8 @@
       equipeStaff.forEach(pessoa => {
         const nivelDepartamento = pessoa.habilidade;
         const peso = pesos[pessoa.cargo] || 0.1;
-        const contribuicao = (nivelDepartamento * peso).toFixed(2);
-        totalFabrica += nivelDepartamento * peso;
+        const contribuicao = nivelDepartamento * peso; // valor bruto (0–100)
+        totalFabrica += contribuicao;
 
         const div = document.createElement("div");
         div.className = "departamento";
@@ -131,7 +142,7 @@
           <h2>${nomesDepartamentos[pessoa.cargo] || pessoa.cargo}</h2>
           <p><strong>Responsável:</strong> ${pessoa.nome}</p>
           <p><strong>Habilidade:</strong> ${nivelDepartamento}%</p>
-          <p><strong>Contribuição para a Fábrica:</strong> ${(contribuicao * 100 / peso).toFixed(1)}% de ${peso * 100}%</p>
+          <p><strong>Contribuição para a Fábrica:</strong> ${contribuicao.toFixed(1)}% (peso ${Math.round(peso * 100)}%)</p>
         `;
         container.appendChild(div);
       });

@@ -24,36 +24,45 @@
 
       const container = document.getElementById("lista-patrocinadores");
 
+      let patrocinadores;
       try {
-          const response = await fetch("../data/patrocinadores.json");
-          const patrocinadores = await response.json();
-
-          // Agrupa patrocinadores por nível (alto = master, medio, baixo)
-          const grupos = { alto: [], medio: [], baixo: [] };
-          patrocinadores.forEach(p => {
-            if (p.nivel === 'alto' || p.nivel === 'medio' || p.nivel === 'baixo') {
-              grupos[p.nivel].push(p);
-            }
-          });
-
-          const nomesGrupo = { alto: 'Master', medio: 'Médio', baixo: 'Pequeno' };
-
-          Object.keys(grupos).forEach(nivel => {
-            if (grupos[nivel].length === 0) return;
-            const header = document.createElement('h2');
-            header.textContent = `Patrocínio ${nomesGrupo[nivel]}`;
-            container.appendChild(header);
-            grupos[nivel].forEach(p => {
-              const div = document.createElement('div');
-              div.className = 'patro-item';
-              div.innerText = `${p.nome} - Bônus: $${p.bonus.toLocaleString()} por corrida`;
-              container.appendChild(div);
-            });
-          });
+        const response = await fetch("../data/patrocinadores.json");
+        patrocinadores = await response.json();
       } catch (error) {
-          console.error('Erro ao carregar patrocinadores:', error);
-          container.innerText = 'Erro ao carregar dados de patrocinadores.';
+        console.warn('Falha ao carregar patrocinadores via fetch, usando fallback.', error);
+        patrocinadores = [
+          { nome: 'Rothmans', bonus: 1200000, nivel: 'alto' },
+          { nome: 'Mild Seven', bonus: 1100000, nivel: 'alto' },
+          { nome: 'Marlboro', bonus: 1150000, nivel: 'alto' },
+          { nome: 'Castrol', bonus: 600000, nivel: 'medio' },
+          { nome: 'Shell', bonus: 550000, nivel: 'medio' },
+          { nome: 'Sasol', bonus: 500000, nivel: 'medio' },
+          { nome: 'Goodyear', bonus: 300000, nivel: 'baixo' },
+          { nome: 'Canon', bonus: 350000, nivel: 'baixo' },
+          { nome: 'Mobil 1', bonus: 320000, nivel: 'baixo' },
+          { nome: 'Camel', bonus: 400000, nivel: 'medio' }
+        ];
       }
+      // Agrupa patrocinadores por nível (alto = master, medio, baixo)
+      const grupos = { alto: [], medio: [], baixo: [] };
+      patrocinadores.forEach(p => {
+        if (p.nivel === 'alto' || p.nivel === 'medio' || p.nivel === 'baixo') {
+          grupos[p.nivel].push(p);
+        }
+      });
+      const nomesGrupo = { alto: 'Master', medio: 'Médio', baixo: 'Pequeno' };
+      Object.keys(grupos).forEach(nivel => {
+        if (grupos[nivel].length === 0) return;
+        const header = document.createElement('h2');
+        header.textContent = `Patrocínio ${nomesGrupo[nivel]}`;
+        container.appendChild(header);
+        grupos[nivel].forEach(p => {
+          const div = document.createElement('div');
+          div.className = 'patro-item';
+          div.innerText = `${p.nome} - Bônus: $${p.bonus.toLocaleString()} por corrida`;
+          container.appendChild(div);
+        });
+      });
     };
   </script>
   <style>
