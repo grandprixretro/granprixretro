@@ -5,6 +5,8 @@
   <title>Grand Prix Manager Retro - Escolha sua Equipe</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="saveManager.js"></script>
+  <!-- Importa a lógica principal para seleção de equipes -->
+  <script defer src="main.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     body {
@@ -79,62 +81,54 @@
     }
   </style>
   <script defer>
-    const dadosEquipes = {
-      "Williams": {
-        motor: "Renault",
-        pilotos: ["Ayrton Senna", "Damon Hill"],
-        contratosPatrocinadores: {},
-        fabrica: 0.95,
-        dinheiro: 12000000
-      }
-    };
-
-    function saveGame(data) {
-      localStorage.setItem("savegame", JSON.stringify(data));
-    }
-
-    function escolherEquipe(nome) {
-      const equipe = dadosEquipes[nome];
-      const jogo = {
-        equipe: nome,
-        motor: equipe.motor,
-        pilotos: equipe.pilotos,
-        dinheiro: equipe.dinheiro,
-        patrocinadores: { alto: [], medio: [], baixo: [] },
-        contratosPatrocinadores: equipe.contratosPatrocinadores,
-        novoPatrocinador: null,
-        fabrica: {
-          nivel: equipe.fabrica,
-          investimentoTotal: 0,
-          manutencaoAtiva: false
-        },
-        staff: [
-          { nome: "Adrian Newey", cargo: "Diretor Técnico", habilidade: 98 },
-          { nome: "Frank Dernie", cargo: "Chefe de R&D", habilidade: 92 },
-          { nome: "Frank Williams", cargo: "Chefe de Equipe", habilidade: 95 },
-          { nome: "Tony Dowe", cargo: "Chefe de Corrida", habilidade: 88 },
-          { nome: "Ian Harrison", cargo: "Diretor de Marketing", habilidade: 84 }
-        ]
-      };
-      saveGame(jogo);
-      alert(`Equipe ${nome} selecionada!`);
-      location.href = "menu-principal.html";
-    }
-
+    /**
+     * Popula a lista de equipes dinamicamente a partir do arquivo JSON.
+     * Cada equipe exibida inclui o logotipo, nome, motor e um botão
+     * de seleção que reutiliza a função global `escolherEquipe`
+     * definida em main.js. Isso garante que todas as 18 equipes do
+     * campeonato de 1994 sejam exibidas para escolha.
+     */
     window.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("equipes");
-      for (const nome in dadosEquipes) {
-        const equipe = dadosEquipes[nome];
-        const div = document.createElement("div");
-        div.className = "equipe";
+      /**
+       * Como páginas abertas via file:// não permitem requisições fetch
+       * para arquivos locais por questões de segurança, incorporamos o
+       * conteúdo de data/equipes.json diretamente neste script. Se
+       * necessário atualizar ou adicionar novas equipes, edite a
+       * estrutura abaixo para refletir o arquivo JSON.
+       */
+      const equipes = [
+        { "nome": "Williams", "motor": "Renault", "ativa": true },
+        { "nome": "Benetton", "motor": "Ford", "ativa": true },
+        { "nome": "Ferrari", "motor": "Ferrari", "ativa": true },
+        { "nome": "McLaren", "motor": "Peugeot", "ativa": true },
+        { "nome": "Jordan", "motor": "Hart", "ativa": true },
+        { "nome": "Sauber", "motor": "Mercedes", "ativa": true },
+        { "nome": "Ligier", "motor": "Renault", "ativa": true },
+        { "nome": "Minardi", "motor": "Ford", "ativa": true },
+        { "nome": "Tyrrell", "motor": "Yamaha", "ativa": true },
+        { "nome": "Footwork", "motor": "Ford", "ativa": true },
+        { "nome": "Lotus", "motor": "Mugen-Honda", "ativa": true },
+        { "nome": "Larrousse", "motor": "Ford", "ativa": true },
+        { "nome": "Simtek", "motor": "Ford", "ativa": true },
+        { "nome": "Pacific", "motor": "Ilmor", "ativa": false },
+        { "nome": "Andrea Moda", "motor": "Judd", "ativa": false },
+        { "nome": "AGS", "motor": "Ford", "ativa": false },
+        { "nome": "Coloni", "motor": "Ford", "ativa": false },
+        { "nome": "Onyx", "motor": "Ford", "ativa": false }
+      ];
+      equipes.forEach(eq => {
+        const nomeArquivo = eq.nome.toLowerCase().replace(/\s+/g, '').replace(/[^a-z]/g, '') + '.png';
+        const div = document.createElement('div');
+        div.className = 'equipe';
         div.innerHTML = `
-          <img src="img/equipes/williams.png" alt="${nome}" />
-          <h2>${nome}</h2>
-          <p>${equipe.motor}</p>
-          <button onclick="escolherEquipe('${nome}')">Selecionar</button>
+          <img src="img/equipes/${nomeArquivo}" alt="${eq.nome}" />
+          <h2>${eq.nome}</h2>
+          <p>${eq.motor}</p>
+          <button onclick="escolherEquipe('${eq.nome}')">Selecionar</button>
         `;
         container.appendChild(div);
-      }
+      });
     });
   </script>
 </head>

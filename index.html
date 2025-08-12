@@ -15,26 +15,12 @@
     }
 
     function novoJogo() {
-      const jogo = {
-        equipe: "Williams",
-        motor: "Renault",
-        dinheiro: 15000000,
-        patrocinadores: {},
-        pilotos: [],
-        fabrica: {
-          nivel: 0,
-          investimentoTotal: 0,
-          manutencaoAtiva: false
-        },
-        staff: [
-          { nome: "Adrian Newey", cargo: "Diretor Técnico", habilidade: 98 },
-          { nome: "Frank Dernie", cargo: "Chefe de R&D", habilidade: 92 },
-          { nome: "Frank Williams", cargo: "Chefe de Equipe", habilidade: 95 },
-          { nome: "Tony Dowe", cargo: "Chefe de Corrida", habilidade: 88 },
-          { nome: "Ian Harrison", cargo: "Diretor de Marketing", habilidade: 84 }
-        ]
-      };
-      saveGameData(jogo);
+      /*
+       * Ao iniciar um novo jogo, ao invés de selecionar automaticamente a Williams,
+       * redirecionamos o jogador para a tela de seleção de equipes. A função
+       * escolherEquipe e o restante da lógica de criação de save serão chamadas
+       * a partir de menu.html quando o usuário efetivar sua escolha.
+       */
       location.href = "menu.html";
     }
 

@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="../style.css">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <script defer src="../saveManager.js"></script>
-  <script defer src="../dados/staff.js"></script> <!-- ou ../dados/staff.json via fetch -->
+  <!-- Removido script inexistente ../dados/staff.js; agora carregamos staff via fetch ou fallback -->
   <style>
     body {
       background-color: black;
@@ -69,6 +69,34 @@
       "Diretor de Marketing": "Departamento de Marketing"
     };
 
+    /*
+     * Lista de staff reduzida para funcionamento offline. Quando a página
+     * estiver rodando via HTTP, tentaremos carregar o arquivo
+     * ../data/staff.json; em caso de falha, usaremos este fallback.
+     */
+    const STAFF_DATA_FALLBACK = [
+      { nome: "Adrian Newey", cargo: "Diretor Técnico", habilidade: 60, equipeInicial: "Williams" },
+      { nome: "Ross Brawn", cargo: "Diretor Técnico", habilidade: 70, equipeInicial: "Benetton" },
+      { nome: "Gustav Brunner", cargo: "Diretor Técnico", habilidade: 80, equipeInicial: "Ferrari" },
+      { nome: "Frank Dernie", cargo: "Diretor Técnico", habilidade: 90, equipeInicial: "McLaren" },
+      { nome: "Gary Anderson", cargo: "Diretor Técnico", habilidade: 100, equipeInicial: "Jordan" },
+      { nome: "Pierre Waché", cargo: "Chefe de R&D", habilidade: 60, equipeInicial: "Williams" },
+      { nome: "Dino Toso", cargo: "Chefe de R&D", habilidade: 70, equipeInicial: "Benetton" },
+      { nome: "Loïc Bigois", cargo: "Chefe de R&D", habilidade: 80, equipeInicial: "Ferrari" },
+      { nome: "Luca Baldisserri", cargo: "Chefe de R&D", habilidade: 90, equipeInicial: "McLaren" },
+      { nome: "James Key", cargo: "Chefe de R&D", habilidade: 100, equipeInicial: "Jordan" },
+      { nome: "Ron Dennis", cargo: "Chefe de Equipe", habilidade: 95, equipeInicial: "McLaren" },
+      { nome: "Jean Todt", cargo: "Chefe de Equipe", habilidade: 95, equipeInicial: "Ferrari" },
+      { nome: "Frank Williams", cargo: "Chefe de Equipe", habilidade: 95, equipeInicial: "Williams" },
+      { nome: "Flavio Briatore", cargo: "Chefe de Equipe", habilidade: 92, equipeInicial: "Benetton" },
+      { nome: "Tom Walkinshaw", cargo: "Chefe de Corrida", habilidade: 85, equipeInicial: "Benetton" },
+      { nome: "Nigel Stepney", cargo: "Chefe de Corrida", habilidade: 80, equipeInicial: "Ferrari" },
+      { nome: "Jo Ramirez", cargo: "Chefe de Corrida", habilidade: 88, equipeInicial: "McLaren" },
+      { nome: "Ian Phillips", cargo: "Diretor de Marketing", habilidade: 70, equipeInicial: "Jordan" },
+      { nome: "Bernie Ecclestone", cargo: "Diretor de Marketing", habilidade: 95, equipeInicial: "Benetton" },
+      { nome: "Peter Sauber", cargo: "Diretor de Marketing", habilidade: 80, equipeInicial: "Sauber" }
+    ];
+
     window.onload = async () => {
       const jogo = loadGameData();
       if (!jogo || !jogo.equipe) {
@@ -77,8 +105,15 @@
         return;
       }
 
-      const res = await fetch("../dados/staff.json");
-      const staff = await res.json();
+      // Tenta carregar dados completos via fetch; em caso de falha, usa o fallback
+      let staff;
+      try {
+        const res = await fetch("../data/staff.json");
+        staff = await res.json();
+      } catch (err) {
+        console.warn("Falha ao carregar staff.json, usando dados de fallback.", err);
+        staff = STAFF_DATA_FALLBACK;
+      }
 
       const equipeStaff = staff.filter(p => p.equipeInicial === jogo.equipe);
       let totalFabrica = 0;
@@ -86,14 +121,14 @@
       const container = document.getElementById("staff");
       equipeStaff.forEach(pessoa => {
         const nivelDepartamento = pessoa.habilidade;
-        const peso = pesos[pessoa.cargo];
+        const peso = pesos[pessoa.cargo] || 0.1;
         const contribuicao = (nivelDepartamento * peso).toFixed(2);
         totalFabrica += nivelDepartamento * peso;
 
         const div = document.createElement("div");
         div.className = "departamento";
         div.innerHTML = `
-          <h2>${nomesDepartamentos[pessoa.cargo]}</h2>
+          <h2>${nomesDepartamentos[pessoa.cargo] || pessoa.cargo}</h2>
           <p><strong>Responsável:</strong> ${pessoa.nome}</p>
           <p><strong>Habilidade:</strong> ${nivelDepartamento}%</p>
           <p><strong>Contribuição para a Fábrica:</strong> ${(contribuicao * 100 / peso).toFixed(1)}% de ${peso * 100}%</p>

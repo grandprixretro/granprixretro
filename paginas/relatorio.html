@@ -6,6 +6,13 @@
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
   <script defer>
+    /**
+     * Carrega dados de equipes e patrocinadores para montar o relatório.  Como
+     * páginas em file:// não permitem fetch, fornecemos arrays fixos de
+     * equipes e patrocinadores para uso offline.  Ajuste os valores de
+     * dinheiro, patrocínios e risco conforme a lógica do jogo for
+     * refinada.
+     */
     async function carregar() {
       const save = loadGameData();
       if (!save) {
@@ -14,40 +21,38 @@
         return;
       }
 
-      const equipes = await fetch("../data/equipes.json").then(r => r.json());
-      const patrocinadores = await fetch("../data/patrocinadores.json").then(r => r.json());
+      // Lista de equipes embutida para permitir uso offline
+      const equipes = [
+        { nome: "Williams" }, { nome: "Benetton" }, { nome: "Ferrari" }, { nome: "McLaren" },
+        { nome: "Jordan" }, { nome: "Sauber" }, { nome: "Ligier" }, { nome: "Minardi" },
+        { nome: "Tyrrell" }, { nome: "Footwork" }, { nome: "Lotus" }, { nome: "Larrousse" },
+        { nome: "Simtek" }, { nome: "Pacific" }, { nome: "Andrea Moda" }, { nome: "AGS" },
+        { nome: "Coloni" }, { nome: "Onyx" }
+      ];
+      // Patrocinadores master apenas para fins demonstrativos
+      const patrocinadoresMaster = {
+        "Williams": "Rothmans",
+        "Benetton": "Mild Seven",
+        "Ferrari": "Marlboro",
+        "McLaren": "Marlboro",
+        "Jordan": "Sasol"
+      };
 
       const tabela = document.getElementById("tabela");
-
       equipes.forEach(eq => {
-        let dinheiroBase = 5000000;
-        let patrocinioTotal = 0;
-        let patrocinadoresEquipe = [];
-
-        patrocinadores.forEach(p => {
-          if (p.principal) {
-            if (
-              (p.nome === "Rothmans" && eq.nome === "Williams") ||
-              (p.nome === "Mild Seven" && eq.nome === "Benetton") ||
-              (p.nome === "Marlboro" && (eq.nome === "Ferrari" || eq.nome === "McLaren")) ||
-              (p.nome === "Sasol" && eq.nome === "Jordan")
-            ) {
-              patrocinioTotal += p.bonus;
-              patrocinadoresEquipe.push(p.nome);
-            }
-          }
-        });
-
+        const dinheiroBase = 5000000;
+        const nomePat = patrocinadoresMaster[eq.nome] || null;
+        const patrocinioTotal = nomePat ? 1000000 : 0;
         const total = dinheiroBase + patrocinioTotal;
-        let notaFabrica = 5.0;
-        let risco = total < 4000000 ? "Alto" : total < 6000000 ? "Médio" : "Baixo";
+        const notaFabrica = 50.0;
+        const risco = total < 4000000 ? "Alto" : total < 6000000 ? "Médio" : "Baixo";
 
         const linha = document.createElement("tr");
         linha.innerHTML = `
           <td>${eq.nome}</td>
           <td>$${total.toLocaleString()}</td>
-          <td>${patrocinadoresEquipe.join(", ") || "Nenhum"}</td>
-          <td>${notaFabrica.toFixed(1)}</td>
+          <td>${nomePat || "Nenhum"}</td>
+          <td>${notaFabrica.toFixed(1)}%</td>
           <td>${risco}</td>
         `;
         tabela.appendChild(linha);

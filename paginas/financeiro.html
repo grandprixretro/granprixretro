@@ -6,7 +6,11 @@
   <link rel="stylesheet" href="../style.css">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <script defer src="../saveManager.js"></script>
-  <script defer src="../dados/patrocinadores.js"></script>
+  <!--
+    Os dados de patrocinadores são carregados dinamicamente via fetch a partir
+    do diretório data. A importação do arquivo inexistente
+    ../dados/patrocinadores.js foi removida.
+  -->
   <style>
     body {
       background-color: black;
@@ -61,11 +65,30 @@
   </style>
   <script defer>
     let jogo = {};
-    window.onload = () => {
+    let patrocinadores = [];
+
+    /**
+     * Carrega o relatório financeiro e exibe dados da temporada. Como o
+     * arquivo de patrocinadores precisa ser lido para exibir o valor de cada
+     * contrato ativo, usamos `fetch` para obter os dados de
+     * ../data/patrocinadores.json antes de construir a tabela. Se a página
+     * estiver sendo executada via file:// sem um servidor, o fetch pode
+     * falhar; nesse caso, mostra-se uma mensagem de erro ao usuário.
+     */
+    window.onload = async () => {
       jogo = loadGameData();
       if (!jogo) {
         alert("Jogo não carregado.");
         location.href = "../index.html";
+        return;
+      }
+
+      try {
+        const resp = await fetch("../data/patrocinadores.json");
+        patrocinadores = await resp.json();
+      } catch (e) {
+        console.error(e);
+        alert("Erro ao carregar dados de patrocinadores. Execute em um servidor web.");
         return;
       }
 
@@ -104,15 +127,12 @@
       const lista = document.createElement("ul");
 
       const contratos = jogo.contratosPatrocinadores || {};
-      const equipe = jogo.equipe;
 
       for (const nome in contratos) {
         const dados = patrocinadores.find(p => p.nome === nome);
         if (!dados) continue;
-
         const duracao = contratos[nome].duracao ?? 0;
         const valor = dados.valorPorCorrida || 0;
-
         const li = document.createElement("li");
         li.textContent = `${nome}: $${valor.toLocaleString()} por corrida (${duracao} restantes)`;
         lista.appendChild(li);

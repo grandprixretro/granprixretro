@@ -13,22 +13,30 @@
       const pilotosDiv = document.getElementById("classPilotos");
       const equipesDiv = document.getElementById("classEquipes");
 
-      const pilotos = [...classif.pilotos].sort((a, b) => b.pontos - a.pontos);
-      const equipes = [...classif.equipes].sort((a, b) => b.pontos - a.pontos);
+      // Se não houver classificação salva, exibe mensagem padrão
+      if (!classif || !classif.pilotos || classif.pilotos.length === 0) {
+        pilotosDiv.innerHTML = "<h3>🏁 Pilotos</h3><p>Ainda sem pontuação. Dispute corridas para gerar classificação.</p>";
+      } else {
+        const pilotos = [...classif.pilotos].sort((a, b) => b.pontos - a.pontos);
+        pilotosDiv.innerHTML = "<h3>🏁 Pilotos</h3>";
+        pilotos.forEach((p, i) => {
+          const linha = document.createElement("p");
+          linha.textContent = `${i + 1}º - ${p.nome}: ${p.pontos} pts`;
+          pilotosDiv.appendChild(linha);
+        });
+      }
 
-      pilotosDiv.innerHTML = "<h3>🏁 Pilotos</h3>";
-      pilotos.forEach((p, i) => {
-        const linha = document.createElement("p");
-        linha.textContent = `${i + 1}º - ${p.nome}: ${p.pontos} pts`;
-        pilotosDiv.appendChild(linha);
-      });
-
-      equipesDiv.innerHTML = "<h3>🏢 Equipes</h3>";
-      equipes.forEach((e, i) => {
-        const linha = document.createElement("p");
-        linha.textContent = `${i + 1}º - ${e.nome}: ${e.pontos} pts`;
-        equipesDiv.appendChild(linha);
-      });
+      if (!classif || !classif.equipes || classif.equipes.length === 0) {
+        equipesDiv.innerHTML = "<h3>🏢 Equipes</h3><p>Ainda sem pontuação. Dispute corridas para gerar classificação.</p>";
+      } else {
+        const equipes = [...classif.equipes].sort((a, b) => b.pontos - a.pontos);
+        equipesDiv.innerHTML = "<h3>🏢 Equipes</h3>";
+        equipes.forEach((e, i) => {
+          const linha = document.createElement("p");
+          linha.textContent = `${i + 1}º - ${e.nome}: ${e.pontos} pts`;
+          equipesDiv.appendChild(linha);
+        });
+      }
     }
 
     window.onload = () => {

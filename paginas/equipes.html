@@ -2,130 +2,65 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Fábrica</title>
+  <title>Detalhes da Equipe</title>
+  <!-- Estilo global retrô -->
   <link rel="stylesheet" href="../style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <script defer src="../saveManager.js"></script>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      font-family: 'Press Start 2P', monospace;
-      padding: 20px;
-    }
-
-    h1 {
-      color: red;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    h2 {
-      color: red;
-      font-size: 12px;
-      margin-top: 30px;
-    }
-
-    p {
-      font-size: 10px;
-      margin: 6px 0;
-      color: white;
-    }
-
-    button {
-      background-color: black;
-      color: white;
-      border: 2px solid red;
-      padding: 10px 15px;
-      margin: 6px;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 10px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: red;
-      color: black;
-    }
-  </style>
-</head>
-<body>
-  <h1>Fábrica da Equipe</h1>
-
-  <p><strong>Equipe:</strong> <span id="equipe"></span></p>
-  <p><strong>Motor:</strong> <span id="motor"></span></p>
-  <p><strong>Nível da Fábrica:</strong> <span id="nivel"></span></p>
-  <p><strong>Dinheiro disponível:</strong> <span id="dinheiro"></span></p>
-  <p><strong>Total investido na temporada:</strong> <span id="investido"></span></p>
-
-  <h2>Investir na Fábrica</h2>
-  <button onclick="investir(1000000)">Investir $1M</button>
-  <button onclick="investir(2000000)">Investir $2M</button>
-  <button onclick="investir(5000000)">Investir $5M</button>
-
-  <br><br>
-  <button id="botaoManutencao" onclick="alternarManutencao()">Manutenção: Inativa</button>
-  <br><br>
-  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
-
-  <script>
-    let jogo = {};
-
-    function atualizarInterface() {
-      document.getElementById("equipe").textContent = jogo.equipe;
-      document.getElementById("motor").textContent = jogo.motor;
-      document.getElementById("nivel").textContent = (jogo.fabrica.nivel * 100).toFixed(1) + "%";
-      document.getElementById("dinheiro").textContent = "$" + jogo.dinheiro.toLocaleString();
-      document.getElementById("investido").textContent = "$" + (jogo.fabrica.investimentoTotal || 0).toLocaleString();
-      document.getElementById("botaoManutencao").textContent = `Manutenção: ${jogo.fabrica.manutencaoAutomatica ? "Ativa" : "Inativa"}`;
-    }
-
-    function investir(valor) {
-      if (jogo.fabrica.nivel >= 1) {
-        alert("A fábrica já está no nível máximo.");
-        return;
-      }
-
-      if (jogo.dinheiro < valor) {
-        alert("Dinheiro insuficiente.");
-        return;
-      }
-
-      jogo.dinheiro -= valor;
-
-      const ganho = valor / 100000000;
-      jogo.fabrica.nivel = Math.min(1, jogo.fabrica.nivel + ganho);
-
-      if (!jogo.fabrica.investimentoTotal) {
-        jogo.fabrica.investimentoTotal = 0;
-      }
-      jogo.fabrica.investimentoTotal += valor;
-
-      saveGame(jogo);
-      atualizarInterface();
-    }
-
-    function alternarManutencao() {
-      jogo.fabrica.manutencaoAutomatica = !jogo.fabrica.manutencaoAutomatica;
-      saveGame(jogo);
-      atualizarInterface();
-    }
-
+  <script defer>
+    /**
+     * Esta página exibe um resumo dos principais dados da equipe
+     * atualmente carregada no jogo.  São listados o nome da equipe,
+     * o motor, os pilotos contratados com seus respectivos salários e
+     * membros de staff com cargo e habilidade.  Não há ações de
+     * gerenciamento aqui; essa página serve apenas como consulta.
+     */
     window.onload = () => {
-      jogo = loadGameData();
-
-      if (!jogo || !jogo.fabrica) {
-        alert("Jogo não carregado ou dados de fábrica ausentes.");
-        location.href = "../index.html";
+      const jogo = loadGameData();
+      if (!jogo) {
+        alert("Jogo não carregado.");
+        window.location.href = "../index.html";
         return;
       }
+      document.getElementById('nomeEquipe').textContent = jogo.equipe;
+      document.getElementById('motor').textContent = jogo.motor;
 
-      if (typeof jogo.fabrica.manutencaoAutomatica === "undefined") {
-        jogo.fabrica.manutencaoAutomatica = false;
+      // Lista pilotos contratados
+      const pilotosDiv = document.getElementById('listaPilotos');
+      pilotosDiv.innerHTML = '';
+      if (jogo.pilotos && jogo.pilotos.length > 0) {
+        jogo.pilotos.forEach(nome => {
+          const salario = (jogo.salarios && jogo.salarios[nome]) || 0;
+          const p = document.createElement('p');
+          p.textContent = `${nome} – Salário: $${salario.toLocaleString()}`;
+          pilotosDiv.appendChild(p);
+        });
+      } else {
+        pilotosDiv.textContent = 'Nenhum piloto contratado.';
       }
 
-      atualizarInterface();
+      // Lista staff contratado
+      const staffDiv = document.getElementById('listaStaff');
+      staffDiv.innerHTML = '';
+      if (jogo.staff && jogo.staff.length > 0) {
+        jogo.staff.forEach(membro => {
+          const p = document.createElement('p');
+          p.textContent = `${membro.nome} (${membro.cargo}) – Habilidade: ${membro.habilidade}%`;
+          staffDiv.appendChild(p);
+        });
+      } else {
+        staffDiv.textContent = 'Nenhum membro de staff contratado.';
+      }
     };
   </script>
+</head>
+<body>
+  <h1>Detalhes da Equipe</h1>
+  <p><strong>Equipe:</strong> <span id="nomeEquipe"></span></p>
+  <p><strong>Motor:</strong> <span id="motor"></span></p>
+  <h2>Pilotos</h2>
+  <div id="listaPilotos"></div>
+  <h2>Staff</h2>
+  <div id="listaStaff"></div>
+  <button onclick="window.location.href='../menu-principal.html'">Voltar</button>
 </body>
 </html>

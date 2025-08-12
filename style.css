@@ -1,31 +1,58 @@
+/*
+ * Estilo global para a aplicação Grand Prix Manager Retro.
+ *
+ * O visual do jogo deve remeter aos anos 90: fundo preto,
+ * tipografia pixelada e destaque em vermelho. Os botões
+ * possuem borda vermelha e fundo preto por padrão, invertendo
+ * as cores ao passar o mouse. Esses estilos serão herdados
+ * por todas as páginas que importarem este arquivo.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 body {
-  font-family: 'Courier New', monospace;
-  background-color: #111;
-  color: #0f0;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
   text-align: center;
   padding: 20px;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 18px;
   margin-bottom: 20px;
+  color: #e00;
+}
+
+h2 {
+  font-size: 14px;
+  margin: 10px 0;
+  color: #e00;
+}
+
+h3 {
+  font-size: 12px;
+  margin: 8px 0;
+  color: #e00;
 }
 
 button {
   margin: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 10px 16px;
+  font-size: 10px;
   background-color: #000;
-  color: #0f0;
-  border: 1px solid #0f0;
+  color: #fff;
+  border: 2px solid #e00;
   cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
 }
 
 button:hover {
-  background-color: #0f0;
+  background-color: #e00;
   color: #000;
 }
 
+/* Utilitário para agrupamento de opções/botões */
 .opcoes {
   margin-top: 30px;
 }

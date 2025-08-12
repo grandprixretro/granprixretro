@@ -7,6 +7,8 @@
   <script defer src="../saveManager.js"></script>
   <script defer>
     let jogo = {};
+    // lista global de pilotos carregada na função carregar()
+    let pilotos = [];
 
     async function carregar() {
       jogo = loadGameData();
@@ -16,12 +18,75 @@
         return;
       }
 
-      const pilotos = await fetch("../data/pilotos.json").then(r => r.json());
+      /*
+       * Para funcionar offline, incorporamos aqui a mesma lista expandida
+       * de pilotos definida em main.js. Cada piloto possui um ano de
+       * nascimento. Ao carregar a página, calculamos sua idade com base
+       * na temporada atual e apenas exibimos aqueles com 18 anos ou mais.
+       * Pilotos com idade superior a 35 anos têm sua habilidade reduzida
+       * proporcionalmente ao envelhecimento.
+       */
+      pilotos = [
+        { nome: "Ayrton Senna", pais: "Brasil", talento: 9.9, equipe: "Williams", salarioMinimo: 800000, interesseBase: 0.95, anoNascimento: 1960 },
+        { nome: "Damon Hill", pais: "Reino Unido", talento: 9.0, equipe: "Williams", salarioMinimo: 600000, interesseBase: 0.9, anoNascimento: 1960 },
+        { nome: "David Coulthard", pais: "Reino Unido", talento: 7.5, equipe: "", salarioMinimo: 300000, interesseBase: 0.6, anoNascimento: 1971 },
+        { nome: "Nigel Mansell", pais: "Reino Unido", talento: 9.1, equipe: "", salarioMinimo: 750000, interesseBase: 0.5, anoNascimento: 1953 },
+        { nome: "Ukyo Katayama", pais: "Japão", talento: 6.5, equipe: "Tyrrell", salarioMinimo: 200000, interesseBase: 0.5, anoNascimento: 1963 },
+        { nome: "Mark Blundell", pais: "Reino Unido", talento: 7.0, equipe: "Tyrrell", salarioMinimo: 250000, interesseBase: 0.55, anoNascimento: 1966 },
+        { nome: "Michael Schumacher", pais: "Alemanha", talento: 9.5, equipe: "Benetton", salarioMinimo: 900000, interesseBase: 0.95, anoNascimento: 1969 },
+        { nome: "Jyrki Järvilehto", pais: "Finlândia", talento: 7.2, equipe: "Sauber", salarioMinimo: 200000, interesseBase: 0.6, anoNascimento: 1966 },
+        { nome: "Jos Verstappen", pais: "Holanda", talento: 7.0, equipe: "Benetton", salarioMinimo: 200000, interesseBase: 0.5, anoNascimento: 1972 },
+        { nome: "Johnny Herbert", pais: "Reino Unido", talento: 7.3, equipe: "", salarioMinimo: 220000, interesseBase: 0.55, anoNascimento: 1964 },
+        { nome: "Jean Alesi", pais: "França", talento: 8.2, equipe: "Ferrari", salarioMinimo: 500000, interesseBase: 0.8, anoNascimento: 1964 },
+        { nome: "Gerhard Berger", pais: "Áustria", talento: 8.4, equipe: "Ferrari", salarioMinimo: 550000, interesseBase: 0.85, anoNascimento: 1959 },
+        { nome: "Mika Häkkinen", pais: "Finlândia", talento: 8.5, equipe: "McLaren", salarioMinimo: 500000, interesseBase: 0.85, anoNascimento: 1968 },
+        { nome: "Martin Brundle", pais: "Reino Unido", talento: 7.8, equipe: "McLaren", salarioMinimo: 350000, interesseBase: 0.75, anoNascimento: 1959 },
+        { nome: "Christian Fittipaldi", pais: "Brasil", talento: 7.5, equipe: "Footwork", salarioMinimo: 250000, interesseBase: 0.7, anoNascimento: 1971 },
+        { nome: "Gianni Morbidelli", pais: "Itália", talento: 7.0, equipe: "Footwork", salarioMinimo: 220000, interesseBase: 0.65, anoNascimento: 1968 },
+        { nome: "Pedro Lamy", pais: "Portugal", talento: 6.8, equipe: "Lotus", salarioMinimo: 200000, interesseBase: 0.6, anoNascimento: 1972 },
+        { nome: "Philippe Adams", pais: "Bélgica", talento: 5.8, equipe: "Lotus", salarioMinimo: 150000, interesseBase: 0.4, anoNascimento: 1969 },
+        { nome: "Éric Bernard", pais: "França", talento: 6.9, equipe: "Ligier", salarioMinimo: 200000, interesseBase: 0.6, anoNascimento: 1964 },
+        { nome: "Mika Salo", pais: "Finlândia", talento: 7.0, equipe: "Lotus", salarioMinimo: 300000, interesseBase: 0.7, anoNascimento: 1966 },
+        { nome: "Alessandro Zanardi", pais: "Itália", talento: 7.2, equipe: "Lotus", salarioMinimo: 250000, interesseBase: 0.65, anoNascimento: 1966 },
+        { nome: "Rubens Barrichello", pais: "Brasil", talento: 8.4, equipe: "Jordan", salarioMinimo: 400000, interesseBase: 0.8, anoNascimento: 1972 },
+        { nome: "Eddie Irvine", pais: "Reino Unido", talento: 7.6, equipe: "Jordan", salarioMinimo: 300000, interesseBase: 0.7, anoNascimento: 1965 },
+        { nome: "Aguri Suzuki", pais: "Japão", talento: 6.0, equipe: "Jordan", salarioMinimo: 180000, interesseBase: 0.4, anoNascimento: 1960 },
+        { nome: "Olivier Panis", pais: "França", talento: 7.2, equipe: "Ligier", salarioMinimo: 250000, interesseBase: 0.6, anoNascimento: 1966 },
+        { nome: "Olivier Beretta", pais: "Mônaco", talento: 5.9, equipe: "Larrousse", salarioMinimo: 150000, interesseBase: 0.4, anoNascimento: 1969 },
+        { nome: "Yannick Dalmas", pais: "França", talento: 6.3, equipe: "Larrousse", salarioMinimo: 180000, interesseBase: 0.45, anoNascimento: 1961 },
+        { nome: "Hideki Noda", pais: "Japão", talento: 5.8, equipe: "Larrousse", salarioMinimo: 150000, interesseBase: 0.35, anoNascimento: 1969 },
+        { nome: "Philippe Alliot", pais: "França", talento: 6.1, equipe: "Larrousse", salarioMinimo: 200000, interesseBase: 0.4, anoNascimento: 1954 },
+        { nome: "Jean-Denis Délétraz", pais: "Suíça", talento: 5.5, equipe: "Larrousse", salarioMinimo: 140000, interesseBase: 0.3, anoNascimento: 1963 },
+        { nome: "Érik Comas", pais: "França", talento: 6.5, equipe: "Larrousse", salarioMinimo: 220000, interesseBase: 0.5, anoNascimento: 1963 },
+        { nome: "Jean-Marc Gounon", pais: "França", talento: 6.0, equipe: "Simtek", salarioMinimo: 170000, interesseBase: 0.4, anoNascimento: 1963 },
+        { nome: "Roland Ratzenberger", pais: "Áustria", talento: 6.4, equipe: "Simtek", salarioMinimo: 120000, interesseBase: 0.4, anoNascimento: 1960 },
+        { nome: "Heinz-Harald Frentzen", pais: "Alemanha", talento: 7.8, equipe: "Sauber", salarioMinimo: 350000, interesseBase: 0.75, anoNascimento: 1967 },
+        { nome: "JJ Lehto", pais: "Finlândia", talento: 7.0, equipe: "Benetton", salarioMinimo: 220000, interesseBase: 0.5, anoNascimento: 1966 },
+        { nome: "Kimi Räikkönen", pais: "Finlândia", talento: 8.7, equipe: "", salarioMinimo: 400000, interesseBase: 0.8, anoNascimento: 1979 },
+        { nome: "Fernando Alonso", pais: "Espanha", talento: 8.6, equipe: "", salarioMinimo: 400000, interesseBase: 0.8, anoNascimento: 1981 },
+        { nome: "Lewis Hamilton", pais: "Reino Unido", talento: 9.0, equipe: "", salarioMinimo: 500000, interesseBase: 0.9, anoNascimento: 1985 },
+        { nome: "Sebastian Vettel", pais: "Alemanha", talento: 8.5, equipe: "", salarioMinimo: 350000, interesseBase: 0.8, anoNascimento: 1987 }
+      ];
+
       const lista = document.getElementById("lista");
       lista.innerHTML = "";
 
-      const contratados = pilotos.filter(p => jogo.pilotos.includes(p.nome));
-      const disponiveis = pilotos.filter(p =>
+      // Calcula idade e aplica penalidade de habilidade para veteranos
+      const anoAtual = jogo.temporada || 1994;
+      const pilotosAptos = pilotos
+        .map(p => {
+          const idade = anoAtual - p.anoNascimento;
+          let talento = p.talento;
+          if (idade > 35) {
+            // Reduz 0,05 por ano acima de 35, com mínimo de 5
+            talento = Math.max(talento - 0.05 * (idade - 35), 5);
+          }
+          return { ...p, idade, talento: parseFloat(talento.toFixed(2)) };
+        })
+        .filter(p => p.idade >= 18);
+
+      const contratados = pilotosAptos.filter(p => jogo.pilotos.includes(p.nome));
+      const disponiveis = pilotosAptos.filter(p =>
         !jogo.pilotos.includes(p.nome) && (!p.equipe || p.equipe === "")
       );
 
@@ -34,7 +99,7 @@
           const salario = jogo.salarios?.[p.nome] || 0;
           const item = document.createElement("div");
           item.innerHTML = `
-            <strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento} 
+            <strong>${p.nome}</strong> (${p.pais}) - Idade: ${p.idade} - Talento: ${p.talento} 
             - Salário: $${salario.toLocaleString()} 
             <button onclick="demitir('${p.nome}')">Demitir</button>
           `;
@@ -50,7 +115,7 @@
         disponiveis.forEach(p => {
           const item = document.createElement("div");
           item.innerHTML = `
-            <strong>${p.nome}</strong> (${p.pais}) - Talento: ${p.talento}
+            <strong>${p.nome}</strong> (${p.pais}) - Idade: ${p.idade} - Talento: ${p.talento}
             <br>Salário mínimo: $${p.salarioMinimo.toLocaleString()} 
             | Interesse base: ${(p.interesseBase * 100).toFixed(0)}%
             <br>
@@ -71,51 +136,48 @@
         return;
       }
 
-      fetch("../data/pilotos.json")
-        .then(r => r.json())
-        .then(pilotos => {
-          const piloto = pilotos.find(p => p.nome === nome);
-          if (!piloto) return;
+      // Encontra o piloto na lista local (pilotosAptos) em vez de buscar via fetch
+      const piloto = pilotos.find(p => p.nome === nome);
+      if (!piloto) return;
 
-          if (jogo.pilotos.includes(nome)) {
-            alert("Piloto já está contratado.");
-            return;
-          }
+      if (jogo.pilotos.includes(nome)) {
+        alert("Piloto já está contratado.");
+        return;
+      }
 
-          if (jogo.pilotos.length >= 4) {
-            alert("Você só pode ter até 4 pilotos (2 titulares e 2 reservas).");
-            return;
-          }
+      if (jogo.pilotos.length >= 4) {
+        alert("Você só pode ter até 4 pilotos (2 titulares e 2 reservas).");
+        return;
+      }
 
-          if (valor < piloto.salarioMinimo) {
-            alert(`❌ ${nome} recusou sua proposta. Valor abaixo do salário mínimo exigido.`);
-            return;
-          }
+      if (valor < piloto.salarioMinimo) {
+        alert(`❌ ${nome} recusou sua proposta. Valor abaixo do salário mínimo exigido.`);
+        return;
+      }
 
-          const fama = jogo.fama || 1.0;
-          const interesseBase = piloto.interesseBase || 0.5;
-          const chance = interesseBase * fama * (valor / piloto.salarioMinimo);
-          const aceitou = Math.random() < chance;
+      const fama = jogo.fama || 1.0;
+      const interesseBase = piloto.interesseBase || 0.5;
+      const chance = interesseBase * fama * (valor / piloto.salarioMinimo);
+      const aceitou = Math.random() < chance;
 
-          if (!aceitou) {
-            alert(`❌ ${nome} recusou sua proposta. Não acredita no projeto da equipe.`);
-            return;
-          }
+      if (!aceitou) {
+        alert(`❌ ${nome} recusou sua proposta. Não acredita no projeto da equipe.`);
+        return;
+      }
 
-          jogo.pilotos.push(nome);
-          jogo.salarios = jogo.salarios || {};
-          jogo.salarios[nome] = valor;
+      jogo.pilotos.push(nome);
+      jogo.salarios = jogo.salarios || {};
+      jogo.salarios[nome] = valor;
 
-          jogo.ultimasNoticias = jogo.ultimasNoticias || [];
-          jogo.ultimasNoticias.push(`✅ Piloto ${nome} foi contratado por $${valor.toLocaleString()} por corrida.`);
-          if (jogo.ultimasNoticias.length > 20) {
-            jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
-          }
+      jogo.ultimasNoticias = jogo.ultimasNoticias || [];
+      jogo.ultimasNoticias.push(`✅ Piloto ${nome} foi contratado por $${valor.toLocaleString()} por corrida.`);
+      if (jogo.ultimasNoticias.length > 20) {
+        jogo.ultimasNoticias = jogo.ultimasNoticias.slice(-20);
+      }
 
-          saveGame(jogo);
-          alert(`${nome} contratado com sucesso.`);
-          location.reload();
-        });
+      saveGame(jogo);
+      alert(`${nome} contratado com sucesso.`);
+      location.reload();
     }
 
     function demitir(nome) {

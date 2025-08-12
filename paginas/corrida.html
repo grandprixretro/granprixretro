@@ -5,8 +5,12 @@
   <title>Simulação de Corrida</title>
   <link rel="stylesheet" href="../style.css">
   <script defer src="../saveManager.js"></script>
-  <script defer src="../dados/patrocinadores.js"></script>
-  <script defer src="../dados/pilotos.js"></script>
+  <!--
+    Os arquivos de dados agora são carregados via fetch diretamente do
+    diretório data/. As importações anteriores de ../dados/patrocinadores.js e
+    ../dados/pilotos.js foram removidas, pois esses arquivos não existem
+    mais no projeto.
+  -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
@@ -48,13 +52,36 @@
     }
   </style>
   <script defer>
+    // Variáveis globais de dados
     let jogo = {};
+    let patrocinadores = [];
+    let pilotos = [];
 
-    window.onload = () => {
+    /**
+     * Carrega dados de patrocinadores e pilotos do diretório data via fetch.
+     * Em seguida, simula a corrida e atualiza as finanças da equipe.  Toda a
+     * lógica da corrida permanece idêntica à versão anterior, porém agora
+     * depende de carregamento assíncrono.  Caso não seja possível carregar
+     * os dados (por exemplo, se a página estiver sendo servida via file://
+     * sem um servidor web), será exibida uma mensagem de erro.
+     */
+    window.onload = async () => {
       jogo = loadGameData();
       if (!jogo || !jogo.fabrica) {
         alert("Jogo não carregado.");
         location.href = "../index.html";
+        return;
+      }
+
+      try {
+        // Carrega dados de patrocinadores e pilotos
+        const respPat = await fetch("../data/patrocinadores.json");
+        patrocinadores = await respPat.json();
+        const respPil = await fetch("../data/pilotos.json");
+        pilotos = await respPil.json();
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao carregar dados de corrida. Verifique se está rodando em um servidor web.");
         return;
       }
 
@@ -67,6 +94,7 @@
         container.appendChild(p);
       });
 
+      // Determina posição da equipe de forma aleatória (1 a 20)
       jogo.resultadoUltimaCorrida = Math.floor(Math.random() * 20) + 1;
       const equipe = jogo.equipe;
       let entradas = 0;
@@ -122,7 +150,7 @@
         }
       });
 
-      // Custo com salários dos pilotos
+      // Custo com salários dos pilotos contratados
       if (jogo.pilotos) {
         jogo.pilotos.forEach(nome => {
           const piloto = pilotos.find(p => p.nome === nome);
@@ -133,12 +161,11 @@
       }
 
       // Custo de manutenção da fábrica (pior fábrica = mais caro)
-      const custoManutencao = Math.round((1 - jogo.fabrica.nivel) * 1000000);
+      const custoManutencao = Math.round((1 - (jogo.fabrica.nivel || 0)) * 1000000);
       saidas = custoSalarios + custoManutencao;
 
       jogo.dinheiro += entradas - saidas;
 
-      if (!jogo.historicoFinanceiro) jogo.historicoFinanceiro = [];
       jogo.historicoFinanceiro.push({
         corrida: jogo.historicoFinanceiro.length + 1,
         entradas: entradas,
@@ -154,7 +181,7 @@
       if (renovados.length) avisos.push("✅ Patrocinadores renovados: " + renovados.join(", "));
       if (avisos.length > 0) alert(avisos.join("\n"));
 
-      // Gráfico de evolução do caixa
+      // Gráfico de evolução do caixa usando Chart.js
       const labels = jogo.historicoFinanceiro.map(f => `Corrida ${f.corrida}`);
       const saldos = jogo.historicoFinanceiro.map(f => f.saldo);
       new Chart(document.getElementById("graficoCaixa"), {
@@ -182,6 +209,9 @@
       });
     };
 
+    // Função simples de simulação de corrida.  Neste protótipo, a função
+    // retorna apenas nomes fictícios.  Quando houver uma lógica mais
+    // elaborada, substitua por um algoritmo de simulação realista.
     function simularCorrida() {
       return ["Piloto 1", "Piloto 2", "Piloto 3", "Piloto 4", "Piloto 5"];
     }
